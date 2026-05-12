@@ -4,7 +4,7 @@
 
 ## 현재 상태
 
-- 최신 확인 커밋: `282a19b Trigger Pages deployment`
+- 최신 확인 커밋: `1eaed19 Expand prototype data to all vocabulary`
 - GitHub Actions 워크플로: `Deploy prototype to GitHub Pages`
 - 최신 실행: 실패
 - 예상 배포 URL: `https://reasonofmoon.github.io/korean-edu/`
@@ -13,6 +13,8 @@
 ## 실패 원인
 
 GitHub Pages 사이트가 아직 저장소에 생성/활성화되지 않았습니다.
+
+저장소는 public으로 전환되었지만, `Settings > Actions > General > Workflow permissions`가 `Read repository contents permission` 상태입니다.
 
 워크플로에 `actions/configure-pages@v5`와 `enablement: true`를 넣었지만, Actions의 기본 integration token이 Pages 사이트를 새로 생성할 권한을 얻지 못했습니다.
 
@@ -26,8 +28,8 @@ Resource not accessible by integration
 최신 실행:
 
 ```text
-Run: 25767067962
-Commit: 282a19b
+Run: 25768975452
+Commit: 1eaed19
 Step: Configure Pages
 Result: failure
 ```
@@ -37,11 +39,14 @@ Result: failure
 저장소 소유자 권한으로 GitHub에서 최초 1회 설정이 필요합니다.
 
 1. `https://github.com/Reasonofmoon/korean-edu` 접속
-2. 저장소가 private이면 GitHub Pages 사용 가능 플랜인지 확인하거나 저장소를 public으로 전환
-3. `Settings > Pages` 이동
-4. `Build and deployment`의 Source를 `GitHub Actions`로 설정
-5. `Settings > Actions > General`에서 Workflow permissions가 배포에 필요한 권한을 허용하는지 확인
-6. 저장 후 `Actions` 탭에서 `Deploy prototype to GitHub Pages`를 다시 실행하거나 빈 커밋을 푸시
+2. `Settings > Actions > General`로 이동
+3. `Workflow permissions`를 `Read and write permissions`로 변경
+4. 저장
+5. `Settings > Pages` 이동
+6. `Build and deployment`의 Source를 `GitHub Actions`로 설정
+7. 저장 후 `Actions` 탭에서 `Deploy prototype to GitHub Pages`를 다시 실행하거나 빈 커밋을 푸시
+
+대안으로 Netlify에 저장소를 연결하면 `netlify.toml` 설정으로 `prototype/` 폴더를 바로 정적 배포할 수 있습니다.
 
 ## 수동 조치 후 확인
 

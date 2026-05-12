@@ -84,6 +84,8 @@ GitHub Pages 배포 워크플로가 포함되어 있습니다.
 
 최초 Pages 활성화가 안 되어 있으면 Actions가 실패할 수 있습니다. 이 경우 [배포 상태 문서](docs/deployment-status.md)의 수동 조치 순서를 따릅니다.
 
+Netlify로 배포할 수도 있습니다. 저장소를 Netlify에 연결하면 `netlify.toml` 설정에 따라 `prototype/` 폴더가 정적 사이트 루트로 배포됩니다.
+
 ## 보안 메모
 
 - `.env`는 Git에서 제외됩니다.
