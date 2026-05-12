@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>K-Culture Korean Mission Map</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">K-Culture Korean MVP</p>
+        <h1>한국문화 어휘로 시작하는 로컬 한국어 미션</h1>
+        <p class="intro">세종한국문화 주요 어휘를 실제 장소, 문화 이야기, 상황별 표현과 연결하는 프로토타입입니다.</p>
+      </div>
+      <section class="summary" aria-label="데이터 요약">
+        <div>
+          <strong id="total-vocab">0</strong>
+          <span>어휘</span>
+        </div>
+        <div>
+          <strong id="total-missions">0</strong>
+          <span>미션</span>
+        </div>
+        <div>
+          <strong id="total-targets">0</strong>
+          <span>API 테스트</span>
+        </div>
+        <div>
+          <strong id="accuracy-rate">0%</strong>
+          <span>정답률</span>
+        </div>
+        <div>
+          <strong id="review-count">0</strong>
+          <span>복습</span>
+        </div>
+        <div>
+          <strong id="badge-count">0</strong>
+          <span>완료 배지</span>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="toolbar" aria-label="검색과 필터">
+        <label class="search-box">
+          <span>검색</span>
+          <input id="search" type="search" placeholder="예: 김치, 경복궁, 한복">
+        </label>
+        <div id="filters" class="filters" aria-label="카테고리 필터"></div>
+      </section>
+
+      <section class="layout">
+        <section class="panel">
+          <div class="section-title">
+            <h2>문화 어휘 카드</h2>
+            <p id="result-count">0개 표시 중</p>
+          </div>
+          <div id="vocab-list" class="card-grid"></div>
+        </section>
+
+        <aside class="panel detail-panel">
+          <div class="section-title">
+            <h2>선택한 어휘</h2>
+            <p>학습, 미션, API 연결</p>
+          </div>
+          <article id="detail" class="detail"></article>
+        </aside>
+      </section>
+
+      <section class="panel api-panel">
+        <div class="section-title">
+          <h2>API 연동 테스트 타깃</h2>
+          <p>키를 넣은 뒤 우선 확인할 어휘</p>
+        </div>
+        <div id="api-status" class="api-status"></div>
+        <div id="api-targets" class="target-grid"></div>
+      </section>
+
+      <section class="panel api-panel">
+        <div class="section-title">
+          <h2>매칭된 관광정보 장소</h2>
+          <p>국문 관광정보 API 검색 결과</p>
+        </div>
+        <div id="place-list" class="place-grid"></div>
+      </section>
+
+      <section class="panel api-panel">
+        <div class="section-title">
+          <h2>문화 이야기 듣기 카드</h2>
+          <p>관광지 오디오가이드 API 매칭 결과</p>
+        </div>
+        <div id="story-list" class="story-grid"></div>
+      </section>
+
+      <section class="panel api-panel">
+        <div class="section-title">
+          <h2>듣기 퀴즈와 핵심 표현</h2>
+          <p>오디오/대본 기반 자동 학습 활동</p>
+        </div>
+        <div id="activity-list" class="activity-grid"></div>
+      </section>
+
+      <section class="panel api-panel">
+        <div class="section-title">
+          <h2>복습 카드와 완료 배지</h2>
+          <p>브라우저에 저장된 학습 상태</p>
+        </div>
+        <div class="panel-actions">
+          <button type="button" id="reset-progress">학습 기록 초기화</button>
+        </div>
+        <div id="review-list" class="review-grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>자료 출처: 세종한국문화 주요 어휘 CSV, 한국관광공사 공공데이터 API 연동 예정</p>
+    </footer>
+
+    <script src="./data/app-data.js"></script>
+    <script src="./data/tourapi-matches.js"></script>
+    <script src="./data/tourapi-place-details.js"></script>
+    <script src="./data/odii-stories.js"></script>
+    <script src="./data/learning-activities.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
