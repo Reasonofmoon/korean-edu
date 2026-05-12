@@ -82,6 +82,8 @@ GitHub Pages 배포 워크플로가 포함되어 있습니다.
 
 배포 대상에는 `.env`와 `cache/`가 포함되지 않습니다.
 
+최초 Pages 활성화가 안 되어 있으면 Actions가 실패할 수 있습니다. 이 경우 [배포 상태 문서](docs/deployment-status.md)의 수동 조치 순서를 따릅니다.
+
 ## 보안 메모
 
 - `.env`는 Git에서 제외됩니다.
@@ -97,3 +99,6 @@ GitHub Pages 배포 워크플로가 포함되어 있습니다.
 - [학습 활동 검수](docs/learning-activities-review.md)
 - [진도 저장 구현 메모](docs/progress-review.md)
 - [브라우저 QA 기록](docs/browser-qa.md)
+- [배포 상태](docs/deployment-status.md)
+- [수동 QA 체크리스트](docs/manual-qa-checklist.md)
+- [다음 개발 계획](docs/next-development-plan.md)
