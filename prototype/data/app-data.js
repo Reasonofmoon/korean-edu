@@ -1,5 +1,5 @@
 window.KCULTURE_DATA = {
-  "generatedAt": "2026-05-12T13:05:27.885Z",
+  "generatedAt": "2026-05-12T23:43:18.045Z",
   "summary": {
     "totalRows": 129,
     "totalVocabulary": 114,
@@ -4527,50 +4527,14 @@ window.KCULTURE_DATA = {
   ],
   "apiTestTargets": [
     {
-      "word": "경복궁",
-      "category": "place",
+      "word": "3·1 운동",
+      "category": "history",
       "korTourApi": {
-        "searchKeyword": "경복궁",
+        "searchKeyword": "3·1 운동",
         "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
       },
       "odiiApi": {
-        "searchKeyword": "경복궁",
-        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
-      },
-      "bigDataApi": {
-        "expectedUse": "관련 지역 방문 트렌드 참고"
-      },
-      "durunubiApi": {
-        "expectedUse": "걷기 코스/지역 미션 후보 수집"
-      }
-    },
-    {
-      "word": "남산 서울 타워",
-      "category": "place",
-      "korTourApi": {
-        "searchKeyword": "남산 서울 타워",
-        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
-      },
-      "odiiApi": {
-        "searchKeyword": "남산 서울 타워",
-        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
-      },
-      "bigDataApi": {
-        "expectedUse": "관련 지역 방문 트렌드 참고"
-      },
-      "durunubiApi": {
-        "expectedUse": "걷기 코스/지역 미션 후보 수집"
-      }
-    },
-    {
-      "word": "한복",
-      "category": "tradition",
-      "korTourApi": {
-        "searchKeyword": "한복",
-        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
-      },
-      "odiiApi": {
-        "searchKeyword": "한복",
+        "searchKeyword": "3·1 운동",
         "expectedUse": "문화 이야기/오디오/대본 후보 수집"
       },
       "bigDataApi": {
@@ -4581,14 +4545,14 @@ window.KCULTURE_DATA = {
       }
     },
     {
-      "word": "김치",
+      "word": "감귤",
       "category": "food",
       "korTourApi": {
-        "searchKeyword": "김치",
+        "searchKeyword": "감귤",
         "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
       },
       "odiiApi": {
-        "searchKeyword": "김치",
+        "searchKeyword": "감귤",
         "expectedUse": "문화 이야기/오디오/대본 후보 수집"
       },
       "bigDataApi": {
@@ -4599,68 +4563,14 @@ window.KCULTURE_DATA = {
       }
     },
     {
-      "word": "국밥",
-      "category": "food",
-      "korTourApi": {
-        "searchKeyword": "국밥",
-        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
-      },
-      "odiiApi": {
-        "searchKeyword": "국밥",
-        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
-      },
-      "bigDataApi": {
-        "expectedUse": "관련 지역 방문 트렌드 참고"
-      },
-      "durunubiApi": {
-        "expectedUse": "필요 시 보조 사용"
-      }
-    },
-    {
-      "word": "떡볶이",
-      "category": "food",
-      "korTourApi": {
-        "searchKeyword": "떡볶이",
-        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
-      },
-      "odiiApi": {
-        "searchKeyword": "떡볶이",
-        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
-      },
-      "bigDataApi": {
-        "expectedUse": "관련 지역 방문 트렌드 참고"
-      },
-      "durunubiApi": {
-        "expectedUse": "필요 시 보조 사용"
-      }
-    },
-    {
-      "word": "태권도",
+      "word": "강강술래",
       "category": "tradition",
       "korTourApi": {
-        "searchKeyword": "태권도",
+        "searchKeyword": "강강술래",
         "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
       },
       "odiiApi": {
-        "searchKeyword": "태권도",
-        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
-      },
-      "bigDataApi": {
-        "expectedUse": "관련 지역 방문 트렌드 참고"
-      },
-      "durunubiApi": {
-        "expectedUse": "필요 시 보조 사용"
-      }
-    },
-    {
-      "word": "판소리",
-      "category": "tradition",
-      "korTourApi": {
-        "searchKeyword": "판소리",
-        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
-      },
-      "odiiApi": {
-        "searchKeyword": "판소리",
+        "searchKeyword": "강강술래",
         "expectedUse": "문화 이야기/오디오/대본 후보 수집"
       },
       "bigDataApi": {
@@ -4689,14 +4599,1976 @@ window.KCULTURE_DATA = {
       }
     },
     {
-      "word": "감귤",
-      "category": "food",
+      "word": "경복궁",
+      "category": "place",
       "korTourApi": {
-        "searchKeyword": "감귤",
+        "searchKeyword": "경복궁",
         "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
       },
       "odiiApi": {
-        "searchKeyword": "감귤",
+        "searchKeyword": "경복궁",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "고름",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "고름",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "고름",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "고추",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "고추",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "고추",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "고추장",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "고추장",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "고추장",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "공항 철도",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "공항 철도",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "공항 철도",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "곶감",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "곶감",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "곶감",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "과일 빙수",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "과일 빙수",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "과일 빙수",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "광화문",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "광화문",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "광화문",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "국밥",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "국밥",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "국밥",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "군고구마",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "군고구마",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "군고구마",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "군밤",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "군밤",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "군밤",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "그네뛰기",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "그네뛰기",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "그네뛰기",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "김",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "김",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "김",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "김밥",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "김밥",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "김밥",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "김장",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "김장",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "김장",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "김치",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "김치",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "김치",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "꽹과리",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "꽹과리",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "꽹과리",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "남산 서울 타워",
+      "category": "place",
+      "korTourApi": {
+        "searchKeyword": "남산 서울 타워",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "남산 서울 타워",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "널뛰기",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "널뛰기",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "널뛰기",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "노래방",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "노래방",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "노래방",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "누룽지",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "누룽지",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "누룽지",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "다도",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "다도",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "다도",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "단군",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "단군",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "단군",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "달 항아리",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "달 항아리",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "달 항아리",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "달고나",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "달고나",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "달고나",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "닭갈비",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "닭갈비",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "닭갈비",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "대청마루",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "대청마루",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "대청마루",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "대학 축제",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "대학 축제",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "대학 축제",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "대한 독립 만세",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "대한 독립 만세",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "대한 독립 만세",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "덕수궁",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "덕수궁",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "덕수궁",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "덕수궁 돌담길",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "덕수궁 돌담길",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "덕수궁 돌담길",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "동경이",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "동경이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "동경이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "된장",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "된장",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "된장",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "된장찌개",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "된장찌개",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "된장찌개",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "떡",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "떡",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "떡",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "떡꼬치",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "떡꼬치",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "떡꼬치",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "떡볶이",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "떡볶이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "떡볶이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "떼창",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "떼창",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "떼창",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "라면",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "라면",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "라면",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "매실차",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "매실차",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "매실차",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "먹방",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "먹방",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "먹방",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "무궁화",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "무궁화",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "무궁화",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "밥",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "밥",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "밥",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "배산임수",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "배산임수",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "배산임수",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "백김치",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "백김치",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "백김치",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "벼",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "벼",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "벼",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "보령 머드 축제",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "보령 머드 축제",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "보령 머드 축제",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "보부상",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "보부상",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "보부상",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "부럼",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "부럼",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "부럼",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "부처님 오신 날",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "부처님 오신 날",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "부처님 오신 날",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "북",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "북",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "북",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "비빔밥",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "비빔밥",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "비빔밥",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "빗살 무늬 토기",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "빗살 무늬 토기",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "빗살 무늬 토기",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "사물놀이",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "사물놀이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "사물놀이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "삽살개",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "삽살개",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "삽살개",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "샅바",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "샅바",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "샅바",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "선비",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "선비",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "선비",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "성묘",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "성묘",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "성묘",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "세배",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "세배",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "세배",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "세뱃돈",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "세뱃돈",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "세뱃돈",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "소고",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "소고",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "소고",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "소리꾼",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "소리꾼",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "소리꾼",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "송편",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "송편",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "송편",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "순대",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "순대",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "순대",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "숭늉",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "숭늉",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "숭늉",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "쌍화차",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "쌍화차",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "쌍화차",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "씨름",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "씨름",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "씨름",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "양궁",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "양궁",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "양궁",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "어묵",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "어묵",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "어묵",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "연날리기",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "연날리기",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "연날리기",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "윷놀이",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "윷놀이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "윷놀이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "이순신 장군",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "이순신 장군",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "이순신 장군",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "장구",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "장구",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "장구",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "장승",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "장승",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "장승",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "장어구이",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "장어구이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "장어구이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "전",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "전",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "전",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "전주 한옥 마을",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "전주 한옥 마을",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "전주 한옥 마을",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "조각보",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "조각보",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "조각보",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "진돗개",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "진돗개",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "진돗개",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "징",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "징",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "징",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "짜장면",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "짜장면",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "짜장면",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "찌개",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "찌개",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "찌개",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "차례",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "차례",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "차례",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "첨성대",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "첨성대",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "첨성대",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "치맥",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "치맥",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "치맥",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "크리스마스",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "크리스마스",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "크리스마스",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "탈춤",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "탈춤",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "탈춤",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "태권도",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "태권도",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "태권도",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "태극기",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "태극기",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "태극기",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "태평소",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "태평소",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "태평소",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "택견",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "택견",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "택견",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "템플 스테이",
+      "category": "place",
+      "korTourApi": {
+        "searchKeyword": "템플 스테이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "템플 스테이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "투호",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "투호",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "투호",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "판소리",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "판소리",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "판소리",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "팥빙수",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "팥빙수",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "팥빙수",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "폐백",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "폐백",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "폐백",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "품새",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "품새",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "품새",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "풍물놀이",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "풍물놀이",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "풍물놀이",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "한라봉",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "한라봉",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "한라봉",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "한복",
+      "category": "tradition",
+      "korTourApi": {
+        "searchKeyword": "한복",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "한복",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "한의사",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "한의사",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "한의사",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "한의원",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "한의원",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "한의원",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "한정식집",
+      "category": "history",
+      "korTourApi": {
+        "searchKeyword": "한정식집",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "한정식집",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "해녀",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "해녀",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "해녀",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "해치",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "해치",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "해치",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "호떡",
+      "category": "food",
+      "korTourApi": {
+        "searchKeyword": "호떡",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "호떡",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "활쏘기",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "활쏘기",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "활쏘기",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "휴게소",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "휴게소",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "휴게소",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "필요 시 보조 사용"
+      }
+    },
+    {
+      "word": "흔들바위",
+      "category": "nature",
+      "korTourApi": {
+        "searchKeyword": "흔들바위",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "흔들바위",
+        "expectedUse": "문화 이야기/오디오/대본 후보 수집"
+      },
+      "bigDataApi": {
+        "expectedUse": "관련 지역 방문 트렌드 참고"
+      },
+      "durunubiApi": {
+        "expectedUse": "걷기 코스/지역 미션 후보 수집"
+      }
+    },
+    {
+      "word": "PC방",
+      "category": "daily",
+      "korTourApi": {
+        "searchKeyword": "PC방",
+        "expectedUse": "장소/음식점/문화시설/행사/이미지 후보 수집"
+      },
+      "odiiApi": {
+        "searchKeyword": "PC방",
         "expectedUse": "문화 이야기/오디오/대본 후보 수집"
       },
       "bigDataApi": {

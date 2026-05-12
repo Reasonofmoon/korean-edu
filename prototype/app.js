@@ -453,7 +453,7 @@ function renderStories() {
     return;
   }
 
-  for (const story of stories.slice(0, 18)) {
+  for (const story of stories) {
     const card = document.createElement("article");
     card.className = "story-card";
     card.innerHTML = `
@@ -495,9 +495,9 @@ function renderActivities() {
       </div>
       <h3>${activity.storyTitle || "장소 설명 기반 학습"}</h3>
       <ul class="expression-list">
-        ${activity.expressions.slice(0, 2).map((expression) => `<li><span>${expression.focus}</span>${expression.text}</li>`).join("")}
+        ${activity.expressions.map((expression) => `<li><span>${expression.focus}</span>${expression.text}</li>`).join("")}
       </ul>
-      ${activity.quizzes[0] ? renderQuizHtml(activity.quizzes[0], activity.word) : ""}
+      ${activity.quizzes.map((quiz) => renderQuizHtml(quiz, activity.word)).join("")}
     `;
     activityListEl.append(card);
   }
@@ -547,7 +547,7 @@ function renderReview() {
     return;
   }
 
-  for (const quiz of reviewItems.slice(0, 8)) {
+  for (const quiz of reviewItems) {
     const answer = progress.answers[quiz.id];
     const card = document.createElement("article");
     card.className = "review-card";
@@ -661,7 +661,7 @@ function renderPlaces() {
     return;
   }
 
-  for (const place of places.slice(0, 24)) {
+  for (const place of places) {
     const card = document.createElement("article");
     card.className = "place-card";
     card.innerHTML = `

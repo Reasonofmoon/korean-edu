@@ -196,10 +196,7 @@ const missions = missionCategories.map((category) => {
   };
 });
 
-const priorityWords = ["경복궁", "남산 서울 타워", "한복", "김치", "국밥", "떡볶이", "태권도", "판소리", "갯벌", "감귤"];
-const apiTestTargets = priorityWords
-  .map((word) => vocabulary.find((item) => item.word === word))
-  .filter(Boolean)
+const apiTestTargets = vocabulary
   .map((item) => ({
     word: item.word,
     category: item.category,
