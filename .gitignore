@@ -1,2 +1,4 @@
 .env
 cache/
+qa-dom.txt
+.server.pid

@@ -1,0 +1,16 @@
+{
+  "name": "korean-edu",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node scripts/serve-prototype.mjs",
+    "check:env": "node scripts/check-tourapi-env.mjs",
+    "build:data": "node scripts/build-prototype-data.mjs",
+    "fetch:matches": "node scripts/tourapi-build-matches.mjs",
+    "fetch:details": "node scripts/tourapi-build-details.mjs",
+    "fetch:odii": "node scripts/tourapi-build-odii.mjs",
+    "build:activities": "node scripts/build-learning-activities.mjs",
+    "qa:browser": "node scripts/qa-browser.mjs"
+  }
+}
