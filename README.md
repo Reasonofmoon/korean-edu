@@ -68,9 +68,11 @@ npm run check:env
 
 ```powershell
 npm run qa:browser
+npm run qa:click-flow
 ```
 
 Chrome 또는 Edge가 설치된 Windows 환경에서 헤드리스 브라우저로 렌더링 스모크 테스트를 실행합니다.
+`qa:click-flow`는 Chrome DevTools Protocol로 첫 세션의 읽기 완료, 퀴즈 정답, 다음 어휘 CTA를 클릭 검증합니다.
 
 ## 배포
 

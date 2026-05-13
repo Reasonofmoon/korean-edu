@@ -13,6 +13,7 @@
 
 ```powershell
 npm run qa:browser
+npm run qa:click-flow
 ```
 
 확인한 항목:
@@ -24,6 +25,8 @@ npm run qa:browser
 - 정답률/복습/배지 영역 렌더링
 - 배포 URL에서 `session-flow`와 `today-nudge` HTML 반영 확인
 - 오디오가 없는 첫 어휘에서 `읽기 완료했어요` CTA 렌더링 확인
+- 클릭 기반 QA로 읽기 완료, 정답 선택, 완료 후 다음 어휘 CTA 확인
+- 다음 어휘 CTA가 오답/카테고리 추천 로직을 통과하는지 확인
 
 결과:
 

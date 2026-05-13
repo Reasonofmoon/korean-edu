@@ -133,16 +133,43 @@ function overallStats() {
 }
 
 function nextLearningItem() {
-  const pendingActivity = learningActivities.activities.find((activity) => !statsForWord(activity.word).complete);
-  const selected = data.vocabulary.find((item) => item.id === state.selectedId);
-  const pending = pendingActivity ? data.vocabulary.find((item) => item.word === pendingActivity.word) : null;
-  return pending ?? selected ?? data.vocabulary[0];
+  const selected = data.vocabulary.find((item) => item.id === state.selectedId) ?? data.vocabulary[0];
+  return nextRecommendedItem(selected) ?? selected;
 }
 
-function nextIncompleteAfter(item) {
-  const startIndex = data.vocabulary.findIndex((candidate) => candidate.id === item?.id);
-  const ordered = [...data.vocabulary.slice(Math.max(0, startIndex + 1)), ...data.vocabulary.slice(0, Math.max(0, startIndex + 1))];
-  return ordered.find((candidate) => !statsForWord(candidate.word).complete) ?? null;
+function wrongCountForWord(word) {
+  return allQuizzes()
+    .filter((quiz) => quiz.word === word)
+    .reduce((sum, quiz) => sum + (progress.answers[quiz.id]?.wrongCount ?? 0), 0);
+}
+
+function nextRecommendedItem(item) {
+  const selectedIndex = data.vocabulary.findIndex((candidate) => candidate.id === item?.id);
+  const selectedCategory = item?.category ?? "";
+  const candidates = data.vocabulary
+    .map((candidate, index) => ({
+      item: candidate,
+      index,
+      stats: statsForWord(candidate.word),
+      wrongCount: wrongCountForWord(candidate.word),
+    }))
+    .filter((candidate) => candidate.item.id !== item?.id && !candidate.stats.complete);
+
+  return (
+    candidates
+      .sort((a, b) => {
+        if (a.wrongCount !== b.wrongCount) return b.wrongCount - a.wrongCount;
+        const sameCategoryA = a.item.category === selectedCategory ? 1 : 0;
+        const sameCategoryB = b.item.category === selectedCategory ? 1 : 0;
+        if (sameCategoryA !== sameCategoryB) return sameCategoryB - sameCategoryA;
+        const answeredA = a.stats.answered > 0 ? 1 : 0;
+        const answeredB = b.stats.answered > 0 ? 1 : 0;
+        if (answeredA !== answeredB) return answeredB - answeredA;
+        const distanceA = selectedIndex >= 0 ? (a.index - selectedIndex + data.vocabulary.length) % data.vocabulary.length : a.index;
+        const distanceB = selectedIndex >= 0 ? (b.index - selectedIndex + data.vocabulary.length) % data.vocabulary.length : b.index;
+        return distanceA - distanceB;
+      })[0]?.item ?? null
+  );
 }
 
 function selectedItem() {
@@ -275,9 +302,16 @@ function renderDetail() {
   const wordStats = statsForWord(item.word);
   const firstQuiz = activity?.quizzes?.[0];
   const stage = sessionStageFor(item);
-  const nextItem = nextIncompleteAfter(item);
+  const nextItem = nextRecommendedItem(item);
   const hasAudioStory = Boolean(activity?.hasAudio && activity.audioUrl);
   const readingSource = representative?.overview || activity?.storySnippet || mission.localTip || item.easyKorean;
+  const nextReason = nextItem
+    ? wrongCountForWord(nextItem.word) > 0
+      ? "오답 복습 우선"
+      : nextItem.category === item.category
+        ? `${item.categoryLabel} 이어 학습`
+        : "다음 미완료 어휘"
+    : "";
   detailEl.innerHTML = `
     <div class="detail-hero">
       <div class="tag-row">
@@ -294,7 +328,7 @@ function renderDetail() {
       <p class="session-hint">${stage === "complete" ? "이 어휘 루프를 완료했습니다. 복습 카드에서 다음 어휘로 이어갈 수 있어요." : `현재 단계: ${sessionSteps.find((step) => step.id === stage)?.label ?? "학습"}`}</p>
       <div class="cta-row">
         <button type="button" class="primary-action" data-session-action="${stage}">${stage === "complete" ? "복습으로 이동" : `${hasAudioStory || stage !== "listen" ? sessionSteps.find((step) => step.id === stage)?.label ?? "학습" : "읽기"} 시작`}</button>
-        ${stage === "complete" && nextItem ? `<button type="button" class="primary-action" data-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button>` : ""}
+        ${stage === "complete" && nextItem ? `<button type="button" class="primary-action" data-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button><span class="cta-note">${nextReason}</span>` : ""}
         ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" data-open-detail="story-step">듣기 열기</button>` : ""}
         ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
         ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
@@ -789,7 +823,7 @@ document.addEventListener("click", (event) => {
     }
 
     const current = selectedItem();
-    const item = sessionStageFor(current) === "complete" ? nextIncompleteAfter(current) ?? nextLearningItem() : nextLearningItem();
+    const item = sessionStageFor(current) === "complete" ? nextRecommendedItem(current) ?? nextLearningItem() : nextLearningItem();
     if (item) {
       state.selectedId = item.id;
       render();
