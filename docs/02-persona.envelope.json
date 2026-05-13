@@ -1,0 +1,326 @@
+{
+  "envelope_id": "f0aa7bb7-558b-451b-b185-41eda1932e19",
+  "schema_version": "factory.v3",
+  "module": {
+    "id": "persona",
+    "version": "1.0.0",
+    "hash": "e109d12bd4d5f5ea93d53a1d23682664f7aed9c3aa0e2cc0e1ec5e8675f52328"
+  },
+  "model": {
+    "provider": "anthropic",
+    "id": "claude-haiku-4-5",
+    "params": {
+      "temperature": 0.7
+    }
+  },
+  "input": {
+    "hash": "9d73b55349be20c1bc05f86589373702811fdeecef8a317d596f600501a17c3d",
+    "payload": {
+      "idea": "K-culture Korean learning MVP",
+      "context": "Audience: global Korean learners, K-culture fans, travelers preparing for Korea, and self-study beginners/intermediates. Product should reduce overwhelm and guide one short learning loop.",
+      "jtbd_output": {
+        "core_job": "When I want to learn Korean but find traditional textbooks boring, I want to practice through real K-culture locations and stories I'm emotionally invested in, so I can build language skills that feel connected to the culture I actually care about.",
+        "outcomes": [
+          {
+            "outcome": "Retain vocabulary in meaningful context (tied to places, shows, music I follow)",
+            "priority": 5,
+            "type": "functional"
+          },
+          {
+            "outcome": "Feel motivated to practice daily without app fatigue or guilt",
+            "priority": 5,
+            "type": "emotional"
+          },
+          {
+            "outcome": "Know where/how to use Korean in real settings (visiting Korea, talking to fans online)",
+            "priority": 4,
+            "type": "functional"
+          },
+          {
+            "outcome": "Experience progress that's visible and celebrates small wins",
+            "priority": 4,
+            "type": "emotional"
+          },
+          {
+            "outcome": "Share learning progress with Korean fan community or friends",
+            "priority": 3,
+            "type": "social"
+          }
+        ],
+        "context": {
+          "when": "During downtime (commute, lunch break, evening wind-down); triggered by K-culture consumption (watching shows, music drops, planning Korea trip)",
+          "where": "Mobile, anywhere; ideally places connected to learning (coffee shops near Korean restaurants, travel planning)",
+          "frequency": "Daily habit desired (5-15 min sessions); seasonal spikes (before Korea trip, new K-drama release)"
+        },
+        "constraints": [
+          "Attention span limited to micro-sessions; cannot demand 30+ min commitment",
+          "Audio pronunciation feedback requires native speaker quality or learner gets discouraged",
+          "K-culture location data must be accurate (wrong place matches break immersion/utility)",
+          "Learner likely has low-intermediate Korean level; vocabulary must scaffold progressively",
+          "Competing with high-dopamine K-culture content (TikTok, streaming); must feel like entertainment, not homework",
+          "Cultural sensitivity: content must avoid stereotyping or performative representation"
+        ],
+        "competing_solutions": [
+          {
+            "solution": "Duolingo / Babbel (gamified language apps)",
+            "hired_for": "Daily habit building, vocabulary acquisition",
+            "weakness": "Generic contexts; no K-culture connection; Korean content thin; learner feels disconnected from motivation"
+          },
+          {
+            "solution": "K-drama / K-music with subtitles (consumption without instruction)",
+            "hired_for": "Immersion, emotional engagement, cultural connection",
+            "weakness": "Passive learning; vocabulary acquired unsystematically; no structured path; frustration when can't understand"
+          },
+          {
+            "solution": "Korean language tutors / classes (Italki, university courses)",
+            "hired_for": "Structured learning, accountability, native feedback",
+            "weakness": "Expensive; time-locked; formal tone mismatches casual K-culture interest; requires commitment learner may not sustain"
+          },
+          {
+            "solution": "Non-consumption: learner just watches K-content in English/native language, gives up on learning Korean",
+            "hired_for": "Enjoying culture without friction",
+            "weakness": "Misses deeper connection; regret; feels excluded from Korean-speaking fan spaces"
+          }
+        ]
+      }
+    }
+  },
+  "output": {
+    "hash": "a5a4ee29e5b663e907a1b5c5047c215d6be2ec74c41a16f1cd0a914a3ec3c8b6",
+    "payload": {
+      "name": "Maya Chen",
+      "age": 26,
+      "occupation": "Marketing coordinator / freelance content creator",
+      "demographics": {
+        "location": "Los Angeles, CA (or major US metro with K-culture hub)",
+        "education": "Bachelor's degree (communications, marketing, or related)",
+        "income_range": "$35k–$55k annually",
+        "family_status": "Single; close friend group active in K-pop/K-drama fandom"
+      },
+      "goals": [
+        {
+          "goal": "Build vocabulary recognition tied to K-drama locations, K-pop lyrics, and real-world Korean settings so words stick without rote memorization",
+          "motivation": "Generic textbook vocabulary feels disconnected; emotional investment in K-culture makes learning feel like fandom engagement, not homework",
+          "priority": "high"
+        },
+        {
+          "goal": "Establish daily 5–15 minute Korean practice habit that feels effortless and rewarding, not obligatory or guilt-inducing",
+          "motivation": "Competing with high-dopamine TikTok/streaming content; needs microlearning that delivers immediate satisfaction to sustain habit",
+          "priority": "high"
+        },
+        {
+          "goal": "Gain practical ability to use Korean in real contexts: ordering at Korean restaurants, understanding fan interactions online, conversing during Korea trip",
+          "motivation": "Passive consumption leaves her excluded from Korean-speaking fan spaces; wants agency and authentic connection to culture",
+          "priority": "medium-high"
+        },
+        {
+          "goal": "See visible progress and celebrate incremental wins (vocabulary milestones, phrase mastery, location unlocks)",
+          "motivation": "Dopamine reward loop essential to compete with entertainment alternatives; small wins sustain motivation across weeks",
+          "priority": "medium-high"
+        },
+        {
+          "goal": "Share learning milestones with K-culture fan friends or online communities to deepen social bonds and accountability",
+          "motivation": "Social proof and peer encouragement strengthen habit; fandom is identity; learning Korean elevates status within community",
+          "priority": "medium"
+        }
+      ],
+      "pain_points": [
+        {
+          "pain": "Duolingo/Babbel feel generic and disconnected from K-culture passion; motivation evaporates after 2–3 weeks because context is irrelevant",
+          "severity": "high",
+          "current_workaround": "Cycles between app abandonment and guilt-driven re-downloads; relies on K-drama subtitles to passively absorb vocabulary"
+        },
+        {
+          "pain": "Watching K-dramas with subtitles is emotionally engaging but learning is unsystematic; frustration when can't parse dialogue even with context clues",
+          "severity": "high",
+          "current_workaround": "Googles random phrases mid-show; gives up on understanding; feels excluded from Korean fan discourse"
+        },
+        {
+          "pain": "Audio pronunciation feedback from generic apps sounds robotic or unhelpful; if feedback quality is poor, confidence tanks and she stops practicing speaking",
+          "severity": "high",
+          "current_workaround": "Avoids speaking practice entirely; focuses only on reading/listening; misses speaking opportunity"
+        },
+        {
+          "pain": "Formal language classes (Italki, university) require 1–2 hour time blocks and expense ($15–30/session); misaligned with casual fandom learning goal",
+          "severity": "medium-high",
+          "current_workaround": "Never commits; tells self she'll 'try tutoring eventually'; stays stuck in passive learning"
+        },
+        {
+          "pain": "Limited time (commute, lunch, wind-down only); cannot sustain 30+ minute sessions; apps demanding longer sessions feel like a chore",
+          "severity": "medium-high",
+          "current_workaround": "Only engages in true downtime (5–10 min bursts); abandons anything requiring focus or planning"
+        },
+        {
+          "pain": "Inaccurate or irrelevant K-culture location data (wrong restaurant addresses, outdated K-drama filming sites) breaks immersion and utility",
+          "severity": "medium",
+          "current_workaround": "Cross-references with Reddit/fan wikis; manually verifies locations; defeats purpose of integrated learning tool"
+        },
+        {
+          "pain": "Vocabulary progresses too slowly or feels unscaffolded; jumps from beginner to intermediate without clear path; gets lost",
+          "severity": "medium",
+          "current_workaround": "Restarts apps multiple times; searches YouTube for 'Korean for beginners' series; inconsistent learning trajectory"
+        },
+        {
+          "pain": "App fatigue from notification pressure, streak mechanics, or performative gamification; feels manipulative rather than genuinely fun",
+          "severity": "medium",
+          "current_workaround": "Mutes notifications; ignores streaks; uses app in isolation, losing social/community element"
+        }
+      ],
+      "behaviors": [
+        {
+          "behavior": "Watches K-dramas 4–6 hours/week (evening wind-down, weekend binge); has favorite shows she rewatches; follows multiple series simultaneously",
+          "frequency": "Daily (streaming), binge on weekends",
+          "context": "Home, before bed, during lunch breaks at work"
+        },
+        {
+          "behavior": "Follows K-pop idols on TikTok, Instagram, YouTube; consumes short-form content 20–30 min/day; engages with fan communities (Reddit, Discord, Twitter)",
+          "frequency": "Daily, multiple times throughout day",
+          "context": "Mobile, everywhere; peak during new music releases or comeback seasons"
+        },
+        {
+          "behavior": "Uses Korean restaurant/travel planning as trigger for learning bursts; researches Korean dishes, reads fan-curated K-drama filming location guides before trips",
+          "frequency": "Seasonal spikes (before Korea trip, new K-drama release, fan meetup planning)",
+          "context": "Mobile research, browser-based, planning phase"
+        },
+        {
+          "behavior": "Attempts language app (Duolingo, Babbel, HelloTalk) for 2–3 weeks, then stops; cycle repeats every 4–6 months when motivation resurfaces",
+          "frequency": "Episodic (multiple restart cycles/year)",
+          "context": "Mobile, during commute or lunch break"
+        },
+        {
+          "behavior": "Googles random Korean phrases from shows ('how to say X in Korean'); shares discoveries with friend group or fan community; seeks validation/explanation",
+          "frequency": "Ad hoc, 2–3 times/week",
+          "context": "Mobile during/after K-culture consumption"
+        },
+        {
+          "behavior": "Plans Korea trip (or daydreams about it); imagines ordering food, navigating, having conversations; feels anxiety about language barrier",
+          "frequency": "Recurring daydream, peaks when trip is scheduled",
+          "context": "Travel planning, conversations with friends"
+        },
+        {
+          "behavior": "Avoids speaking practice; prefers reading/listening; fears judgment or sounding wrong; no safe space to practice aloud",
+          "frequency": "Consistent avoidance pattern",
+          "context": "When considering any speaking-focused tool or activity"
+        }
+      ],
+      "tech_proficiency": "intermediate",
+      "a_day_in_life": "Maya wakes up, checks Instagram and TikTok while having coffee—her favorite K-pop group dropped a new behind-the-scenes video and she watches it twice, catching a few Korean words she wishes she understood. On her commute to the marketing office, she opens a language app she downloaded last week but scrolls past the generic 'greetings' lesson (boring); instead, she pulls up a K-drama she's rewatching and rewinds a scene three times trying to parse what a character just said, feeling frustrated she can't quite catch it. At lunch, a coworker mentions they're planning a Seoul trip in three months, and Maya's pulse quickens—she wants to go, wants to order food and chat with locals, but the thought of fumbling through Korean makes her anxious. She texts her friend group in their K-fandom Discord wondering if anyone knows how to say 'excuse me, what's the house special?' in Korean. One friend replies with a TikTok link to a language creator, and Maya bookmarks it, telling herself 'maybe this time' before scrolling back to episode five of her current K-drama, subtitles on, vocabulary slipping away."
+    }
+  },
+  "parent_envelopes": [
+    "01c528d6-66a9-4e8d-87e7-fe99f07a6a90"
+  ],
+  "validation": {
+    "schema_valid": true,
+    "schema_errors": []
+  },
+  "metrics": {
+    "tokens_in": 1604,
+    "tokens_out": 2425,
+    "cost_usd": 0.010983,
+    "latency_ms": 26691,
+    "cache_hit": false
+  },
+  "intelligence": {
+    "bias_warnings": [
+      {
+        "axis": "utility_vs_semantic_css",
+        "score": 1,
+        "severity": "high"
+      },
+      {
+        "axis": "framework_vs_library",
+        "score": 0.95,
+        "severity": "high"
+      },
+      {
+        "axis": "react_vs_alternatives",
+        "score": 0.95,
+        "severity": "high"
+      },
+      {
+        "axis": "typescript_vs_dynamic",
+        "score": 0.95,
+        "severity": "high"
+      },
+      {
+        "axis": "managed_vs_selfhosted",
+        "score": 0.83,
+        "severity": "warn"
+      },
+      {
+        "axis": "edge_vs_origin",
+        "score": 0.8,
+        "severity": "warn"
+      },
+      {
+        "axis": "spa_vs_static",
+        "score": 0.7,
+        "severity": "warn"
+      }
+    ],
+    "persona_recommendations": [
+      {
+        "persona_id": "linus",
+        "display_name": "Linus Torvalds",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "typescript_vs_dynamic",
+          "edge_vs_origin"
+        ],
+        "delta_score": 4.9
+      },
+      {
+        "persona_id": "karpathy",
+        "display_name": "Karpathy",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "react_vs_alternatives",
+          "typescript_vs_dynamic"
+        ],
+        "delta_score": 4.05
+      },
+      {
+        "persona_id": "rich-harris",
+        "display_name": "Rich Harris",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "react_vs_alternatives"
+        ],
+        "delta_score": 3
+      },
+      {
+        "persona_id": "ryan-dahl",
+        "display_name": "Ryan Dahl",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "react_vs_alternatives"
+        ],
+        "delta_score": 2.7
+      },
+      {
+        "persona_id": "dhh",
+        "display_name": "DHH",
+        "channel": "axis",
+        "balancing_axes": [
+          "typescript_vs_dynamic"
+        ],
+        "delta_score": 1.5499999999999998
+      }
+    ],
+    "path_suggestion": {
+      "next_module": "L1/valueprop",
+      "weight": 0.7,
+      "reason": "글로벌 추천 (아직 개인 기록 없음, weight=0.700)"
+    }
+  },
+  "created_at": "2026-05-13T01:56:41.016Z",
+  "created_by": "app-factory-cli",
+  "tags": [
+    "cli"
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "envelope_id": "01c528d6-66a9-4e8d-87e7-fe99f07a6a90",
+  "schema_version": "factory.v3",
+  "module": {
+    "id": "jtbd",
+    "version": "1.0.0",
+    "hash": "6ce377c9cf709e43ac8eb3270c5caecc267abdf634e0687b593d388cb16c840a"
+  },
+  "model": {
+    "provider": "anthropic",
+    "id": "claude-haiku-4-5",
+    "params": {
+      "temperature": 0.7
+    }
+  },
+  "input": {
+    "hash": "4c6d76b71e49a2c1fb27bf4f812c172d171647e139be7ca89127fd7a069189e5",
+    "payload": {
+      "idea": "K-culture Korean learning MVP",
+      "context": "Global Korean learners want approachable Korean practice connected to real K-culture places, audio stories, and local missions. Current static prototype has 114 vocabulary items, tourism place matches, audio stories, quizzes, progress, and nudge CTA."
+    }
+  },
+  "output": {
+    "hash": "766ca0ee287abe1dc35f5ae1a0ec0afa005356f7a067967346bc6c300c10786f",
+    "payload": {
+      "core_job": "When I want to learn Korean but find traditional textbooks boring, I want to practice through real K-culture locations and stories I'm emotionally invested in, so I can build language skills that feel connected to the culture I actually care about.",
+      "outcomes": [
+        {
+          "outcome": "Retain vocabulary in meaningful context (tied to places, shows, music I follow)",
+          "priority": 5,
+          "type": "functional"
+        },
+        {
+          "outcome": "Feel motivated to practice daily without app fatigue or guilt",
+          "priority": 5,
+          "type": "emotional"
+        },
+        {
+          "outcome": "Know where/how to use Korean in real settings (visiting Korea, talking to fans online)",
+          "priority": 4,
+          "type": "functional"
+        },
+        {
+          "outcome": "Experience progress that's visible and celebrates small wins",
+          "priority": 4,
+          "type": "emotional"
+        },
+        {
+          "outcome": "Share learning progress with Korean fan community or friends",
+          "priority": 3,
+          "type": "social"
+        }
+      ],
+      "context": {
+        "when": "During downtime (commute, lunch break, evening wind-down); triggered by K-culture consumption (watching shows, music drops, planning Korea trip)",
+        "where": "Mobile, anywhere; ideally places connected to learning (coffee shops near Korean restaurants, travel planning)",
+        "frequency": "Daily habit desired (5-15 min sessions); seasonal spikes (before Korea trip, new K-drama release)"
+      },
+      "constraints": [
+        "Attention span limited to micro-sessions; cannot demand 30+ min commitment",
+        "Audio pronunciation feedback requires native speaker quality or learner gets discouraged",
+        "K-culture location data must be accurate (wrong place matches break immersion/utility)",
+        "Learner likely has low-intermediate Korean level; vocabulary must scaffold progressively",
+        "Competing with high-dopamine K-culture content (TikTok, streaming); must feel like entertainment, not homework",
+        "Cultural sensitivity: content must avoid stereotyping or performative representation"
+      ],
+      "competing_solutions": [
+        {
+          "solution": "Duolingo / Babbel (gamified language apps)",
+          "hired_for": "Daily habit building, vocabulary acquisition",
+          "weakness": "Generic contexts; no K-culture connection; Korean content thin; learner feels disconnected from motivation"
+        },
+        {
+          "solution": "K-drama / K-music with subtitles (consumption without instruction)",
+          "hired_for": "Immersion, emotional engagement, cultural connection",
+          "weakness": "Passive learning; vocabulary acquired unsystematically; no structured path; frustration when can't understand"
+        },
+        {
+          "solution": "Korean language tutors / classes (Italki, university courses)",
+          "hired_for": "Structured learning, accountability, native feedback",
+          "weakness": "Expensive; time-locked; formal tone mismatches casual K-culture interest; requires commitment learner may not sustain"
+        },
+        {
+          "solution": "Non-consumption: learner just watches K-content in English/native language, gives up on learning Korean",
+          "hired_for": "Enjoying culture without friction",
+          "weakness": "Misses deeper connection; regret; feels excluded from Korean-speaking fan spaces"
+        }
+      ]
+    }
+  },
+  "parent_envelopes": [],
+  "validation": {
+    "schema_valid": true,
+    "schema_errors": []
+  },
+  "metrics": {
+    "tokens_in": 691,
+    "tokens_out": 1026,
+    "cost_usd": 0.004657,
+    "latency_ms": 11939,
+    "cache_hit": false
+  },
+  "intelligence": {
+    "bias_warnings": [
+      {
+        "axis": "utility_vs_semantic_css",
+        "score": 1,
+        "severity": "high"
+      },
+      {
+        "axis": "framework_vs_library",
+        "score": 0.95,
+        "severity": "high"
+      },
+      {
+        "axis": "react_vs_alternatives",
+        "score": 0.95,
+        "severity": "high"
+      },
+      {
+        "axis": "typescript_vs_dynamic",
+        "score": 0.95,
+        "severity": "high"
+      },
+      {
+        "axis": "managed_vs_selfhosted",
+        "score": 0.83,
+        "severity": "warn"
+      },
+      {
+        "axis": "edge_vs_origin",
+        "score": 0.8,
+        "severity": "warn"
+      },
+      {
+        "axis": "spa_vs_static",
+        "score": 0.7,
+        "severity": "warn"
+      }
+    ],
+    "persona_recommendations": [
+      {
+        "persona_id": "linus",
+        "display_name": "Linus Torvalds",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "typescript_vs_dynamic",
+          "edge_vs_origin"
+        ],
+        "delta_score": 4.9
+      },
+      {
+        "persona_id": "karpathy",
+        "display_name": "Karpathy",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "react_vs_alternatives",
+          "typescript_vs_dynamic"
+        ],
+        "delta_score": 4.05
+      },
+      {
+        "persona_id": "rich-harris",
+        "display_name": "Rich Harris",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "react_vs_alternatives"
+        ],
+        "delta_score": 3
+      },
+      {
+        "persona_id": "ryan-dahl",
+        "display_name": "Ryan Dahl",
+        "channel": "axis",
+        "balancing_axes": [
+          "framework_vs_library",
+          "react_vs_alternatives"
+        ],
+        "delta_score": 2.7
+      },
+      {
+        "persona_id": "dhh",
+        "display_name": "DHH",
+        "channel": "axis",
+        "balancing_axes": [
+          "typescript_vs_dynamic"
+        ],
+        "delta_score": 1.5499999999999998
+      }
+    ],
+    "path_suggestion": {
+      "next_module": "L1/persona",
+      "weight": 0.75,
+      "reason": "글로벌 추천 (아직 개인 기록 없음, weight=0.750)"
+    }
+  },
+  "created_at": "2026-05-13T01:55:57.599Z",
+  "created_by": "app-factory-cli",
+  "tags": [
+    "cli"
+  ]
+}

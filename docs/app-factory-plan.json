@@ -1,0 +1,208 @@
+{
+  "schema_version": "app-factory.plan.v1",
+  "generated_at": "2026-05-13T01:54:45.404Z",
+  "idea": "K-culture Korean learning MVP using Sejong Korean Culture vocabulary CSV, Korea Tourism public data, audio guides, behavior nudge design, and GitHub Pages static prototype",
+  "intent": {
+    "productType": "learning",
+    "buildGoal": "behavior-api",
+    "confidence": 1,
+    "signals": [
+      "manual goal override: behavior-api"
+    ]
+  },
+  "recommended_path": "builder-mini-behavior",
+  "candidates": [
+    {
+      "id": "builder-mini-behavior",
+      "label": "Builder Mini Behavior/API Pass",
+      "tier": "builder-mini-behavior",
+      "summary": "Implementable harness path: structure plus content model, state machine, datamodel, API.",
+      "bestFor": "prototype-ready app specification",
+      "modules": [
+        "jtbd",
+        "constraints",
+        "persona",
+        "vision",
+        "valueprop",
+        "prd",
+        "stories",
+        "mvp",
+        "sitemap",
+        "flow-map",
+        "content-model",
+        "state-machine",
+        "voice-tone",
+        "tokens",
+        "components",
+        "stack",
+        "datamodel",
+        "api",
+        "scaffold"
+      ],
+      "followups": [
+        "app-factory implement --harness <run-dir>/harness --feature-focus \"first vertical slice\""
+      ],
+      "scores": {
+        "intentFit": 1,
+        "artifactCoverage": 0.9,
+        "implementationReadiness": 0.82,
+        "riskControl": 0.62,
+        "total": 0.88
+      },
+      "rationale": [
+        "Intent fit for behavior-api: 100%",
+        "Covers 19 module step(s).",
+        "Domain signal: learning.",
+        "Includes a clear next command after harness generation."
+      ]
+    },
+    {
+      "id": "implementation-pass",
+      "label": "Implementation Pass",
+      "tier": "builder-mini-behavior",
+      "summary": "Behavior/API harness followed by vibe-code and apply-implementation.",
+      "bestFor": "materializing a first runnable vertical slice",
+      "modules": [
+        "jtbd",
+        "constraints",
+        "persona",
+        "vision",
+        "valueprop",
+        "prd",
+        "stories",
+        "mvp",
+        "sitemap",
+        "flow-map",
+        "content-model",
+        "state-machine",
+        "voice-tone",
+        "tokens",
+        "components",
+        "stack",
+        "datamodel",
+        "api",
+        "scaffold"
+      ],
+      "followups": [
+        "app-factory implement --harness <run-dir>/harness --feature-focus \"first vertical slice\"",
+        "app-factory apply-implementation --envelope <implement-dir>/vibe-code.envelope.json --out-dir <app-dir>"
+      ],
+      "scores": {
+        "intentFit": 0.85,
+        "artifactCoverage": 0.95,
+        "implementationReadiness": 0.95,
+        "riskControl": 0.48,
+        "total": 0.846
+      },
+      "rationale": [
+        "Intent fit for behavior-api: 85%",
+        "Covers 19 module step(s).",
+        "Domain signal: learning.",
+        "Includes a clear next command after harness generation."
+      ]
+    },
+    {
+      "id": "builder-mini-structure",
+      "label": "Builder Mini Structure Pass",
+      "tier": "builder-mini-structure",
+      "summary": "App structure path: product scope plus sitemap, flows, components, scaffold.",
+      "bestFor": "screen/route architecture before implementation",
+      "modules": [
+        "jtbd",
+        "constraints",
+        "persona",
+        "vision",
+        "valueprop",
+        "prd",
+        "stories",
+        "mvp",
+        "sitemap",
+        "flow-map",
+        "voice-tone",
+        "tokens",
+        "components",
+        "stack",
+        "scaffold"
+      ],
+      "followups": [],
+      "scores": {
+        "intentFit": 0.7,
+        "artifactCoverage": 0.78,
+        "implementationReadiness": 0.65,
+        "riskControl": 0.7,
+        "total": 0.707
+      },
+      "rationale": [
+        "Intent fit for behavior-api: 70%",
+        "Covers 15 module step(s).",
+        "Domain signal: learning."
+      ]
+    },
+    {
+      "id": "builder-mini",
+      "label": "Builder Mini Product Pass",
+      "tier": "builder-mini",
+      "summary": "Product definition path: PRD, stories, MVP, stack seed.",
+      "bestFor": "turning an idea into a buildable product brief",
+      "modules": [
+        "jtbd",
+        "constraints",
+        "persona",
+        "vision",
+        "valueprop",
+        "prd",
+        "stories",
+        "mvp",
+        "voice-tone",
+        "tokens",
+        "stack"
+      ],
+      "followups": [],
+      "scores": {
+        "intentFit": 0.45,
+        "artifactCoverage": 0.6,
+        "implementationReadiness": 0.45,
+        "riskControl": 0.78,
+        "total": 0.532
+      },
+      "rationale": [
+        "Intent fit for behavior-api: 45%",
+        "Covers 11 module step(s).",
+        "Domain signal: learning."
+      ]
+    },
+    {
+      "id": "vibe",
+      "label": "Vibe Concept Pass",
+      "tier": "vibe",
+      "summary": "Small concept/design harness for early product direction.",
+      "bestFor": "brand, positioning, voice, token seed",
+      "modules": [
+        "jtbd",
+        "context-doc",
+        "persona",
+        "vision",
+        "valueprop",
+        "voice-tone",
+        "tokens"
+      ],
+      "followups": [],
+      "scores": {
+        "intentFit": 0.2,
+        "artifactCoverage": 0.35,
+        "implementationReadiness": 0.2,
+        "riskControl": 0.9,
+        "total": 0.334
+      },
+      "rationale": [
+        "Intent fit for behavior-api: 20%",
+        "Covers 7 module step(s).",
+        "Domain signal: learning."
+      ]
+    }
+  ],
+  "next_commands": [
+    "app-factory ship --tier builder-mini-behavior --idea \"K-culture Korean learning MVP using Sejong Korean Culture vocabulary CSV, Korea Tourism public data, audio guides, behavior nudge design, and GitHub Pages static prototype\"",
+    "app-factory implement --harness <run-dir>/harness --feature-focus \"first vertical slice\""
+  ]
+}

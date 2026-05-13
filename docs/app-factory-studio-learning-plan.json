@@ -1,0 +1,337 @@
+{
+  "schema_version": "app-factory.studio.v1",
+  "generated_at": "2026-05-13T01:55:31.905Z",
+  "idea": "K-culture Korean learning MVP",
+  "scenario": {
+    "id": "learning-content-app",
+    "level": 3,
+    "title": "Learning or Content App",
+    "bestFor": "Education, reading, course, content library, or guided practice products.",
+    "exampleIdea": "A middle-school English reading practice app.",
+    "defaultGoal": "behavior-api",
+    "defaultTier": "builder-mini-behavior",
+    "promise": "Design the learning loop, content model, onboarding, copy, ethics, and first session.",
+    "firstQuestions": [
+      "Who is the learner and who decides to use or pay for it?",
+      "What is one successful learning session?",
+      "Where does content come from and how is progress measured?"
+    ],
+    "stages": [
+      {
+        "id": "learning-loop",
+        "title": "Define the Learning Loop",
+        "userQuestion": "What does a successful session look like?",
+        "buttons": [
+          {
+            "id": "learner-persona",
+            "label": "Define Learner",
+            "intent": "Clarify learner needs and constraints.",
+            "action": "Run jtbd, persona, and valueprop modules.",
+            "modules": [
+              "jtbd",
+              "persona",
+              "valueprop"
+            ]
+          },
+          {
+            "id": "session-flow",
+            "label": "Design Session",
+            "intent": "Turn learning into a concrete flow.",
+            "action": "Run onboarding, flow-map, state-machine, and events modules.",
+            "modules": [
+              "onboarding",
+              "flow-map",
+              "state-machine",
+              "events"
+            ]
+          }
+        ],
+        "doneWhen": "The first session, progress signal, and content unit are explicit."
+      },
+      {
+        "id": "safety",
+        "title": "Protect the Experience",
+        "userQuestion": "What risks come from learner data, content, or feedback?",
+        "buttons": [
+          {
+            "id": "privacy-check",
+            "label": "Privacy Check",
+            "intent": "Identify learner data and consent needs.",
+            "action": "Run privacy and compliance modules.",
+            "modules": [
+              "privacy",
+              "compliance"
+            ]
+          },
+          {
+            "id": "ethics-check",
+            "label": "Ethics Check",
+            "intent": "Avoid manipulative learning loops.",
+            "action": "Run ethics, moderation, and a11y modules.",
+            "modules": [
+              "ethics",
+              "moderation",
+              "a11y-audit"
+            ]
+          }
+        ],
+        "doneWhen": "Sensitive data, moderation, and learning ethics risks are named."
+      }
+    ],
+    "releaseGates": [
+      "First learning session works",
+      "Progress signal is measurable",
+      "Content model exists",
+      "Privacy risks are not hidden"
+    ]
+  },
+  "decision": {
+    "scenario_id": "learning-content-app",
+    "confidence": "high",
+    "confidence_label": "거의 확실",
+    "why": "Learning or Content App: 사용자가 이 시나리오를 직접 선택했습니다.",
+    "known_facts": [
+      "공개용 첫 화면이 필요합니다.",
+      "학습 또는 콘텐츠 경험이 포함됩니다.",
+      "아이디어 원문: K-culture Korean learning MVP Static GitHub Pages prototype for global Korean learners. Da..."
+    ],
+    "missing_facts": [
+      "Who is the learner and who decides to use or pay for it?",
+      "What is one successful learning session?",
+      "Where does content come from and how is progress measured?"
+    ],
+    "recommended_action_id": "learner-persona",
+    "button_promises": {
+      "learner-persona": "클릭하면 대상 사용자 카드가 생깁니다.",
+      "session-flow": "클릭하면 이 단계에 필요한 모듈과 다음 명령이 정리됩니다.",
+      "privacy-check": "클릭하면 대상 사용자 카드가 생깁니다.",
+      "ethics-check": "클릭하면 위험과 통제 장치가 표로 정리됩니다."
+    },
+    "spec_gap": null
+  },
+  "plan": {
+    "schema_version": "app-factory.plan.v1",
+    "generated_at": "2026-05-13T01:55:31.904Z",
+    "idea": "K-culture Korean learning MVP",
+    "intent": {
+      "productType": "learning",
+      "buildGoal": "behavior-api",
+      "confidence": 1,
+      "signals": [
+        "manual goal override: behavior-api"
+      ]
+    },
+    "recommended_path": "builder-mini-behavior",
+    "candidates": [
+      {
+        "id": "builder-mini-behavior",
+        "label": "Builder Mini Behavior/API Pass",
+        "tier": "builder-mini-behavior",
+        "summary": "Implementable harness path: structure plus content model, state machine, datamodel, API.",
+        "bestFor": "prototype-ready app specification",
+        "modules": [
+          "jtbd",
+          "constraints",
+          "persona",
+          "vision",
+          "valueprop",
+          "prd",
+          "stories",
+          "mvp",
+          "sitemap",
+          "flow-map",
+          "content-model",
+          "state-machine",
+          "voice-tone",
+          "tokens",
+          "components",
+          "stack",
+          "datamodel",
+          "api",
+          "scaffold"
+        ],
+        "followups": [
+          "app-factory implement --harness <run-dir>/harness --feature-focus \"first vertical slice\""
+        ],
+        "scores": {
+          "intentFit": 1,
+          "artifactCoverage": 0.9,
+          "implementationReadiness": 0.82,
+          "riskControl": 0.62,
+          "total": 0.88
+        },
+        "rationale": [
+          "Intent fit for behavior-api: 100%",
+          "Covers 19 module step(s).",
+          "Domain signal: learning.",
+          "Includes a clear next command after harness generation."
+        ]
+      },
+      {
+        "id": "implementation-pass",
+        "label": "Implementation Pass",
+        "tier": "builder-mini-behavior",
+        "summary": "Behavior/API harness followed by vibe-code and apply-implementation.",
+        "bestFor": "materializing a first runnable vertical slice",
+        "modules": [
+          "jtbd",
+          "constraints",
+          "persona",
+          "vision",
+          "valueprop",
+          "prd",
+          "stories",
+          "mvp",
+          "sitemap",
+          "flow-map",
+          "content-model",
+          "state-machine",
+          "voice-tone",
+          "tokens",
+          "components",
+          "stack",
+          "datamodel",
+          "api",
+          "scaffold"
+        ],
+        "followups": [
+          "app-factory implement --harness <run-dir>/harness --feature-focus \"first vertical slice\"",
+          "app-factory apply-implementation --envelope <implement-dir>/vibe-code.envelope.json --out-dir <app-dir>"
+        ],
+        "scores": {
+          "intentFit": 0.85,
+          "artifactCoverage": 0.95,
+          "implementationReadiness": 0.95,
+          "riskControl": 0.48,
+          "total": 0.846
+        },
+        "rationale": [
+          "Intent fit for behavior-api: 85%",
+          "Covers 19 module step(s).",
+          "Domain signal: learning.",
+          "Includes a clear next command after harness generation."
+        ]
+      },
+      {
+        "id": "builder-mini-structure",
+        "label": "Builder Mini Structure Pass",
+        "tier": "builder-mini-structure",
+        "summary": "App structure path: product scope plus sitemap, flows, components, scaffold.",
+        "bestFor": "screen/route architecture before implementation",
+        "modules": [
+          "jtbd",
+          "constraints",
+          "persona",
+          "vision",
+          "valueprop",
+          "prd",
+          "stories",
+          "mvp",
+          "sitemap",
+          "flow-map",
+          "voice-tone",
+          "tokens",
+          "components",
+          "stack",
+          "scaffold"
+        ],
+        "followups": [],
+        "scores": {
+          "intentFit": 0.7,
+          "artifactCoverage": 0.78,
+          "implementationReadiness": 0.65,
+          "riskControl": 0.7,
+          "total": 0.707
+        },
+        "rationale": [
+          "Intent fit for behavior-api: 70%",
+          "Covers 15 module step(s).",
+          "Domain signal: learning."
+        ]
+      },
+      {
+        "id": "builder-mini",
+        "label": "Builder Mini Product Pass",
+        "tier": "builder-mini",
+        "summary": "Product definition path: PRD, stories, MVP, stack seed.",
+        "bestFor": "turning an idea into a buildable product brief",
+        "modules": [
+          "jtbd",
+          "constraints",
+          "persona",
+          "vision",
+          "valueprop",
+          "prd",
+          "stories",
+          "mvp",
+          "voice-tone",
+          "tokens",
+          "stack"
+        ],
+        "followups": [],
+        "scores": {
+          "intentFit": 0.45,
+          "artifactCoverage": 0.6,
+          "implementationReadiness": 0.45,
+          "riskControl": 0.78,
+          "total": 0.532
+        },
+        "rationale": [
+          "Intent fit for behavior-api: 45%",
+          "Covers 11 module step(s).",
+          "Domain signal: learning."
+        ]
+      },
+      {
+        "id": "vibe",
+        "label": "Vibe Concept Pass",
+        "tier": "vibe",
+        "summary": "Small concept/design harness for early product direction.",
+        "bestFor": "brand, positioning, voice, token seed",
+        "modules": [
+          "jtbd",
+          "context-doc",
+          "persona",
+          "vision",
+          "valueprop",
+          "voice-tone",
+          "tokens"
+        ],
+        "followups": [],
+        "scores": {
+          "intentFit": 0.2,
+          "artifactCoverage": 0.35,
+          "implementationReadiness": 0.2,
+          "riskControl": 0.9,
+          "total": 0.334
+        },
+        "rationale": [
+          "Intent fit for behavior-api: 20%",
+          "Covers 7 module step(s).",
+          "Domain signal: learning."
+        ]
+      }
+    ],
+    "next_commands": [
+      "app-factory ship --tier builder-mini-behavior --idea \"K-culture Korean learning MVP\"",
+      "app-factory implement --harness <run-dir>/harness --feature-focus \"first vertical slice\""
+    ]
+  },
+  "userCanSucceedIf": [
+    "They can answer one question at a time instead of understanding module names.",
+    "Every button produces a visible artifact, decision, or SPEC-GAP.",
+    "The UI always shows decided facts, open blockers, and the next safest action."
+  ],
+  "appFactoryMustNotDo": [
+    "Expose raw module names as the primary navigation.",
+    "Pretend enterprise/security gaps are implementation details.",
+    "Generate code before the current scenario has enough harness context."
+  ],
+  "nextCommands": [
+    "app-factory plan --idea \"K-culture Korean learning MVP\" --goal behavior-api",
+    "app-factory ship --tier builder-mini-behavior --idea \"K-culture Korean learning MVP\"",
+    "app-factory pack --tier builder-mini-behavior --in .factory_run --out .factory_harness",
+    "app-factory skill-pack --harness .factory_harness --out .factory_skill_bundle --target gstack",
+    "app-factory implement --harness .factory_harness --feature-focus \"first vertical slice\""
+  ]
+}
