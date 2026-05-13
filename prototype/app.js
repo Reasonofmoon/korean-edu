@@ -45,6 +45,7 @@ const storyListEl = document.querySelector("#story-list");
 const activityListEl = document.querySelector("#activity-list");
 const reviewListEl = document.querySelector("#review-list");
 const todayNudgeEl = document.querySelector("#today-nudge");
+const sessionFlowEl = document.querySelector("#session-flow");
 const resultCountEl = document.querySelector("#result-count");
 const accuracyRateEl = document.querySelector("#accuracy-rate");
 const reviewCountEl = document.querySelector("#review-count");
@@ -64,9 +65,10 @@ function loadProgress() {
     return {
       answers: parsed.answers ?? {},
       audio: parsed.audio ?? {},
+      expressions: parsed.expressions ?? {},
     };
   } catch {
-    return { answers: {}, audio: {} };
+    return { answers: {}, audio: {}, expressions: {} };
   }
 }
 
@@ -91,6 +93,7 @@ function statsForWord(word) {
   const correct = answered.filter((quiz) => progress.answers[quiz.id]?.correct);
   const requiresAudio = Boolean(activity?.hasAudio && activity.audioUrl);
   const audioDone = !requiresAudio || Boolean(progress.audio[word]?.completed);
+  const expressionDone = !activity?.expressions?.length || Boolean(progress.expressions[word]?.checked);
   return {
     total: quizzes.length,
     answered: answered.length,
@@ -98,7 +101,8 @@ function statsForWord(word) {
     incorrectAttempts: quizzes.reduce((sum, quiz) => sum + (progress.answers[quiz.id]?.wrongCount ?? 0), 0),
     requiresAudio,
     audioDone,
-    complete: quizzes.length > 0 && correct.length === quizzes.length && audioDone,
+    expressionDone,
+    complete: quizzes.length > 0 && correct.length === quizzes.length && audioDone && expressionDone,
   };
 }
 
@@ -129,6 +133,30 @@ function nextLearningItem() {
   const pending = pendingActivity ? data.vocabulary.find((item) => item.word === pendingActivity.word) : null;
   return pending ?? selected ?? data.vocabulary[0];
 }
+
+function selectedItem() {
+  return data.vocabulary.find((candidate) => candidate.id === state.selectedId) ?? filteredVocabulary()[0] ?? data.vocabulary[0];
+}
+
+function sessionStageFor(item) {
+  const activity = activityFor(item);
+  const stats = statsForWord(item.word);
+  const hasAudioStory = Boolean(activity?.hasAudio && activity.audioUrl);
+  if (stats.complete) return "complete";
+  if (hasAudioStory && !stats.audioDone) return "listen";
+  if (!stats.expressionDone) return "expressions";
+  if (stats.answered < stats.total || stats.correct < stats.total) return "quiz";
+  return "complete";
+}
+
+const sessionSteps = [
+  { id: "pick", label: "어휘 선택", target: "#vocab-list" },
+  { id: "context", label: "뜻과 미션", target: "#detail" },
+  { id: "listen", label: "듣기/읽기", target: "#story-step" },
+  { id: "expressions", label: "표현 확인", target: "#expression-step" },
+  { id: "quiz", label: "퀴즈", target: "#quiz-step" },
+  { id: "complete", label: "완료", target: "#review-list" },
+];
 
 function missionFor(item) {
   return data.missions.find((mission) => item.missionIds.includes(mission.id)) ?? data.missions[0];
@@ -218,7 +246,7 @@ function renderList() {
 }
 
 function renderDetail() {
-  const item = data.vocabulary.find((candidate) => candidate.id === state.selectedId) ?? filteredVocabulary()[0];
+  const item = selectedItem();
   if (!item) {
     detailEl.innerHTML = "<p>표시할 어휘가 없습니다.</p>";
     return;
@@ -234,6 +262,7 @@ function renderDetail() {
   const heroImage = representative?.firstImage || tourDetail?.images?.[0]?.originUrl || "";
   const wordStats = statsForWord(item.word);
   const firstQuiz = activity?.quizzes?.[0];
+  const stage = sessionStageFor(item);
   detailEl.innerHTML = `
     <div class="detail-hero">
       <div class="tag-row">
@@ -247,8 +276,10 @@ function renderDetail() {
       </div>
       <h3>${item.word}</h3>
       <p class="body-copy">${item.easyKorean}</p>
+      <p class="session-hint">${stage === "complete" ? "이 어휘 루프를 완료했습니다. 복습 카드에서 다음 어휘로 이어갈 수 있어요." : `현재 단계: ${sessionSteps.find((step) => step.id === stage)?.label ?? "학습"}`}</p>
       <div class="cta-row">
-        ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" class="primary-action" data-open-detail="story-step">듣고 시작</button>` : ""}
+        <button type="button" class="primary-action" data-session-action="${stage}">${stage === "complete" ? "복습으로 이동" : `${sessionSteps.find((step) => step.id === stage)?.label ?? "학습"} 시작`}</button>
+        ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" data-open-detail="story-step">듣기 열기</button>` : ""}
         ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
         ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
       </div>
@@ -260,9 +291,7 @@ function renderDetail() {
       <ul class="plain-list">
         ${item.sourceRows.map((row) => `<li>${row.book} ${row.unitNo} · ${row.unitName}</li>`).join("")}
       </ul>
-    </div>
 
-    <div class="detail-block">
       <h4>예문</h4>
       <ul class="phrase-list">
         ${item.sampleSentences.map((sentence) => `<li>${sentence}</li>`).join("")}
@@ -313,13 +342,16 @@ function renderDetail() {
       }
     </details>
 
-    <details class="detail-block" open>
+    <details class="detail-block" id="expression-step" open>
       <summary>5. 핵심 표현</summary>
       ${
         activity?.expressions?.length
           ? `<ul class="expression-list">${activity.expressions
               .map((expression) => `<li><span>${expression.focus}</span>${expression.text}</li>`)
-              .join("")}</ul>`
+              .join("")}</ul>
+            <button type="button" class="${wordStats.expressionDone ? "" : "primary-action"}" data-expression-word="${item.word}">
+              ${wordStats.expressionDone ? "표현 확인 완료" : "표현 확인했어요"}
+            </button>`
           : `<p class="body-copy">아직 추출된 핵심 표현이 없습니다.</p>`
       }
     </details>
@@ -368,7 +400,13 @@ function renderNudge() {
     return;
   }
 
-  const actionLabel = wordStats.requiresAudio && !wordStats.audioDone ? "듣기부터 시작" : wordStats.answered < wordStats.total ? "퀴즈 이어 풀기" : "다음 어휘 고르기";
+  const stage = sessionStageFor(item);
+  const actionLabel = {
+    listen: "듣기부터 시작",
+    expressions: "표현 확인하기",
+    quiz: "퀴즈 이어 풀기",
+    complete: "복습으로 이동",
+  }[stage] ?? "학습 시작";
   todayNudgeEl.innerHTML = `
     <div>
       <p class="eyebrow">Today</p>
@@ -379,6 +417,38 @@ function renderNudge() {
       <button type="button" class="primary-action" data-nudge-action="start">${actionLabel}</button>
       <button type="button" data-nudge-action="review">복습 카드 보기</button>
     </div>
+  `;
+}
+
+function renderSessionFlow() {
+  const item = selectedItem();
+  if (!item) {
+    sessionFlowEl.innerHTML = "";
+    return;
+  }
+
+  const stats = statsForWord(item.word);
+  const currentStage = sessionStageFor(item);
+  const currentIndex = sessionSteps.findIndex((step) => step.id === currentStage);
+  sessionFlowEl.innerHTML = `
+    <div>
+      <p class="eyebrow">First Session Flow</p>
+      <h2>${item.word} 한 장 끝내기</h2>
+      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻을 확인하고, 듣거나 읽고, 표현을 체크한 뒤 퀴즈까지 한 번에 마칩니다."}</p>
+    </div>
+    <ol class="flow-steps">
+      ${sessionSteps
+        .map((step, index) => {
+          const done = step.id === "pick" || step.id === "context" || index < currentIndex || currentStage === "complete";
+          const current = step.id === currentStage;
+          return `<li class="${done ? "done" : ""} ${current ? "current" : ""}">
+            <button type="button" data-flow-target="${step.target}" data-flow-step="${step.id}">
+              <span>${index + 1}</span>${step.label}
+            </button>
+          </li>`;
+        })
+        .join("")}
+    </ol>
   `;
 }
 
@@ -607,6 +677,7 @@ function renderReview() {
 
 function renderProgressSurfaces() {
   renderNudge();
+  renderSessionFlow();
   renderFilters();
   renderList();
   renderDetail();
@@ -619,7 +690,7 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("#reset-progress")) {
     const confirmed = window.confirm("학습 기록을 모두 초기화할까요?");
     if (!confirmed) return;
-    progress = { answers: {}, audio: {} };
+    progress = { answers: {}, audio: {}, expressions: {} };
     saveProgress();
     renderProgressSurfaces();
     return;
@@ -637,6 +708,29 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const expressionButton = event.target.closest("[data-expression-word]");
+  if (expressionButton) {
+    const word = expressionButton.dataset.expressionWord;
+    progress.expressions[word] = {
+      checked: true,
+      checkedAt: new Date().toISOString(),
+    };
+    saveProgress();
+    renderProgressSurfaces();
+    document.querySelector("#quiz-step")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const flowButton = event.target.closest("[data-flow-target]");
+  if (flowButton) {
+    const target = document.querySelector(flowButton.dataset.flowTarget);
+    if (target) {
+      target.open = true;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+
   const nudgeButton = event.target.closest("[data-nudge-action]");
   if (nudgeButton) {
     if (nudgeButton.dataset.nudgeAction === "review") {
@@ -648,7 +742,20 @@ document.addEventListener("click", (event) => {
     if (item) {
       state.selectedId = item.id;
       render();
-      detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      const stage = sessionStageFor(item);
+      const target = document.querySelector(sessionSteps.find((step) => step.id === stage)?.target ?? "#detail");
+      if (target) target.open = true;
+      (target ?? detailEl).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+
+  const sessionButton = event.target.closest("[data-session-action]");
+  if (sessionButton) {
+    const target = document.querySelector(sessionSteps.find((step) => step.id === sessionButton.dataset.sessionAction)?.target ?? "#detail");
+    if (target) {
+      target.open = true;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     return;
   }
@@ -747,6 +854,8 @@ function renderPlaces() {
 }
 
 function render() {
+  renderNudge();
+  renderSessionFlow();
   renderFilters();
   renderList();
   renderDetail();
@@ -763,4 +872,5 @@ renderStories();
 renderActivities();
 renderReview();
 renderNudge();
+renderSessionFlow();
 render();

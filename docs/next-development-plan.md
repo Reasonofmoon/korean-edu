@@ -10,6 +10,7 @@
 ## 우선순위 2. 학습 UX 개선
 
 - B=MAP 기반 오늘의 추천 행동과 CTA를 고도화
+- 첫 세션 `pick -> context -> listen -> expressions -> quiz -> complete` 전환을 수동 QA로 검증
 - 접힌 섹션의 사용 로그를 보고 기본 오픈 상태 조정
 - 퀴즈 풀이 흐름을 별도 모드로 분리
 - 핵심 표현 확인 체크 추가

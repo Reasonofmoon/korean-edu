@@ -94,7 +94,8 @@ main {
 
 .toolbar,
 .panel,
-.nudge-panel {
+.nudge-panel,
+.session-flow {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -129,6 +130,81 @@ main {
 .nudge-panel p {
   margin-bottom: 0;
   color: var(--muted);
+}
+
+.session-flow {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.45fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 18px;
+}
+
+.session-flow h2 {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
+}
+
+.session-flow p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flow-steps li {
+  position: relative;
+}
+
+.flow-steps button {
+  display: grid;
+  width: 100%;
+  min-height: 70px;
+  align-content: center;
+  justify-items: center;
+  gap: 5px;
+  padding: 8px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface-alt);
+}
+
+.flow-steps span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.flow-steps li.done button {
+  border-color: rgba(15, 118, 110, 0.35);
+  background: #f4fbf8;
+  color: var(--accent-dark);
+}
+
+.flow-steps li.current button {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+
+.flow-steps li.current span {
+  color: var(--accent);
 }
 
 .nudge-actions,
@@ -325,6 +401,14 @@ button.active {
 .detail-hero {
   display: grid;
   gap: 12px;
+}
+
+.session-hint {
+  border-left: 4px solid var(--accent);
+  padding: 9px 10px;
+  background: #f4fbf8;
+  color: var(--accent-dark);
+  font-size: 0.9rem;
 }
 
 .detail h3 {
@@ -716,6 +800,7 @@ footer {
   .app-header,
   .toolbar,
   .nudge-panel,
+  .session-flow,
   .layout {
     grid-template-columns: 1fr;
   }
@@ -736,6 +821,10 @@ footer {
 
   .api-status {
     grid-template-columns: 1fr;
+  }
+
+  .flow-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .section-title {
