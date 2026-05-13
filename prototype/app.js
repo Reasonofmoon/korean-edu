@@ -44,6 +44,7 @@ const placeListEl = document.querySelector("#place-list");
 const storyListEl = document.querySelector("#story-list");
 const activityListEl = document.querySelector("#activity-list");
 const reviewListEl = document.querySelector("#review-list");
+const todayNudgeEl = document.querySelector("#today-nudge");
 const resultCountEl = document.querySelector("#result-count");
 const accuracyRateEl = document.querySelector("#accuracy-rate");
 const reviewCountEl = document.querySelector("#review-count");
@@ -120,6 +121,13 @@ function overallStats() {
     audioCompleted: audioCompleted.length,
     accuracy: answered.length ? Math.round((correct.length / answered.length) * 100) : 0,
   };
+}
+
+function nextLearningItem() {
+  const pendingActivity = learningActivities.activities.find((activity) => !statsForWord(activity.word).complete);
+  const selected = data.vocabulary.find((item) => item.id === state.selectedId);
+  const pending = pendingActivity ? data.vocabulary.find((item) => item.word === pendingActivity.word) : null;
+  return pending ?? selected ?? data.vocabulary[0];
 }
 
 function missionFor(item) {
@@ -225,8 +233,9 @@ function renderDetail() {
   const representative = tourDetail?.place;
   const heroImage = representative?.firstImage || tourDetail?.images?.[0]?.originUrl || "";
   const wordStats = statsForWord(item.word);
+  const firstQuiz = activity?.quizzes?.[0];
   detailEl.innerHTML = `
-    <div>
+    <div class="detail-hero">
       <div class="tag-row">
         <span class="tag">${item.categoryLabel}</span>
         <span class="tag">페이지 ${item.pages.join(", ") || "미정"}</span>
@@ -238,9 +247,15 @@ function renderDetail() {
       </div>
       <h3>${item.word}</h3>
       <p class="body-copy">${item.easyKorean}</p>
+      <div class="cta-row">
+        ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" class="primary-action" data-open-detail="story-step">듣고 시작</button>` : ""}
+        ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
+        ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
+      </div>
     </div>
 
-    <div class="detail-block">
+    <details class="detail-block" open>
+      <summary>1. 뜻과 예문</summary>
       <h4>단원</h4>
       <ul class="plain-list">
         ${item.sourceRows.map((row) => `<li>${row.book} ${row.unitNo} · ${row.unitName}</li>`).join("")}
@@ -252,32 +267,33 @@ function renderDetail() {
       <ul class="phrase-list">
         ${item.sampleSentences.map((sentence) => `<li>${sentence}</li>`).join("")}
       </ul>
-    </div>
+    </details>
 
-    <div class="detail-block">
+    <details class="detail-block" open>
+      <summary>2. 현장 미션</summary>
       <h4>${mission.title}</h4>
       <ul class="phrase-list">
         ${mission.phrases.map((phrase) => `<li>${phrase}</li>`).join("")}
       </ul>
-    </div>
-
-    <div class="signal">${mission.localTip}</div>
-    <div class="signal risk">${mission.riskSignal}</div>
+      <div class="signal">${mission.localTip}</div>
+      <div class="signal risk">${mission.riskSignal}</div>
+    </details>
 
     ${
       representative
-        ? `<div class="detail-block representative">
+        ? `<details class="detail-block representative" id="place-step">
+            <summary>3. 대표 장소</summary>
             ${heroImage ? `<img src="${heroImage}" alt="">` : ""}
             <h4>대표 장소 · ${representative.title}</h4>
             <p class="body-copy">${representative.contentTypeLabel} · ${representative.address || "주소 정보 없음"}</p>
             ${representative.overview ? `<p class="overview">${representative.overview.slice(0, 420)}${representative.overview.length > 420 ? "..." : ""}</p>` : ""}
             <p class="meta">선정 방식 ${representative.curationReason} · contentId ${representative.contentId}</p>
-          </div>`
+          </details>`
         : ""
     }
 
-    <div class="detail-block">
-      <h4>문화 이야기 듣기</h4>
+    <details class="detail-block" id="story-step" ${odii?.stories?.length ? "open" : ""}>
+      <summary>4. 문화 이야기 듣기</summary>
       ${
         odii?.stories?.length
           ? `<div class="story-stack">${odii.stories
@@ -295,10 +311,10 @@ function renderDetail() {
               .join("")}</div>`
           : `<p class="body-copy">관련 오디오가이드 이야기가 아직 없습니다. 이 어휘는 장소 설명과 상황 표현 중심으로 학습합니다.</p>`
       }
-    </div>
+    </details>
 
-    <div class="detail-block">
-      <h4>핵심 표현</h4>
+    <details class="detail-block" open>
+      <summary>5. 핵심 표현</summary>
       ${
         activity?.expressions?.length
           ? `<ul class="expression-list">${activity.expressions
@@ -306,10 +322,10 @@ function renderDetail() {
               .join("")}</ul>`
           : `<p class="body-copy">아직 추출된 핵심 표현이 없습니다.</p>`
       }
-    </div>
+    </details>
 
-    <div class="detail-block">
-      <h4>듣기 확인 퀴즈</h4>
+    <details class="detail-block" id="quiz-step" open>
+      <summary>6. 듣기 확인 퀴즈</summary>
       ${
         activity?.quizzes?.length
           ? activity.quizzes
@@ -317,17 +333,17 @@ function renderDetail() {
               .join("")
           : `<p class="body-copy">아직 생성된 퀴즈가 없습니다.</p>`
       }
-    </div>
+    </details>
 
-    <div class="detail-block">
-      <h4>API 검색 키워드</h4>
+    <details class="detail-block">
+      <summary>API 검색 키워드</summary>
       <ul class="plain-list">
         ${item.apiKeywords.map((keyword) => `<li>${keyword}</li>`).join("")}
       </ul>
-    </div>
+    </details>
 
-    <div class="detail-block">
-      <h4>관광정보 매칭 장소</h4>
+    <details class="detail-block">
+      <summary>관광정보 매칭 장소</summary>
       ${
         places.length
           ? `<ul class="plain-list">${places
@@ -338,6 +354,30 @@ function renderDetail() {
               .join("")}</ul>`
           : `<p class="body-copy">아직 매칭된 장소가 없습니다. TOUR_API_KEY로 매칭 스크립트를 실행하면 여기에 표시됩니다.</p>`
       }
+    </details>
+  `;
+}
+
+function renderNudge() {
+  const stats = overallStats();
+  const item = nextLearningItem();
+  const activity = item ? activityFor(item) : null;
+  const wordStats = item ? statsForWord(item.word) : null;
+  if (!item || !activity || !wordStats) {
+    todayNudgeEl.innerHTML = "";
+    return;
+  }
+
+  const actionLabel = wordStats.requiresAudio && !wordStats.audioDone ? "듣기부터 시작" : wordStats.answered < wordStats.total ? "퀴즈 이어 풀기" : "다음 어휘 고르기";
+  todayNudgeEl.innerHTML = `
+    <div>
+      <p class="eyebrow">Today</p>
+      <h2>${item.word}</h2>
+      <p>${stats.review ? `복습 ${stats.review}개가 남아 있습니다.` : "짧게 한 장만 끝내도 진도가 저장됩니다."} 지금은 ${item.categoryLabel} 어휘 하나에 집중해 보세요.</p>
+    </div>
+    <div class="nudge-actions">
+      <button type="button" class="primary-action" data-nudge-action="start">${actionLabel}</button>
+      <button type="button" data-nudge-action="review">복습 카드 보기</button>
     </div>
   `;
 }
@@ -566,6 +606,7 @@ function renderReview() {
 }
 
 function renderProgressSurfaces() {
+  renderNudge();
   renderFilters();
   renderList();
   renderDetail();
@@ -592,6 +633,32 @@ document.addEventListener("click", (event) => {
       state.selectedId = item.id;
       render();
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    return;
+  }
+
+  const nudgeButton = event.target.closest("[data-nudge-action]");
+  if (nudgeButton) {
+    if (nudgeButton.dataset.nudgeAction === "review") {
+      reviewListEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    const item = nextLearningItem();
+    if (item) {
+      state.selectedId = item.id;
+      render();
+      detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+
+  const detailButton = event.target.closest("[data-open-detail]");
+  if (detailButton) {
+    const target = document.querySelector(`#${detailButton.dataset.openDetail}`);
+    if (target) {
+      target.open = true;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     return;
   }
@@ -695,4 +762,5 @@ renderPlaces();
 renderStories();
 renderActivities();
 renderReview();
+renderNudge();
 render();

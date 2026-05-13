@@ -93,7 +93,8 @@ main {
 }
 
 .toolbar,
-.panel {
+.panel,
+.nudge-panel {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -107,6 +108,41 @@ main {
   align-items: end;
   padding: 18px;
   margin-bottom: 20px;
+}
+
+.nudge-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 18px;
+  border-color: rgba(15, 118, 110, 0.28);
+  background: #f4fbf8;
+}
+
+.nudge-panel h2 {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+}
+
+.nudge-panel p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.nudge-actions,
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.primary-action {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
 }
 
 .search-box span {
@@ -159,6 +195,32 @@ button.active {
 
 .panel {
   padding: 18px;
+}
+
+.collapsible-panel > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.collapsible-panel > summary::-webkit-details-marker,
+.detail-block > summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-panel > summary::after {
+  content: "펼치기";
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: var(--accent-dark);
+  background: var(--surface-alt);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.collapsible-panel[open] > summary::after {
+  content: "접기";
 }
 
 .section-title {
@@ -260,6 +322,11 @@ button.active {
   gap: 16px;
 }
 
+.detail-hero {
+  display: grid;
+  gap: 12px;
+}
+
 .detail h3 {
   margin: 0;
   font-size: 2rem;
@@ -268,6 +335,33 @@ button.active {
 .detail-block {
   border-top: 1px solid var(--line);
   padding-top: 14px;
+}
+
+.detail-block > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.detail-block > summary::after {
+  content: "+";
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-alt);
+  color: var(--accent-dark);
+}
+
+.detail-block[open] > summary::after {
+  content: "-";
 }
 
 .detail-block h4 {
@@ -621,6 +715,7 @@ footer {
 @media (max-width: 920px) {
   .app-header,
   .toolbar,
+  .nudge-panel,
   .layout {
     grid-template-columns: 1fr;
   }

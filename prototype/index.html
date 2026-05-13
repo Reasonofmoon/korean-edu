@@ -50,6 +50,8 @@
         <div id="filters" class="filters" aria-label="카테고리 필터"></div>
       </section>
 
+      <section id="today-nudge" class="nudge-panel" aria-label="추천 학습 행동"></section>
+
       <section class="layout">
         <section class="panel">
           <div class="section-title">
@@ -68,49 +70,49 @@
         </aside>
       </section>
 
-      <section class="panel api-panel">
-        <div class="section-title">
+      <details class="panel api-panel collapsible-panel">
+        <summary class="section-title">
           <h2>API 연동 테스트 타깃</h2>
           <p>CSV 전체 어휘 기준 매칭 상태</p>
-        </div>
+        </summary>
         <div id="api-status" class="api-status"></div>
         <div id="api-targets" class="target-grid"></div>
-      </section>
+      </details>
 
-      <section class="panel api-panel">
-        <div class="section-title">
+      <details class="panel api-panel collapsible-panel">
+        <summary class="section-title">
           <h2>매칭된 관광정보 장소</h2>
           <p>국문 관광정보 API 검색 결과</p>
-        </div>
+        </summary>
         <div id="place-list" class="place-grid"></div>
-      </section>
+      </details>
 
-      <section class="panel api-panel">
-        <div class="section-title">
+      <details class="panel api-panel collapsible-panel">
+        <summary class="section-title">
           <h2>문화 이야기 듣기 카드</h2>
           <p>관광지 오디오가이드 API 매칭 결과</p>
-        </div>
+        </summary>
         <div id="story-list" class="story-grid"></div>
-      </section>
+      </details>
 
-      <section class="panel api-panel">
-        <div class="section-title">
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
           <h2>듣기 퀴즈와 핵심 표현</h2>
           <p>오디오/대본 기반 자동 학습 활동</p>
-        </div>
+        </summary>
         <div id="activity-list" class="activity-grid"></div>
-      </section>
+      </details>
 
-      <section class="panel api-panel">
-        <div class="section-title">
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
           <h2>복습 카드와 완료 배지</h2>
           <p>브라우저에 저장된 학습 상태</p>
-        </div>
+        </summary>
         <div class="panel-actions">
           <button type="button" id="reset-progress">학습 기록 초기화</button>
         </div>
         <div id="review-list" class="review-grid"></div>
-      </section>
+      </details>
     </main>
 
     <footer>
