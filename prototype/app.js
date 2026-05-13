@@ -66,9 +66,10 @@ function loadProgress() {
       answers: parsed.answers ?? {},
       audio: parsed.audio ?? {},
       expressions: parsed.expressions ?? {},
+      reading: parsed.reading ?? {},
     };
   } catch {
-    return { answers: {}, audio: {}, expressions: {} };
+    return { answers: {}, audio: {}, expressions: {}, reading: {} };
   }
 }
 
@@ -93,6 +94,8 @@ function statsForWord(word) {
   const correct = answered.filter((quiz) => progress.answers[quiz.id]?.correct);
   const requiresAudio = Boolean(activity?.hasAudio && activity.audioUrl);
   const audioDone = !requiresAudio || Boolean(progress.audio[word]?.completed);
+  const requiresReading = Boolean(activity && !requiresAudio);
+  const readingDone = !requiresReading || Boolean(progress.reading[word]?.completed);
   const expressionDone = !activity?.expressions?.length || Boolean(progress.expressions[word]?.checked);
   return {
     total: quizzes.length,
@@ -101,8 +104,10 @@ function statsForWord(word) {
     incorrectAttempts: quizzes.reduce((sum, quiz) => sum + (progress.answers[quiz.id]?.wrongCount ?? 0), 0),
     requiresAudio,
     audioDone,
+    requiresReading,
+    readingDone,
     expressionDone,
-    complete: quizzes.length > 0 && correct.length === quizzes.length && audioDone && expressionDone,
+    complete: quizzes.length > 0 && correct.length === quizzes.length && audioDone && readingDone && expressionDone,
   };
 }
 
@@ -134,6 +139,12 @@ function nextLearningItem() {
   return pending ?? selected ?? data.vocabulary[0];
 }
 
+function nextIncompleteAfter(item) {
+  const startIndex = data.vocabulary.findIndex((candidate) => candidate.id === item?.id);
+  const ordered = [...data.vocabulary.slice(Math.max(0, startIndex + 1)), ...data.vocabulary.slice(0, Math.max(0, startIndex + 1))];
+  return ordered.find((candidate) => !statsForWord(candidate.word).complete) ?? null;
+}
+
 function selectedItem() {
   return data.vocabulary.find((candidate) => candidate.id === state.selectedId) ?? filteredVocabulary()[0] ?? data.vocabulary[0];
 }
@@ -144,6 +155,7 @@ function sessionStageFor(item) {
   const hasAudioStory = Boolean(activity?.hasAudio && activity.audioUrl);
   if (stats.complete) return "complete";
   if (hasAudioStory && !stats.audioDone) return "listen";
+  if (!hasAudioStory && stats.requiresReading && !stats.readingDone) return "listen";
   if (!stats.expressionDone) return "expressions";
   if (stats.answered < stats.total || stats.correct < stats.total) return "quiz";
   return "complete";
@@ -263,6 +275,9 @@ function renderDetail() {
   const wordStats = statsForWord(item.word);
   const firstQuiz = activity?.quizzes?.[0];
   const stage = sessionStageFor(item);
+  const nextItem = nextIncompleteAfter(item);
+  const hasAudioStory = Boolean(activity?.hasAudio && activity.audioUrl);
+  const readingSource = representative?.overview || activity?.storySnippet || mission.localTip || item.easyKorean;
   detailEl.innerHTML = `
     <div class="detail-hero">
       <div class="tag-row">
@@ -278,7 +293,8 @@ function renderDetail() {
       <p class="body-copy">${item.easyKorean}</p>
       <p class="session-hint">${stage === "complete" ? "이 어휘 루프를 완료했습니다. 복습 카드에서 다음 어휘로 이어갈 수 있어요." : `현재 단계: ${sessionSteps.find((step) => step.id === stage)?.label ?? "학습"}`}</p>
       <div class="cta-row">
-        <button type="button" class="primary-action" data-session-action="${stage}">${stage === "complete" ? "복습으로 이동" : `${sessionSteps.find((step) => step.id === stage)?.label ?? "학습"} 시작`}</button>
+        <button type="button" class="primary-action" data-session-action="${stage}">${stage === "complete" ? "복습으로 이동" : `${hasAudioStory || stage !== "listen" ? sessionSteps.find((step) => step.id === stage)?.label ?? "학습" : "읽기"} 시작`}</button>
+        ${stage === "complete" && nextItem ? `<button type="button" class="primary-action" data-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button>` : ""}
         ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" data-open-detail="story-step">듣기 열기</button>` : ""}
         ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
         ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
@@ -291,7 +307,6 @@ function renderDetail() {
       <ul class="plain-list">
         ${item.sourceRows.map((row) => `<li>${row.book} ${row.unitNo} · ${row.unitName}</li>`).join("")}
       </ul>
-
       <h4>예문</h4>
       <ul class="phrase-list">
         ${item.sampleSentences.map((sentence) => `<li>${sentence}</li>`).join("")}
@@ -339,6 +354,17 @@ function renderDetail() {
               )
               .join("")}</div>`
           : `<p class="body-copy">관련 오디오가이드 이야기가 아직 없습니다. 이 어휘는 장소 설명과 상황 표현 중심으로 학습합니다.</p>`
+      }
+      ${
+        !hasAudioStory
+          ? `<div class="reading-card ${wordStats.readingDone ? "complete" : ""}">
+              <p class="meta">읽기 단계 · 오디오가 없는 어휘</p>
+              <p>${readingSource.slice(0, 360)}${readingSource.length > 360 ? "..." : ""}</p>
+              <button type="button" class="${wordStats.readingDone ? "" : "primary-action"}" data-reading-word="${item.word}">
+                ${wordStats.readingDone ? "읽기 완료됨" : "읽기 완료했어요"}
+              </button>
+            </div>`
+          : ""
       }
     </details>
 
@@ -402,10 +428,10 @@ function renderNudge() {
 
   const stage = sessionStageFor(item);
   const actionLabel = {
-    listen: "듣기부터 시작",
+    listen: wordStats.requiresAudio ? "듣기부터 시작" : "읽기부터 시작",
     expressions: "표현 확인하기",
     quiz: "퀴즈 이어 풀기",
-    complete: "복습으로 이동",
+    complete: "다음 어휘 시작",
   }[stage] ?? "학습 시작";
   todayNudgeEl.innerHTML = `
     <div>
@@ -690,7 +716,7 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("#reset-progress")) {
     const confirmed = window.confirm("학습 기록을 모두 초기화할까요?");
     if (!confirmed) return;
-    progress = { answers: {}, audio: {}, expressions: {} };
+    progress = { answers: {}, audio: {}, expressions: {}, reading: {} };
     saveProgress();
     renderProgressSurfaces();
     return;
@@ -721,6 +747,30 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const readingButton = event.target.closest("[data-reading-word]");
+  if (readingButton) {
+    const word = readingButton.dataset.readingWord;
+    progress.reading[word] = {
+      completed: true,
+      completedAt: new Date().toISOString(),
+    };
+    saveProgress();
+    renderProgressSurfaces();
+    document.querySelector("#expression-step")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const nextWordButton = event.target.closest("[data-next-word]");
+  if (nextWordButton) {
+    const item = data.vocabulary.find((candidate) => candidate.word === nextWordButton.dataset.nextWord);
+    if (item) {
+      state.selectedId = item.id;
+      renderProgressSurfaces();
+      detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+
   const flowButton = event.target.closest("[data-flow-target]");
   if (flowButton) {
     const target = document.querySelector(flowButton.dataset.flowTarget);
@@ -738,7 +788,8 @@ document.addEventListener("click", (event) => {
       return;
     }
 
-    const item = nextLearningItem();
+    const current = selectedItem();
+    const item = sessionStageFor(current) === "complete" ? nextIncompleteAfter(current) ?? nextLearningItem() : nextLearningItem();
     if (item) {
       state.selectedId = item.id;
       render();

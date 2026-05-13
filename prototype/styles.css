@@ -573,7 +573,8 @@ button.active {
 
 .activity-card,
 .quiz-card,
-.review-card {
+.review-card,
+.reading-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -605,6 +606,19 @@ button.active {
   display: grid;
   gap: 10px;
   padding: 14px;
+}
+
+.reading-card {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px;
+  background: #f9fbfa;
+}
+
+.reading-card.complete {
+  border-color: rgba(15, 118, 110, 0.35);
+  background: #fbfffd;
 }
 
 .place-card img,
@@ -666,7 +680,8 @@ button.active {
 }
 
 .quiz-card p,
-.review-card p {
+.review-card p,
+.reading-card p {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;

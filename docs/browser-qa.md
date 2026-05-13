@@ -22,6 +22,8 @@ npm run qa:browser
 - 주요 섹션 렌더링
 - 대표 어휘 `경복궁` 렌더링
 - 정답률/복습/배지 영역 렌더링
+- 배포 URL에서 `session-flow`와 `today-nudge` HTML 반영 확인
+- 오디오가 없는 첫 어휘에서 `읽기 완료했어요` CTA 렌더링 확인
 
 결과:
 
