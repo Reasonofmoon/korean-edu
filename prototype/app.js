@@ -171,6 +171,8 @@ const state = {
   prefs: loadPrefs(),
   /** Active domain filter — default spotlight so latest hits show first. */
   domainFilter: "spotlight",
+  /** Full-screen quiz focus mode (one word, one question at a time). */
+  quizFocus: { open: false, word: null, index: 0, browseComplete: false },
 };
 
 const categoryOrder = ["all", "food", "place", "tradition", "history", "nature", "daily"];
@@ -204,6 +206,7 @@ const quoteRatingFilterEl = document.querySelector("#quote-rating-filter");
 const learnerPrefsEl = document.querySelector("#learner-prefs");
 const todayNudgeEl = document.querySelector("#today-nudge");
 const sessionFlowEl = document.querySelector("#session-flow");
+const quizFocusEl = document.querySelector("#quiz-focus");
 const resultCountEl = document.querySelector("#result-count");
 const accuracyRateEl = document.querySelector("#accuracy-rate");
 const reviewCountEl = document.querySelector("#review-count");
@@ -769,7 +772,8 @@ function renderDetail() {
         ${domainMission ? `<button type="button" data-open-detail="domain-step">${domainMission.domainLabel} 미션</button>` : ""}
         ${kpopTrack ? `<button type="button" data-open-detail="kpop-step">K-pop 미션</button>` : ""}
         ${matchedQuotes.length ? `<button type="button" data-open-detail="quote-step">명대사</button>` : ""}
-        ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
+        ${firstQuiz ? `<button type="button" class="primary-action" data-quiz-focus="${item.word}">집중 모드 퀴즈</button>` : ""}
+        ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 목록</button>` : ""}
         ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
         <button type="button" class="danger-action" data-reset-word="${item.word}">이 어휘 진도만 초기화</button>
       </div>
@@ -935,9 +939,11 @@ function renderDetail() {
       <summary>9. 듣기 확인 퀴즈</summary>
       ${
         activity?.quizzes?.length
-          ? activity.quizzes
-              .map((quiz) => renderQuizHtml(quiz, item.word))
-              .join("")
+          ? `<div class="cta-row">
+              <button type="button" class="primary-action" data-quiz-focus="${item.word}">집중 모드로 풀기</button>
+              <span class="cta-note">한 문제씩 전체 화면 · ESC로 닫기</span>
+            </div>
+            ${activity.quizzes.map((quiz) => renderQuizHtml(quiz, item.word)).join("")}`
           : `<p class="body-copy">아직 생성된 퀴즈가 없습니다.</p>`
       }
     </details>
@@ -983,7 +989,7 @@ function renderNudge() {
     domain: "K-culture 미션",
     quote: "명대사 확인하기",
     kpop: "K-pop 미션 하기",
-    quiz: "퀴즈 이어 풀기",
+    quiz: "집중 모드 퀴즈",
     complete: "다음 어휘 시작",
   }[stage] ?? "학습 시작";
   const why = explainRecommendation(current, item);
@@ -1121,7 +1127,8 @@ function renderQuizHtml(quiz, word) {
             const isCorrect = isSettled && option === quiz.answer;
             const isWrongSelection = isSettled && saved.selected === option && !saved.correct;
             const className = isCorrect ? "correct" : isWrongSelection ? "incorrect" : "";
-            return `<button type="button" class="${className}" data-option="${option}">${option}</button>`;
+            const disabled = isSettled ? "disabled" : "";
+            return `<button type="button" class="${className}" data-option="${option}" ${disabled}>${option}</button>`;
           })
           .join("")}
       </div>
@@ -1129,6 +1136,139 @@ function renderQuizHtml(quiz, word) {
         isSettled ? `${saved.correct ? "정답입니다." : `정답은 ${quiz.answer}입니다.`} ${quiz.explanation}` : quiz.explanation
       }</p>
     </article>
+  `;
+}
+
+function quizzesForWord(word) {
+  const byWord = learningActivities.activities.find((activity) => activity.word === word);
+  if (byWord?.quizzes?.length) return byWord.quizzes;
+  const item = data.vocabulary.find((candidate) => candidate.word === word);
+  return item ? activityFor(item)?.quizzes ?? [] : [];
+}
+
+function isQuizUnsettled(quizId) {
+  const answer = progress.answers[quizId];
+  return !answer || answer.pendingRetry || !answer.correct;
+}
+
+function firstUnsettledQuizIndex(quizzes, fromIndex = 0) {
+  const from = Math.max(0, fromIndex);
+  for (let i = from; i < quizzes.length; i += 1) {
+    if (isQuizUnsettled(quizzes[i].id)) return i;
+  }
+  for (let i = 0; i < from; i += 1) {
+    if (isQuizUnsettled(quizzes[i].id)) return i;
+  }
+  return -1;
+}
+
+function openQuizFocus(word, quizId) {
+  if (!word) return;
+  const quizzes = quizzesForWord(word);
+  if (!quizzes.length) return;
+  const item = data.vocabulary.find((candidate) => candidate.word === word);
+  if (item) state.selectedId = item.id;
+
+  let index = 0;
+  if (quizId) {
+    const found = quizzes.findIndex((quiz) => quiz.id === quizId);
+    index = found >= 0 ? found : 0;
+  } else {
+    const unsettled = firstUnsettledQuizIndex(quizzes, 0);
+    index = unsettled >= 0 ? unsettled : 0;
+  }
+
+  state.quizFocus = { open: true, word, index, browseComplete: false };
+  document.body.classList.add("quiz-focus-open");
+  renderQuizFocus();
+  quizFocusEl?.querySelector("[data-quiz-focus-close], .quiz-options button:not(:disabled)")?.focus?.();
+}
+
+function closeQuizFocus() {
+  state.quizFocus = { open: false, word: null, index: 0, browseComplete: false };
+  document.body.classList.remove("quiz-focus-open");
+  renderQuizFocus();
+}
+
+function renderQuizFocus() {
+  if (!quizFocusEl) return;
+  if (!state.quizFocus.open || !state.quizFocus.word) {
+    quizFocusEl.hidden = true;
+    quizFocusEl.setAttribute("aria-hidden", "true");
+    quizFocusEl.innerHTML = "";
+    return;
+  }
+
+  const word = state.quizFocus.word;
+  const quizzes = quizzesForWord(word);
+  if (!quizzes.length) {
+    closeQuizFocus();
+    return;
+  }
+
+  const index = Math.min(Math.max(0, state.quizFocus.index), quizzes.length - 1);
+  state.quizFocus.index = index;
+  const quiz = quizzes[index];
+  const settledCount = quizzes.filter((item) => {
+    const answer = progress.answers[item.id];
+    return answer && !answer.pendingRetry;
+  }).length;
+  const correctCount = quizzes.filter((item) => {
+    const answer = progress.answers[item.id];
+    return answer?.correct && !answer.pendingRetry;
+  }).length;
+  const allCorrect = correctCount === quizzes.length;
+  const progressPct = Math.round((settledCount / quizzes.length) * 100);
+  const item = data.vocabulary.find((candidate) => candidate.word === word);
+  const nextItem = item ? nextRecommendedItem(item) : null;
+  const wordStats = statsForWord(word);
+
+  quizFocusEl.hidden = false;
+  quizFocusEl.setAttribute("aria-hidden", "false");
+
+  if (allCorrect && !state.quizFocus.browseComplete) {
+    quizFocusEl.innerHTML = `
+      <div class="quiz-focus-shell">
+        <div class="quiz-focus-complete">
+          <p class="hot-badge pulse">QUIZ COMPLETE</p>
+          <h2 id="quiz-focus-title">${word} 퀴즈 완료</h2>
+          <p>${quizzes.length}문제 모두 정답 · ${wordStats.complete ? "이 어휘 학습 루프도 완료했습니다." : "아직 듣기·표현·명대사·K-pop 단계가 남아 있을 수 있어요."}</p>
+          <div class="quiz-focus-progress" role="progressbar" aria-valuenow="${quizzes.length}" aria-valuemin="0" aria-valuemax="${quizzes.length}">
+            <span style="width:100%"></span>
+          </div>
+          <div class="quiz-focus-actions">
+            ${nextItem ? `<button type="button" class="primary-action" data-quiz-focus-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button>` : ""}
+            <button type="button" class="primary-action" data-quiz-focus-close>닫고 상세로</button>
+            <button type="button" data-quiz-focus-browse>처음부터 다시 보기</button>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  quizFocusEl.innerHTML = `
+    <div class="quiz-focus-shell">
+      <header class="quiz-focus-bar">
+        <div>
+          <p class="eyebrow">Quiz Focus · 집중 모드</p>
+          <h2 id="quiz-focus-title">${word} · 집중 퀴즈</h2>
+          <p class="meta">${index + 1} / ${quizzes.length} · 정답 ${correctCount}/${quizzes.length} · 풀이 ${settledCount}/${quizzes.length}</p>
+        </div>
+        <button type="button" class="quiz-focus-close" data-quiz-focus-close aria-label="집중 모드 닫기">닫기 ✕</button>
+      </header>
+      <div class="quiz-focus-progress" role="progressbar" aria-valuenow="${settledCount}" aria-valuemin="0" aria-valuemax="${quizzes.length}" aria-label="퀴즈 진행">
+        <span style="width:${progressPct}%"></span>
+      </div>
+      <div class="quiz-focus-body">
+        ${renderQuizHtml(quiz, word)}
+      </div>
+      <footer class="quiz-focus-nav">
+        <button type="button" data-quiz-focus-nav="prev" ${index === 0 ? "disabled" : ""}>이전</button>
+        <button type="button" data-quiz-focus-nav="next" ${index >= quizzes.length - 1 ? "disabled" : ""}>다음</button>
+        <button type="button" class="primary-action" data-quiz-focus-nav="unanswered">안 푼 문제로</button>
+      </footer>
+    </div>
   `;
 }
 
@@ -1289,6 +1429,7 @@ function renderReview() {
       <p>${quiz.passage}</p>
       <div class="cta-row">
         <button type="button" class="primary-action" data-retry-quiz="${quiz.id}" data-review-word="${quiz.word}">다시 풀기</button>
+        <button type="button" data-quiz-focus="${quiz.word}" data-quiz-id="${quiz.id}">집중 모드</button>
         <button type="button" data-review-word="${quiz.word}">어휘로 이동</button>
         <button type="button" class="danger-action" data-reset-word="${quiz.word}">이 어휘 진도 초기화</button>
       </div>
@@ -1311,6 +1452,7 @@ function renderProgressSurfaces() {
   renderQuotes();
   renderChart();
   renderDomains();
+  renderQuizFocus();
 }
 
 function interestIdForDomain(domainId) {
@@ -1496,10 +1638,67 @@ document.addEventListener("click", (event) => {
     if (item) state.selectedId = item.id;
     saveProgress();
     renderProgressSurfaces();
-    const quizStep = document.querySelector("#quiz-step");
-    if (quizStep) quizStep.open = true;
-    const targetCard = document.querySelector(`.quiz-card[data-quiz-id="${quizId}"]`);
-    (targetCard ?? quizStep ?? detailEl).scrollIntoView({ behavior: "smooth", block: "start" });
+    if (word) {
+      openQuizFocus(word, quizId);
+    } else {
+      const quizStep = document.querySelector("#quiz-step");
+      if (quizStep) quizStep.open = true;
+      const targetCard = document.querySelector(`.quiz-card[data-quiz-id="${quizId}"]`);
+      (targetCard ?? quizStep ?? detailEl).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+
+  const quizFocusOpenBtn = event.target.closest("[data-quiz-focus]");
+  if (quizFocusOpenBtn) {
+    openQuizFocus(quizFocusOpenBtn.dataset.quizFocus, quizFocusOpenBtn.dataset.quizId);
+    return;
+  }
+
+  if (event.target.closest("[data-quiz-focus-close]")) {
+    closeQuizFocus();
+    detailEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const focusNextWord = event.target.closest("[data-quiz-focus-next-word]");
+  if (focusNextWord) {
+    const word = focusNextWord.dataset.quizFocusNextWord;
+    const item = data.vocabulary.find((candidate) => candidate.word === word);
+    closeQuizFocus();
+    if (item) {
+      state.selectedId = item.id;
+      renderProgressSurfaces();
+      const stage = sessionStageFor(item);
+      if (stage === "quiz") {
+        openQuizFocus(item.word);
+      } else {
+        detailEl?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    return;
+  }
+
+  if (event.target.closest("[data-quiz-focus-browse]") && state.quizFocus.open) {
+    state.quizFocus.browseComplete = true;
+    state.quizFocus.index = 0;
+    renderQuizFocus();
+    return;
+  }
+
+  const focusNav = event.target.closest("[data-quiz-focus-nav]");
+  if (focusNav && state.quizFocus.open) {
+    const quizzes = quizzesForWord(state.quizFocus.word);
+    const action = focusNav.dataset.quizFocusNav;
+    if (action === "prev") {
+      state.quizFocus.index = Math.max(0, state.quizFocus.index - 1);
+    } else if (action === "next") {
+      state.quizFocus.index = Math.min(quizzes.length - 1, state.quizFocus.index + 1);
+    } else if (action === "unanswered") {
+      const next = firstUnsettledQuizIndex(quizzes, state.quizFocus.index + 1);
+      if (next >= 0) state.quizFocus.index = next;
+    }
+    renderQuizFocus();
     return;
   }
 
@@ -1667,6 +1866,11 @@ document.addEventListener("click", (event) => {
 
   const flowButton = event.target.closest("[data-flow-target]");
   if (flowButton) {
+    if (flowButton.dataset.flowStep === "quiz") {
+      const item = selectedItem();
+      if (item) openQuizFocus(item.word);
+      return;
+    }
     const target = document.querySelector(flowButton.dataset.flowTarget);
     if (target) {
       target.open = true;
@@ -1688,6 +1892,10 @@ document.addEventListener("click", (event) => {
       state.selectedId = item.id;
       render();
       const stage = sessionStageFor(item);
+      if (stage === "quiz") {
+        openQuizFocus(item.word);
+        return;
+      }
       const target = document.querySelector(sessionSteps.find((step) => step.id === stage)?.target ?? "#detail");
       if (target) target.open = true;
       (target ?? detailEl).scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1697,7 +1905,13 @@ document.addEventListener("click", (event) => {
 
   const sessionButton = event.target.closest("[data-session-action]");
   if (sessionButton) {
-    const target = document.querySelector(sessionSteps.find((step) => step.id === sessionButton.dataset.sessionAction)?.target ?? "#detail");
+    const action = sessionButton.dataset.sessionAction;
+    if (action === "quiz") {
+      const item = selectedItem();
+      if (item) openQuizFocus(item.word);
+      return;
+    }
+    const target = document.querySelector(sessionSteps.find((step) => step.id === action)?.target ?? "#detail");
     if (target) {
       target.open = true;
       target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1717,6 +1931,7 @@ document.addEventListener("click", (event) => {
 
   const option = event.target.closest("[data-option]");
   if (!option) return;
+  if (option.disabled) return;
 
   const quiz = option.closest(".quiz-card");
   const quizId = quiz?.dataset.quizId;
@@ -1740,6 +1955,7 @@ document.addEventListener("click", (event) => {
 
   for (const button of quiz.querySelectorAll("[data-option]")) {
     button.classList.remove("correct", "incorrect");
+    button.disabled = true;
     if (button.dataset.option === answer) button.classList.add("correct");
   }
 
@@ -1753,7 +1969,19 @@ document.addEventListener("click", (event) => {
     feedback.textContent = correct ? `정답입니다. ${explanation}` : `정답은 ${answer}입니다. ${explanation}`;
   }
 
+  if (state.quizFocus.open && correct) {
+    const quizzes = quizzesForWord(state.quizFocus.word);
+    const next = firstUnsettledQuizIndex(quizzes, state.quizFocus.index + 1);
+    if (next >= 0) state.quizFocus.index = next;
+  }
+
   renderProgressSurfaces();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && state.quizFocus.open) {
+    closeQuizFocus();
+  }
 });
 
 document.addEventListener("ended", (event) => {

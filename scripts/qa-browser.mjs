@@ -98,6 +98,8 @@ try {
     "NOW TRENDING",
     "GLOBAL CHART",
     "HOT QUOTES",
+    "quiz-focus",
+    "집중 모드",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {

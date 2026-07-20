@@ -17,7 +17,7 @@
 - [x] Today 추천에 맞춤 라벨·이유 표시
 - [x] K-culture 도메인 확장 (K-food/beauty/drama/fashion/webtoon/game + pop/movie)
 - [ ] B=MAP 기반 오늘의 추천 고도화 (더 세분 행동 설계)
-- [ ] 퀴즈 풀이 전용 포커스 모드
+- [x] 퀴즈 풀이 전용 포커스 모드
 - [ ] 접힌 섹션 기본 오픈 상태 사용 로그 기반 조정
 
 ## 우선순위 3. 로컬 미션 강화
