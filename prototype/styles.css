@@ -584,6 +584,15 @@ button.active {
   outline: 2px solid var(--accent);
 }
 
+.spotlight-card {
+  border-color: rgba(183, 121, 31, 0.4);
+  background: linear-gradient(180deg, #fffaf0 0%, #ffffff 70%);
+}
+
+.domain-filter-row {
+  margin: 10px 0 6px;
+}
+
 .meta,
 .body-copy {
   margin: 0;

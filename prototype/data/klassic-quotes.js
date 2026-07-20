@@ -1,19 +1,19 @@
 window.KCULTURE_KLASSIC_QUOTES = {
-  "generatedAt": "2026-07-20T11:32:34.055Z",
+  "generatedAt": "2026-07-20T13:28:04.819Z",
   "source": {
     "apiUrl": "https://klassic-quote-api.mooo.com/v1/quotes",
     "status": "ok",
     "error": null,
     "library": "https://github.com/GHGHGHKO/klassic-quote-api",
     "buildMaxRating": "mature",
-    "cultureSeedCount": 132,
+    "cultureSeedCount": 141,
     "apiQuoteCount": 80
   },
   "summary": {
-    "total": 212,
-    "movies": 14,
+    "total": 221,
+    "movies": 16,
     "ratings": {
-      "clean": 188,
+      "clean": 197,
       "mild": 11,
       "mature": 13
     },
@@ -143,6 +143,15 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "api:경복궁",
           "hint-partial",
           "hint-exact"
+        ]
+      },
+      {
+        "quoteId": "seed-culture-hanbok-pop",
+        "score": 32,
+        "reasons": [
+          "exact-word",
+          "api:경복궁",
+          "hint-partial"
         ]
       }
     ],
@@ -430,6 +439,16 @@ window.KCULTURE_KLASSIC_QUOTES = {
     ],
     "노래방": [
       {
+        "quoteId": "seed-culture-kpop",
+        "score": 46,
+        "reasons": [
+          "exact-word",
+          "api:노래방",
+          "hint-partial",
+          "hint-exact"
+        ]
+      },
+      {
         "quoteId": "seed-culture-daily",
         "score": 42,
         "reasons": [
@@ -504,6 +523,16 @@ window.KCULTURE_KLASSIC_QUOTES = {
     ],
     "달고나": [
       {
+        "quoteId": "seed-squid-2",
+        "score": 42,
+        "reasons": [
+          "exact-word",
+          "api:달고나",
+          "hint-exact",
+          "hint-partial"
+        ]
+      },
+      {
         "quoteId": "seed-culture-daily",
         "score": 42,
         "reasons": [
@@ -514,7 +543,7 @@ window.KCULTURE_KLASSIC_QUOTES = {
         ]
       },
       {
-        "quoteId": "seed-vocab-vocab-64us6rog64ky",
+        "quoteId": "seed-culture-dalgona",
         "score": 42,
         "reasons": [
           "exact-word",
@@ -590,6 +619,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "api:대한 독립 만세",
           "hint-partial",
           "theme-history"
+        ]
+      },
+      {
+        "quoteId": "seed-parasite-2",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
         ]
       }
     ],
@@ -825,6 +861,16 @@ window.KCULTURE_KLASSIC_QUOTES = {
       }
     ],
     "무궁화": [
+      {
+        "quoteId": "seed-squid-3",
+        "score": 40,
+        "reasons": [
+          "exact-word",
+          "api:무궁화",
+          "hint-exact",
+          "theme-history"
+        ]
+      },
       {
         "quoteId": "seed-vocab-vocab-66y06rab7zmu",
         "score": 34,
@@ -1278,6 +1324,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
     ],
     "전": [
       {
+        "quoteId": "seed-parasite-3",
+        "score": 20,
+        "reasons": [
+          "exact-word"
+        ]
+      },
+      {
         "quoteId": "seed-short-jeon",
         "score": 20,
         "reasons": [
@@ -1286,13 +1339,6 @@ window.KCULTURE_KLASSIC_QUOTES = {
       },
       {
         "quoteId": "seed-vocab-vocab-7kce",
-        "score": 20,
-        "reasons": [
-          "exact-word"
-        ]
-      },
-      {
-        "quoteId": "150",
         "score": 20,
         "reasons": [
           "exact-word"
@@ -1367,6 +1413,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "hint-partial",
           "hint-exact",
           "theme-history"
+        ]
+      },
+      {
+        "quoteId": "seed-squid-2",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
         ]
       }
     ],
@@ -1642,6 +1695,14 @@ window.KCULTURE_KLASSIC_QUOTES = {
         ]
       },
       {
+        "quoteId": "seed-culture-hanbok-pop",
+        "score": 30,
+        "reasons": [
+          "exact-word",
+          "hint-exact"
+        ]
+      },
+      {
         "quoteId": "seed-vocab-vocab-7zwc67o1",
         "score": 30,
         "reasons": [
@@ -1804,6 +1865,50 @@ window.KCULTURE_KLASSIC_QUOTES = {
       ]
     },
     {
+      "id": "seed-parasite-2",
+      "author": "학습용 시드",
+      "quote": "기생충은 봉준호 감독의 영화예요. 가족과 집에 대한 이야기죠.",
+      "name": "기생충",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "기생충은",
+        "봉준호",
+        "감독의",
+        "영화예요",
+        "가족과",
+        "집에",
+        "대한",
+        "이야기죠",
+        "기생충",
+        "감독",
+        "가족"
+      ]
+    },
+    {
+      "id": "seed-parasite-3",
+      "author": "학습용 시드",
+      "quote": "이 영화는 전 세계에서 상을 많이 받았어요. 한국어로 된 작품이에요.",
+      "name": "기생충",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "영화는",
+        "세계에서",
+        "상을",
+        "많이",
+        "받았어요",
+        "한국어로",
+        "작품이에요",
+        "영화",
+        "세계",
+        "한국어",
+        "기생충"
+      ]
+    },
+    {
       "id": "seed-2",
       "author": "공유 (역)",
       "quote": "나는 지금 배가 고프다.",
@@ -1833,6 +1938,92 @@ window.KCULTURE_KLASSIC_QUOTES = {
         "당장",
         "돌아",
         "베테랑"
+      ]
+    },
+    {
+      "id": "seed-squid-1",
+      "author": "학습용 시드",
+      "quote": "오징어 게임은 넷플릭스에서 세계적으로 유명해진 한국 시리즈예요.",
+      "name": "오징어 게임",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "오징어",
+        "게임은",
+        "넷플릭스에서",
+        "세계적으로",
+        "유명해진",
+        "한국",
+        "시리즈예요",
+        "게임",
+        "넷플릭스",
+        "세계적"
+      ]
+    },
+    {
+      "id": "seed-squid-2",
+      "author": "학습용 시드",
+      "quote": "달고나 깨기 장면을 보고 달고나를 직접 만들어 보고 싶었어요.",
+      "name": "오징어 게임",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "달고나",
+        "깨기",
+        "장면을",
+        "보고",
+        "달고나를",
+        "직접",
+        "만들어",
+        "싶었어요",
+        "장면",
+        "오징어",
+        "게임"
+      ]
+    },
+    {
+      "id": "seed-squid-3",
+      "author": "학습용 시드",
+      "quote": "무궁화 꽃이 피었습니다는 한국에서 아이들이 하던 놀이예요.",
+      "name": "오징어 게임",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "무궁화",
+        "꽃이",
+        "피었습니다는",
+        "한국에서",
+        "아이들이",
+        "하던",
+        "놀이예요",
+        "피었습니다",
+        "한국",
+        "아이들",
+        "오징어",
+        "게임"
+      ]
+    },
+    {
+      "id": "seed-minari",
+      "author": "학습용 시드",
+      "quote": "미나리는 미국에서도 사랑받은 한국계 이야기 영화예요.",
+      "name": "미나리",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "미나리는",
+        "미국에서도",
+        "사랑받은",
+        "한국계",
+        "이야기",
+        "영화예요",
+        "미나리",
+        "미국에서",
+        "사랑받"
       ]
     },
     {
@@ -2025,6 +2216,78 @@ window.KCULTURE_KLASSIC_QUOTES = {
         "다도",
         "빙수",
         "일상"
+      ]
+    },
+    {
+      "id": "seed-culture-kpop",
+      "author": "학습용 시드",
+      "quote": "노래방에서 BTS와 BLACKPINK 노래를 따라 부르며 한국어를 연습해요.",
+      "name": "K-culture · 일상",
+      "source": "seed",
+      "category": "daily",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "노래방에서",
+        "BTS와",
+        "BLACKPINK",
+        "노래를",
+        "따라",
+        "부르며",
+        "한국어를",
+        "연습해요",
+        "노래방",
+        "BTS",
+        "노래",
+        "한국어"
+      ]
+    },
+    {
+      "id": "seed-culture-dalgona",
+      "author": "학습용 시드",
+      "quote": "오징어 게임 때문에 달고나가 다시 유명해졌어요. 시장에서도 팔아요.",
+      "name": "K-culture · 일상",
+      "source": "seed",
+      "category": "daily",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "오징어",
+        "게임",
+        "때문에",
+        "달고나가",
+        "다시",
+        "유명해졌어요",
+        "시장에서도",
+        "팔아요",
+        "때문",
+        "달고나",
+        "시장에서",
+        "K-culture"
+      ]
+    },
+    {
+      "id": "seed-culture-hanbok-pop",
+      "author": "학습용 시드",
+      "quote": "한복을 입고 경복궁에서 사진을 찍는 관광객이 많아요. K-pop 콘서트 때처럼 설레요.",
+      "name": "K-culture · 전통문화",
+      "source": "seed",
+      "category": "tradition",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "한복을",
+        "입고",
+        "경복궁에서",
+        "사진을",
+        "찍는",
+        "관광객이",
+        "많아요",
+        "pop",
+        "콘서트",
+        "때처럼",
+        "설레요",
+        "한복"
       ]
     },
     {

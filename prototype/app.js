@@ -1315,6 +1315,7 @@ function renderDomains() {
   if (!domainListEl) return;
   domainListEl.innerHTML = "";
   const domains = kcultureDomains.domains ?? [];
+  const spotlights = kcultureDomains.spotlights ?? [];
   if (!domains.length) {
     domainListEl.innerHTML = `<p class="empty-state">도메인 데이터가 없습니다. <code>npm run build:domains</code></p>`;
     return;
@@ -1323,6 +1324,7 @@ function renderDomains() {
   if (domainFilterEl) {
     domainFilterEl.innerHTML = `
       <button type="button" class="pref-chip ${state.domainFilter === "all" ? "active" : ""}" data-domain-filter="all">전체</button>
+      <button type="button" class="pref-chip ${state.domainFilter === "spotlight" ? "active" : ""}" data-domain-filter="spotlight">🔥 최신 글로벌</button>
       ${domains
         .map(
           (domain) =>
@@ -1334,23 +1336,51 @@ function renderDomains() {
 
   const intro = document.createElement("p");
   intro.className = "meta";
-  intro.textContent = `K-culture 도메인 ${domains.length}개 · 어휘 매칭 ${kcultureDomains.summary?.vocabWithMatches ?? 0}개 · 필터 ${state.domainFilter}`;
+  intro.textContent = `K-culture 도메인 ${domains.length}개 · 글로벌 히트 ${spotlights.length}개 · 어휘 매칭 ${kcultureDomains.summary?.vocabWithMatches ?? 0}개 · 필터 ${state.domainFilter}`;
   domainListEl.append(intro);
+
+  const showSpotlights = state.domainFilter === "all" || state.domainFilter === "spotlight";
+  if (showSpotlights && spotlights.length) {
+    for (const spot of spotlights) {
+      if (state.domainFilter !== "all" && state.domainFilter !== "spotlight" && state.domainFilter !== spot.domainId) {
+        continue;
+      }
+      const card = document.createElement("article");
+      card.className = "chart-card domain-card spotlight-card";
+      card.innerHTML = `
+        <div class="tag-row">
+          <span class="tag success">최신 글로벌</span>
+          ${(spot.tags ?? []).map((tag) => `<span class="tag">${tag}</span>`).join("")}
+        </div>
+        <h3>${spot.title}</h3>
+        <p class="meta">${spot.subtitle ?? ""}</p>
+        <p class="body-copy">${spot.blurb ?? ""}</p>
+        <ul class="phrase-list">
+          ${(spot.phrases ?? []).map((phrase) => `<li>${phrase}</li>`).join("")}
+        </ul>
+      `;
+      domainListEl.append(card);
+    }
+  }
+
+  if (state.domainFilter === "spotlight") return;
 
   const visible = domains.filter((domain) => state.domainFilter === "all" || domain.id === state.domainFilter);
   for (const domain of visible) {
     for (const item of domain.items ?? []) {
       const card = document.createElement("article");
       card.className = "chart-card domain-card";
+      const spotlightLabel = item.spotlight?.title ? `<span class="tag progress">${item.spotlight.title}</span>` : "";
       card.innerHTML = `
         <div class="tag-row">
           <span class="tag">${domain.emoji ?? ""} ${domain.label}</span>
           <span class="tag">${domain.labelKo}</span>
+          ${spotlightLabel}
         </div>
         <h3>${item.title}</h3>
         <p class="body-copy">${domain.blurb}</p>
         <ul class="phrase-list">
-          ${(item.phrases ?? []).slice(0, 4).map((phrase) => `<li>${phrase}</li>`).join("")}
+          ${(item.phrases ?? []).slice(0, 5).map((phrase) => `<li>${phrase}</li>`).join("")}
         </ul>
         <p class="meta">keywords: ${(item.keywords ?? []).slice(0, 6).join(", ")}</p>
         <div class="signal">${item.tip ?? ""}</div>

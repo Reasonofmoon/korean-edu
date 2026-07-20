@@ -25,18 +25,20 @@ const limit = Number(process.env.MELON_CHART_LIMIT ?? 30);
 const disableHtml = process.env.MELON_DISABLE_HTML === "1";
 const melonHtmlUrl = process.env.MELON_CHART_HTML_URL ?? "https://www.melon.com/chart/index.htm";
 
-/** Educational seed — used only when live sources fail. */
+/** Educational seed — used only when live sources fail. Favors global K-pop hits. */
 const seedChart = [
-  { ranking: 1, name: "Dynamite", artists: "방탄소년단", songId: "seed-2", albumId: "" },
-  { ranking: 2, name: "How You Like That", artists: "BLACKPINK", songId: "seed-3", albumId: "" },
-  { ranking: 3, name: "Celebrity", artists: "아이유", songId: "seed-4", albumId: "" },
-  { ranking: 4, name: "Next Level", artists: "aespa", songId: "seed-6", albumId: "" },
-  { ranking: 5, name: "Butter", artists: "방탄소년단", songId: "seed-7", albumId: "" },
-  { ranking: 6, name: "LILAC", artists: "아이유", songId: "seed-8", albumId: "" },
-  { ranking: 7, name: "Savage", artists: "aespa", songId: "seed-9", albumId: "" },
-  { ranking: 8, name: "Stay", artists: "BLACKPINK", songId: "seed-10", albumId: "" },
-  { ranking: 9, name: "Permission to Dance", artists: "방탄소년단", songId: "seed-5", albumId: "" },
-  { ranking: 10, name: "Hype Boy", artists: "NewJeans", songId: "seed-11", albumId: "" },
+  { ranking: 1, name: "Dynamite", artists: "방탄소년단", songId: "seed-bts-1", albumId: "" },
+  { ranking: 2, name: "Butter", artists: "방탄소년단", songId: "seed-bts-2", albumId: "" },
+  { ranking: 3, name: "Permission to Dance", artists: "방탄소년단", songId: "seed-bts-3", albumId: "" },
+  { ranking: 4, name: "How You Like That", artists: "BLACKPINK", songId: "seed-bp-1", albumId: "" },
+  { ranking: 5, name: "Pink Venom", artists: "BLACKPINK", songId: "seed-bp-2", albumId: "" },
+  { ranking: 6, name: "Shut Down", artists: "BLACKPINK", songId: "seed-bp-3", albumId: "" },
+  { ranking: 7, name: "Hype Boy", artists: "NewJeans", songId: "seed-nj-1", albumId: "" },
+  { ranking: 8, name: "Next Level", artists: "aespa", songId: "seed-ae-1", albumId: "" },
+  { ranking: 9, name: "Celebrity", artists: "아이유", songId: "seed-iu-1", albumId: "" },
+  { ranking: 10, name: "Super Shy", artists: "NewJeans", songId: "seed-nj-2", albumId: "" },
+  { ranking: 11, name: "Boy With Luv", artists: "방탄소년단", songId: "seed-bts-4", albumId: "" },
+  { ranking: 12, name: "DDU-DU DDU-DU", artists: "BLACKPINK", songId: "seed-bp-4", albumId: "" },
 ];
 
 function decodeHtml(text) {
@@ -75,15 +77,48 @@ function normalizeChartPayload(payload) {
 
 function missionForEntry(entry) {
   const titleShort = entry.name.length > 28 ? `${entry.name.slice(0, 28)}…` : entry.name;
+  const artist = entry.artists;
+  const isBts = /방탄소년단|BTS/i.test(artist);
+  const isBp = /BLACKPINK|블랙핑크/i.test(artist);
+  const extra = isBts
+    ? ["BTS 콘서트 가 보고 싶어요.", "멤버 이름을 한국어로 말해 볼래요?"]
+    : isBp
+      ? ["BLACKPINK 안무 챌린지 알아요?", "뮤직비디오가 정말 화려해요."]
+      : ["가수가 누구예요?", "안무가 멋져요."];
   return {
-    title: "K-pop 차트 표현 미션",
+    title: isBts || isBp ? "글로벌 히트곡 표현 미션" : "K-pop 차트 표현 미션",
     phrases: [
       `${titleShort} 알아요?`,
-      `${entry.artists} 노래 좋아해요.`,
+      `${artist} 노래 좋아해요.`,
       "요즘 이 노래가 인기 있어요.",
       "이 노래 한국어 가사 연습하고 싶어요.",
+      ...extra,
     ],
   };
+}
+
+/**
+ * Ensure global icons appear near the top even when live Melon HTML is used.
+ * Dedupes by song name + artist.
+ */
+function mergeSpotlightHits(liveEntries) {
+  const spotlight = [
+    { ranking: 0, name: "Dynamite", artists: "방탄소년단", songId: "spotlight-bts-dynamite", albumId: "" },
+    { ranking: 0, name: "Butter", artists: "방탄소년단", songId: "spotlight-bts-butter", albumId: "" },
+    { ranking: 0, name: "How You Like That", artists: "BLACKPINK", songId: "spotlight-bp-hylt", albumId: "" },
+    { ranking: 0, name: "Pink Venom", artists: "BLACKPINK", songId: "spotlight-bp-pv", albumId: "" },
+  ].map((e, i) => normalizeEntry(e, i + 1));
+
+  const keyOf = (e) => `${e.name.toLowerCase()}::${e.artists.toLowerCase()}`;
+  const seen = new Set();
+  const merged = [];
+  for (const entry of [...spotlight, ...liveEntries]) {
+    const key = keyOf(entry);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(entry);
+  }
+  return merged.map((entry, index) => ({ ...entry, ranking: index + 1 }));
 }
 
 async function fetchFromSelfHosted() {
@@ -201,6 +236,9 @@ async function main() {
     entries = seedChart.map((item, index) => normalizeEntry(item, index + 1));
     status = "fallback-seed";
     console.warn("[build-melon-chart] Using educational seed chart.");
+  } else {
+    entries = mergeSpotlightHits(entries);
+    console.log("[build-melon-chart] Prepended BTS/BLACKPINK spotlight hits onto live chart.");
   }
 
   const limited = entries.slice(0, limit).map((entry) => ({

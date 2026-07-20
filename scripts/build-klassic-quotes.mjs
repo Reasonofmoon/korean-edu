@@ -25,12 +25,26 @@ const apiUrl = process.env.KLASSIC_QUOTE_API_URL ?? "https://klassic-quote-api.m
 const limit = Number(process.env.KLASSIC_QUOTE_LIMIT ?? 80);
 const buildMaxRating = process.env.KLASSIC_MAX_RATING ?? "mature"; // keep all ratings in data; UI filters
 
-/** Classic movie seeds (clean / mild flavor only — rating filter still applies). */
+/** Classic / global-hit movie·series seeds (clean educational lines; rating filter still applies). */
 const movieSeedQuotes = [
   {
     id: "seed-1",
     author: "송강호 (역)",
     quote: "조금만 참으세요. 금방 지나갑니다.",
+    name: "기생충",
+    source: "seed",
+  },
+  {
+    id: "seed-parasite-2",
+    author: "학습용 시드",
+    quote: "기생충은 봉준호 감독의 영화예요. 가족과 집에 대한 이야기죠.",
+    name: "기생충",
+    source: "seed",
+  },
+  {
+    id: "seed-parasite-3",
+    author: "학습용 시드",
+    quote: "이 영화는 전 세계에서 상을 많이 받았어요. 한국어로 된 작품이에요.",
     name: "기생충",
     source: "seed",
   },
@@ -46,6 +60,34 @@ const movieSeedQuotes = [
     author: "황정민 (역)",
     quote: "나 돌아가. 지금 당장.",
     name: "베테랑",
+    source: "seed",
+  },
+  {
+    id: "seed-squid-1",
+    author: "학습용 시드",
+    quote: "오징어 게임은 넷플릭스에서 세계적으로 유명해진 한국 시리즈예요.",
+    name: "오징어 게임",
+    source: "seed",
+  },
+  {
+    id: "seed-squid-2",
+    author: "학습용 시드",
+    quote: "달고나 깨기 장면을 보고 달고나를 직접 만들어 보고 싶었어요.",
+    name: "오징어 게임",
+    source: "seed",
+  },
+  {
+    id: "seed-squid-3",
+    author: "학습용 시드",
+    quote: "무궁화 꽃이 피었습니다는 한국에서 아이들이 하던 놀이예요.",
+    name: "오징어 게임",
+    source: "seed",
+  },
+  {
+    id: "seed-minari",
+    author: "학습용 시드",
+    quote: "미나리는 미국에서도 사랑받은 한국계 이야기 영화예요.",
+    name: "미나리",
     source: "seed",
   },
 ];
@@ -94,6 +136,21 @@ const multiWordCultureSeeds = [
     id: "seed-culture-daily-2",
     category: "daily",
     quote: "다도와 군고구마, 과일 빙수는 한국 일상에서 자주 만나는 문화예요.",
+  },
+  {
+    id: "seed-culture-kpop",
+    category: "daily",
+    quote: "노래방에서 BTS와 BLACKPINK 노래를 따라 부르며 한국어를 연습해요.",
+  },
+  {
+    id: "seed-culture-dalgona",
+    category: "daily",
+    quote: "오징어 게임 때문에 달고나가 다시 유명해졌어요. 시장에서도 팔아요.",
+  },
+  {
+    id: "seed-culture-hanbok-pop",
+    category: "tradition",
+    quote: "한복을 입고 경복궁에서 사진을 찍는 관광객이 많아요. K-pop 콘서트 때처럼 설레요.",
   },
   // Short (1-syllable) Sejong terms — dedicated lines so boundary matching can hit.
   {

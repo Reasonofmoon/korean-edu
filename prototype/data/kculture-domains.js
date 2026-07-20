@@ -1,7 +1,7 @@
 window.KCULTURE_DOMAINS = {
-  "generatedAt": "2026-07-20T13:19:35.551Z",
+  "generatedAt": "2026-07-20T13:28:04.113Z",
   "source": {
-    "note": "Educational K-culture domain missions for Sejong vocabulary sessions",
+    "note": "Educational K-culture domain missions for Sejong vocabulary sessions (includes contemporary global hits)",
     "domains": [
       "k-food",
       "k-beauty",
@@ -11,14 +11,107 @@ window.KCULTURE_DOMAINS = {
       "k-game",
       "k-pop",
       "k-movie"
+    ],
+    "contemporary": [
+      "BTS (방탄소년단)",
+      "BLACKPINK",
+      "오징어 게임 (Squid Game)",
+      "기생충 (Parasite)",
+      "NewJeans · aespa"
     ]
   },
   "summary": {
     "domains": 8,
-    "items": 12,
+    "items": 18,
+    "spotlights": 5,
     "vocabWithMatches": 114,
     "totalVocabulary": 114
   },
+  "spotlights": [
+    {
+      "id": "spot-bts",
+      "domainId": "k-pop",
+      "title": "BTS (방탄소년단)",
+      "subtitle": "Dynamite · Butter · Permission to Dance",
+      "blurb": "전 세계가 따라 부른 K-pop. 가사·응원법·콘서트 표현을 배워 보세요.",
+      "phrases": [
+        "BTS 팬이에요.",
+        "이 노래 제목이 뭐예요?",
+        "한국어로 따라 부를래요."
+      ],
+      "tags": [
+        "K-pop",
+        "BTS",
+        "글로벌"
+      ]
+    },
+    {
+      "id": "spot-bp",
+      "domainId": "k-pop",
+      "title": "BLACKPINK",
+      "subtitle": "How You Like That · Pink Venom",
+      "blurb": "퍼포먼스와 패션 아이콘. 스타일·안무·취향을 말해 보세요.",
+      "phrases": [
+        "BLACKPINK 뮤비 봤어요?",
+        "안무가 멋져요.",
+        "최애 멤버가 누구예요?"
+      ],
+      "tags": [
+        "K-pop",
+        "BLACKPINK"
+      ]
+    },
+    {
+      "id": "spot-squid",
+      "domainId": "k-drama",
+      "title": "오징어 게임 (Squid Game)",
+      "subtitle": "Netflix 글로벌 히트 시리즈",
+      "blurb": "달고나·무궁화 놀이 등 한국 놀이 문화를 화제로 한국어를 연습해 보세요.",
+      "phrases": [
+        "오징어 게임 봤어요?",
+        "달고나 만들어 봤어요?",
+        "결말은 스포일러 없이 이야기해요."
+      ],
+      "tags": [
+        "K-drama",
+        "Squid Game",
+        "달고나"
+      ]
+    },
+    {
+      "id": "spot-parasite",
+      "domainId": "k-movie",
+      "title": "기생충 (Parasite)",
+      "subtitle": "2019 · 봉준호",
+      "blurb": "오스카 작품상. 가족·집·음식 어휘로 영화 감상을 나눠 보세요.",
+      "phrases": [
+        "기생충 봤어요?",
+        "명대사가 인상 깊었어요.",
+        "수위 필터를 학습용으로 두고 읽어 봐요."
+      ],
+      "tags": [
+        "K-movie",
+        "Parasite",
+        "기생충"
+      ]
+    },
+    {
+      "id": "spot-newjeans",
+      "domainId": "k-pop",
+      "title": "NewJeans · aespa",
+      "subtitle": "4세대 대표 아티스트",
+      "blurb": "최신 차트와 연결해 ‘요즘 유행’ 표현을 연습합니다.",
+      "phrases": [
+        "Hype Boy 들었어요?",
+        "Next Level 안무 알아요?",
+        "요즘 차트 1위가 궁금해요."
+      ],
+      "tags": [
+        "K-pop",
+        "4th gen"
+      ]
+    }
+  ],
   "domains": [
     {
       "id": "k-food",
@@ -58,7 +151,8 @@ window.KCULTURE_DOMAINS = {
             "포장해 주세요.",
             "추천 메뉴가 뭐예요?"
           ],
-          "tip": "가격과 맵기를 먼저 확인하면 대화가 쉬워집니다."
+          "tip": "가격과 맵기를 먼저 확인하면 대화가 쉬워집니다.",
+          "spotlight": null
         },
         {
           "id": "kf-banchan",
@@ -77,7 +171,8 @@ window.KCULTURE_DOMAINS = {
             "맛있어요!",
             "잘 먹겠습니다."
           ],
-          "tip": "공용 반찬은 개인 젓가락으로 집지 않는 것이 좋습니다."
+          "tip": "공용 반찬은 개인 젓가락으로 집지 않는 것이 좋습니다.",
+          "spotlight": null
         }
       ]
     },
@@ -111,7 +206,8 @@ window.KCULTURE_DOMAINS = {
             "자극 없는 제품 추천해 주세요.",
             "용량이 얼마예요?"
           ],
-          "tip": "피부 타입(건성/지성/민감)을 먼저 말하면 추천이 빨라집니다."
+          "tip": "피부 타입(건성/지성/민감)을 먼저 말하면 추천이 빨라집니다.",
+          "spotlight": null
         },
         {
           "id": "kb-makeup",
@@ -127,7 +223,8 @@ window.KCULTURE_DOMAINS = {
             "선크림 있어요?",
             "세트 할인이 있나요?"
           ],
-          "tip": "테스터 사용 전 위생 스틱을 요청할 수 있습니다."
+          "tip": "테스터 사용 전 위생 스틱을 요청할 수 있습니다.",
+          "spotlight": null
         }
       ]
     },
@@ -136,7 +233,7 @@ window.KCULTURE_DOMAINS = {
       "label": "K-drama",
       "labelKo": "드라마·콘텐츠",
       "emoji": "📺",
-      "blurb": "드라마 감상·장소 순례 표현",
+      "blurb": "드라마·시리즈 감상과 촬영지 표현",
       "categories": [
         "daily",
         "history",
@@ -164,7 +261,8 @@ window.KCULTURE_DOMAINS = {
             "주인공이 누구예요?",
             "다음 회가 궁금해요."
           ],
-          "tip": "스포일러 전에 ‘결말 말해도 돼요?’를 먼저 물어보세요."
+          "tip": "스포일러 전에 ‘결말 말해도 돼요?’를 먼저 물어보세요.",
+          "spotlight": null
         },
         {
           "id": "kd-setjang",
@@ -181,7 +279,33 @@ window.KCULTURE_DOMAINS = {
             "입장료가 얼마예요?",
             "몇 시까지 해요?"
           ],
-          "tip": "인기 촬영지는 주말에 사람이 많으니 이른 아침을 노려 보세요."
+          "tip": "인기 촬영지는 주말에 사람이 많으니 이른 아침을 노려 보세요.",
+          "spotlight": null
+        },
+        {
+          "id": "kd-squid-game",
+          "title": "오징어 게임 이야기하기 (학습용)",
+          "keywords": [
+            "달고나",
+            "무궁화",
+            "시장",
+            "노래방",
+            "대학 축제",
+            "놀이"
+          ],
+          "phrases": [
+            "오징어 게임 시즌 봤어요?",
+            "달고나 깨기 장면이 인상적이었어요.",
+            "무궁화 꽃이 피었습니다 놀이 알아요?",
+            "스포일러 없이 이야기해요.",
+            "넷플릭스에서 한국 콘텐츠가 인기예요."
+          ],
+          "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+          "spotlight": {
+            "title": "Squid Game",
+            "year": "2021–",
+            "type": "series"
+          }
         }
       ]
     },
@@ -215,7 +339,8 @@ window.KCULTURE_DOMAINS = {
             "다른 색 있어요?",
             "환불되나요?"
           ],
-          "tip": "사이즈는 브랜드마다 달라서 입어 보는 것이 안전합니다."
+          "tip": "사이즈는 브랜드마다 달라서 입어 보는 것이 안전합니다.",
+          "spotlight": null
         },
         {
           "id": "kfa-hanbok",
@@ -232,7 +357,8 @@ window.KCULTURE_DOMAINS = {
             "액세서리 포함인가요?",
             "사진 찍기 좋은 코스 알려 주세요."
           ],
-          "tip": "궁궐 근처 대여점은 주말 예약이 빨리 찹니다."
+          "tip": "궁궐 근처 대여점은 주말 예약이 빨리 찹니다.",
+          "spotlight": null
         }
       ]
     },
@@ -266,7 +392,8 @@ window.KCULTURE_DOMAINS = {
             "결말이 어떻게 돼요?",
             "다음 화가 언제 나와요?"
           ],
-          "tip": "장르(로맨스, 판타지, 스릴러)를 말하면 추천이 쉬워집니다."
+          "tip": "장르(로맨스, 판타지, 스릴러)를 말하면 추천이 쉬워집니다.",
+          "spotlight": null
         }
       ]
     },
@@ -299,7 +426,8 @@ window.KCULTURE_DOMAINS = {
             "결제는 카드로 할게요.",
             "음료 무료인가요?"
           ],
-          "tip": "피크 시간에는 대기할 수 있으니 여유 있게 방문하세요."
+          "tip": "피크 시간에는 대기할 수 있으니 여유 있게 방문하세요.",
+          "spotlight": null
         }
       ]
     },
@@ -308,7 +436,7 @@ window.KCULTURE_DOMAINS = {
       "label": "K-pop",
       "labelKo": "케이팝",
       "emoji": "🎤",
-      "blurb": "차트·팬덤 표현 (상세 미션은 Melon 차트 연동)",
+      "blurb": "BTS·BLACKPINK 등 글로벌 아티스트와 차트 표현",
       "categories": [
         "daily",
         "tradition"
@@ -333,7 +461,88 @@ window.KCULTURE_DOMAINS = {
             "안무 따라 해 봤어요?",
             "콘서트 가고 싶어요."
           ],
-          "tip": "차트 미션 섹션에서 이번 주 노래를 골라 말해 보세요."
+          "tip": "차트 미션 섹션에서 이번 주 노래를 골라 말해 보세요.",
+          "spotlight": null
+        },
+        {
+          "id": "kp-bts",
+          "title": "BTS (방탄소년단) 이야기하기",
+          "keywords": [
+            "노래방",
+            "대학 축제",
+            "시장",
+            "공항 철도",
+            "한복"
+          ],
+          "phrases": [
+            "BTS 알아요? 방탄소년단이에요.",
+            "Dynamite랑 Butter 들어 봤어요?",
+            "Permission to Dance 안무가 신나요.",
+            "콘서트 티켓이 정말 구하기 어려워요.",
+            "한국어 가사로 따라 불러 볼래요?"
+          ],
+          "tip": "학습용으로는 곡 제목·멤버 소개·감정 표현부터 연습해 보세요.",
+          "spotlight": {
+            "title": "BTS",
+            "type": "artist",
+            "hits": [
+              "Dynamite",
+              "Butter",
+              "Permission to Dance"
+            ]
+          }
+        },
+        {
+          "id": "kp-blackpink",
+          "title": "BLACKPINK 이야기하기",
+          "keywords": [
+            "노래방",
+            "대학 축제",
+            "시장",
+            "한복"
+          ],
+          "phrases": [
+            "BLACKPINK 좋아해요?",
+            "How You Like That 들어 봤어요?",
+            "Pink Venom 뮤비 봤어요?",
+            "멤버 중에 누구 스타일이 좋아요?",
+            "안무 챌린지 해 봤어요?"
+          ],
+          "tip": "좋아하는 멤버·곡·안무를 짧게 말하는 연습이 좋아요.",
+          "spotlight": {
+            "title": "BLACKPINK",
+            "type": "artist",
+            "hits": [
+              "How You Like That",
+              "Pink Venom",
+              "Shut Down"
+            ]
+          }
+        },
+        {
+          "id": "kp-4thgen",
+          "title": "4세대 아이돌 이야기하기",
+          "keywords": [
+            "노래방",
+            "대학 축제",
+            "달고나"
+          ],
+          "phrases": [
+            "NewJeans 노래 들었어요?",
+            "aespa의 Next Level 알아요?",
+            "IVE랑 LE SSERAFIM도 인기예요.",
+            "최신 차트 1위가 누구예요?"
+          ],
+          "tip": "Melon 차트 섹션과 함께 보면 ‘요즘’ 표현 연습이 됩니다.",
+          "spotlight": {
+            "title": "4th gen K-pop",
+            "type": "wave",
+            "hits": [
+              "Hype Boy",
+              "Next Level",
+              "ANTIFRAGILE"
+            ]
+          }
         }
       ]
     },
@@ -342,10 +551,11 @@ window.KCULTURE_DOMAINS = {
       "label": "K-movie",
       "labelKo": "한국 영화",
       "emoji": "🎬",
-      "blurb": "영화·명대사 학습 (상세는 명대사 섹션)",
+      "blurb": "기생충 등 글로벌 히트 영화와 명대사 학습",
       "categories": [
         "history",
-        "daily"
+        "daily",
+        "food"
       ],
       "interests": [
         "k-movie",
@@ -368,7 +578,60 @@ window.KCULTURE_DOMAINS = {
             "장르가 뭐예요?",
             "다시 보고 싶어요."
           ],
-          "tip": "명대사 섹션에서 수위 필터를 학습용으로 두고 따라 읽어 보세요."
+          "tip": "명대사 섹션에서 수위 필터를 학습용으로 두고 따라 읽어 보세요.",
+          "spotlight": null
+        },
+        {
+          "id": "km-parasite",
+          "title": "기생충(Parasite) 이야기하기 (학습용)",
+          "keywords": [
+            "밥",
+            "김치",
+            "시장",
+            "집",
+            "반지하",
+            "계단"
+          ],
+          "phrases": [
+            "기생충 영화 봤어요? 봉준호 감독 작품이에요.",
+            "오스카를 받은 한국 영화예요.",
+            "가족 이야기와 사회 이야기를 같이 담고 있어요.",
+            "명대사를 천천히 따라 읽어 볼래요?",
+            "스포일러 없이 느낌만 이야기해요."
+          ],
+          "tip": "학습용으로는 수위 높은 장면보다 ‘가족·집·음식·계급’ 같은 어휘로 이야기해 보세요.",
+          "spotlight": {
+            "title": "Parasite",
+            "year": "2019",
+            "type": "film",
+            "director": "Bong Joon-ho"
+          }
+        },
+        {
+          "id": "km-global",
+          "title": "한국 영화 추천하기",
+          "keywords": [
+            "역사",
+            "광화문",
+            "덕수궁",
+            "한복"
+          ],
+          "phrases": [
+            "한국 영화 추천해 주세요.",
+            "부산행은 좀비 영화예요.",
+            "미나리도 좋아요.",
+            "자막으로 봐도 감정은 잘 전달돼요."
+          ],
+          "tip": "장르(스릴러, 코미디, 가족)를 먼저 말하면 추천이 쉬워집니다.",
+          "spotlight": {
+            "title": "Korean cinema hits",
+            "type": "list",
+            "hits": [
+              "Parasite",
+              "Train to Busan",
+              "Minari"
+            ]
+          }
         }
       ]
     }
@@ -392,16 +655,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -421,6 +684,22 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-order",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
         "score": 4,
         "reasons": [
           "category"
@@ -473,6 +752,14 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-drama",
         "itemId": "kd-setjang",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -566,6 +853,22 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "고추장": [
@@ -585,12 +888,37 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "공항 철도": [
       {
         "domainId": "k-game",
         "itemId": "kg-pcbang",
+        "score": 24,
+        "reasons": [
+          "kw:공항 철도",
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-pop",
+        "itemId": "kp-bts",
         "score": 24,
         "reasons": [
           "kw:공항 철도",
@@ -608,14 +936,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-banchan",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-beauty",
-        "itemId": "kb-skincare",
         "score": 4,
         "reasons": [
           "category"
@@ -711,19 +1031,20 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-movie",
+        "itemId": "km-global",
+        "score": 24,
+        "reasons": [
+          "kw:광화문",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-fashion",
         "itemId": "kfa-hanbok",
         "score": 20,
         "reasons": [
           "kw:광화문"
-        ]
-      },
-      {
-        "domainId": "k-drama",
-        "itemId": "kd-setjang",
-        "score": 4,
-        "reasons": [
-          "category"
         ]
       }
     ],
@@ -739,8 +1060,25 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 14,
+        "reasons": [
+          "kw:밥",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -866,6 +1204,14 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "kw:김치"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 10,
+        "reasons": [
+          "kw:김치"
+        ]
       }
     ],
     "김밥": [
@@ -880,8 +1226,25 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 14,
+        "reasons": [
+          "kw:밥",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -904,6 +1267,22 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "김치": [
@@ -922,6 +1301,23 @@ window.KCULTURE_DOMAINS = {
         "score": 24,
         "reasons": [
           "kw:김치",
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 24,
+        "reasons": [
+          "kw:김치",
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
           "category"
         ]
       }
@@ -978,6 +1374,14 @@ window.KCULTURE_DOMAINS = {
           "kw:남산 서울 타워",
           "category"
         ]
+      },
+      {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "널뛰기": [
@@ -1025,6 +1429,15 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 24,
+        "reasons": [
+          "kw:노래방",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-fashion",
         "itemId": "kfa-shop",
         "score": 24,
@@ -1036,15 +1449,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-game",
         "itemId": "kg-pcbang",
-        "score": 24,
-        "reasons": [
-          "kw:노래방",
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-pop",
-        "itemId": "kp-talk",
         "score": 24,
         "reasons": [
           "kw:노래방",
@@ -1065,6 +1469,22 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-order",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
         "score": 4,
         "reasons": [
           "category"
@@ -1177,6 +1597,16 @@ window.KCULTURE_DOMAINS = {
     ],
     "달고나": [
       {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 32,
+        "reasons": [
+          "kw:달고나",
+          "phrase",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-beauty",
         "itemId": "kb-makeup",
         "score": 24,
@@ -1186,24 +1616,17 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-pop",
+        "itemId": "kp-4thgen",
+        "score": 24,
+        "reasons": [
+          "kw:달고나",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-food",
         "itemId": "kf-order",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-food",
-        "itemId": "kf-banchan",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-beauty",
-        "itemId": "kb-skincare",
         "score": 4,
         "reasons": [
           "category"
@@ -1227,9 +1650,34 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "대학 축제": [
+      {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 24,
+        "reasons": [
+          "kw:대학 축제",
+          "category"
+        ]
+      },
       {
         "domainId": "k-fashion",
         "itemId": "kfa-shop",
@@ -1251,15 +1699,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-game",
         "itemId": "kg-pcbang",
-        "score": 24,
-        "reasons": [
-          "kw:대학 축제",
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-pop",
-        "itemId": "kp-talk",
         "score": 24,
         "reasons": [
           "kw:대학 축제",
@@ -1294,8 +1733,8 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -1313,6 +1752,15 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-movie",
+        "itemId": "km-global",
+        "score": 24,
+        "reasons": [
+          "kw:덕수궁",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-drama",
         "itemId": "kd-setjang",
         "score": 14,
@@ -1322,16 +1770,8 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -1358,16 +1798,17 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
-        "score": 4,
+        "domainId": "k-movie",
+        "itemId": "km-global",
+        "score": 14,
         "reasons": [
+          "kw:덕수궁",
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -1426,6 +1867,22 @@ window.KCULTURE_DOMAINS = {
           "kw:된장찌개",
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "된장찌개": [
@@ -1446,6 +1903,22 @@ window.KCULTURE_DOMAINS = {
           "kw:된장",
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "떡": [
@@ -1462,6 +1935,22 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
         "score": 4,
         "reasons": [
           "category"
@@ -1485,6 +1974,22 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "떡볶이": [
@@ -1501,6 +2006,22 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
         "score": 4,
         "reasons": [
           "category"
@@ -1554,6 +2075,22 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
         "score": 4,
         "reasons": [
           "category"
@@ -1631,6 +2168,16 @@ window.KCULTURE_DOMAINS = {
     "무궁화": [
       {
         "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 32,
+        "reasons": [
+          "kw:무궁화",
+          "phrase",
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-drama",
         "itemId": "kd-watch",
         "score": 4,
         "reasons": [
@@ -1648,14 +2195,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-webtoon",
         "itemId": "kw-talk",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -1675,6 +2214,15 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 24,
+        "reasons": [
+          "kw:밥",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-drama",
         "itemId": "kd-watch",
         "score": 4,
@@ -1685,14 +2233,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-drama",
         "itemId": "kd-setjang",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -1717,6 +2257,23 @@ window.KCULTURE_DOMAINS = {
           "kw:김치",
           "category"
         ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 14,
+        "reasons": [
+          "kw:김치",
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "벼": [
@@ -1737,16 +2294,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -1771,16 +2328,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -1901,8 +2458,25 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 14,
+        "reasons": [
+          "kw:밥",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -1927,16 +2501,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -1944,6 +2518,15 @@ window.KCULTURE_DOMAINS = {
       }
     ],
     "사물놀이": [
+      {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 14,
+        "reasons": [
+          "kw:놀이",
+          "category"
+        ]
+      },
       {
         "domainId": "k-food",
         "itemId": "kf-order",
@@ -1963,14 +2546,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-beauty",
         "itemId": "kb-skincare",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-beauty",
-        "itemId": "kb-makeup",
         "score": 4,
         "reasons": [
           "category"
@@ -2097,16 +2672,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -2343,8 +2918,8 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -2437,16 +3012,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -2505,16 +3080,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -2522,6 +3097,15 @@ window.KCULTURE_DOMAINS = {
       }
     ],
     "윷놀이": [
+      {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 14,
+        "reasons": [
+          "kw:놀이",
+          "category"
+        ]
+      },
       {
         "domainId": "k-drama",
         "itemId": "kd-watch",
@@ -2541,14 +3125,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-webtoon",
         "itemId": "kw-talk",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -2573,16 +3149,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -2659,6 +3235,15 @@ window.KCULTURE_DOMAINS = {
     ],
     "전": [
       {
+        "domainId": "k-movie",
+        "itemId": "km-global",
+        "score": 12,
+        "reasons": [
+          "phrase",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-drama",
         "itemId": "kd-watch",
         "score": 4,
@@ -2675,16 +3260,8 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -2795,6 +3372,15 @@ window.KCULTURE_DOMAINS = {
     ],
     "징": [
       {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 12,
+        "reasons": [
+          "phrase",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-food",
         "itemId": "kf-order",
         "score": 4,
@@ -2813,14 +3399,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-beauty",
         "itemId": "kb-skincare",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-beauty",
-        "itemId": "kb-makeup",
         "score": 4,
         "reasons": [
           "category"
@@ -2845,16 +3423,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -2887,8 +3465,8 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -2913,16 +3491,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -3219,6 +3797,14 @@ window.KCULTURE_DOMAINS = {
         "reasons": [
           "category"
         ]
+      },
+      {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
       }
     ],
     "투호": [
@@ -3239,16 +3825,16 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
         ]
       },
       {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-webtoon",
+        "itemId": "kw-talk",
         "score": 4,
         "reasons": [
           "category"
@@ -3393,6 +3979,15 @@ window.KCULTURE_DOMAINS = {
     ],
     "풍물놀이": [
       {
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
+        "score": 14,
+        "reasons": [
+          "kw:놀이",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-food",
         "itemId": "kf-order",
         "score": 4,
@@ -3411,14 +4006,6 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-beauty",
         "itemId": "kb-skincare",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-beauty",
-        "itemId": "kb-makeup",
         "score": 4,
         "reasons": [
           "category"
@@ -3465,10 +4052,11 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-beauty",
-        "itemId": "kb-makeup",
-        "score": 4,
+        "domainId": "k-pop",
+        "itemId": "kp-bts",
+        "score": 24,
         "reasons": [
+          "kw:한복",
           "category"
         ]
       }
@@ -3543,6 +4131,15 @@ window.KCULTURE_DOMAINS = {
     ],
     "한정식집": [
       {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
+        "score": 14,
+        "reasons": [
+          "kw:집",
+          "category"
+        ]
+      },
+      {
         "domainId": "k-drama",
         "itemId": "kd-watch",
         "score": 4,
@@ -3559,16 +4156,8 @@ window.KCULTURE_DOMAINS = {
         ]
       },
       {
-        "domainId": "k-webtoon",
-        "itemId": "kw-talk",
-        "score": 4,
-        "reasons": [
-          "category"
-        ]
-      },
-      {
-        "domainId": "k-movie",
-        "itemId": "km-talk",
+        "domainId": "k-drama",
+        "itemId": "kd-squid-game",
         "score": 4,
         "reasons": [
           "category"
@@ -3622,6 +4211,22 @@ window.KCULTURE_DOMAINS = {
       {
         "domainId": "k-food",
         "itemId": "kf-banchan",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-talk",
+        "score": 4,
+        "reasons": [
+          "category"
+        ]
+      },
+      {
+        "domainId": "k-movie",
+        "itemId": "km-parasite",
         "score": 4,
         "reasons": [
           "category"
@@ -4427,24 +5032,26 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "달고나": {
-      "domainId": "k-beauty",
-      "domainLabel": "K-beauty",
-      "domainLabelKo": "뷰티·스킨케어",
-      "emoji": "💄",
-      "itemId": "kb-makeup",
-      "title": "메이크업·색조 고르기",
+      "domainId": "k-drama",
+      "domainLabel": "K-drama",
+      "domainLabelKo": "드라마·콘텐츠",
+      "emoji": "📺",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "이 색 발라 봐도 돼요?",
-        "자연스러운 색으로 주세요.",
-        "선크림 있어요?",
-        "세트 할인이 있나요?",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "달고나가 뭐랑 잘 어울려요?",
         "달고나를 주제로 이야기해 볼래요."
       ],
-      "tip": "테스터 사용 전 위생 스틱을 요청할 수 있습니다.",
-      "score": 24,
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+      "score": 32,
       "reasons": [
         "kw:달고나",
+        "phrase",
         "category"
       ],
       "linkPanel": null
@@ -4495,21 +5102,22 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "대학 축제": {
-      "domainId": "k-fashion",
-      "domainLabel": "K-fashion",
-      "domainLabelKo": "패션·스트리트",
-      "emoji": "👕",
-      "itemId": "kfa-shop",
-      "title": "옷 가게에서 고르기",
+      "domainId": "k-drama",
+      "domainLabel": "K-drama",
+      "domainLabelKo": "드라마·콘텐츠",
+      "emoji": "📺",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "이 사이즈 있어요?",
-        "피팅룸 어디예요?",
-        "다른 색 있어요?",
-        "환불되나요?",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "대학 축제가 뭐랑 잘 어울려요?",
         "대학 축제를 주제로 이야기해 볼래요."
       ],
-      "tip": "사이즈는 브랜드마다 달라서 입어 보는 것이 안전합니다.",
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
       "score": 24,
       "reasons": [
         "kw:대학 축제",
@@ -4819,19 +5427,22 @@ window.KCULTURE_DOMAINS = {
       "domainLabel": "K-drama",
       "domainLabelKo": "드라마·콘텐츠",
       "emoji": "📺",
-      "itemId": "kd-watch",
-      "title": "드라마 이야기하기",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "그 드라마 봤어요?",
-        "촬영지가 어디예요?",
-        "주인공이 누구예요?",
-        "다음 회가 궁금해요.",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "무궁화가 뭐랑 잘 어울려요?",
         "무궁화를 주제로 이야기해 볼래요."
       ],
-      "tip": "스포일러 전에 ‘결말 말해도 돼요?’를 먼저 물어보세요.",
-      "score": 4,
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+      "score": 32,
       "reasons": [
+        "kw:무궁화",
+        "phrase",
         "category"
       ],
       "linkPanel": null
@@ -5085,23 +5696,25 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "사물놀이": {
-      "domainId": "k-food",
-      "domainLabel": "K-food",
-      "domainLabelKo": "한식·먹거리",
-      "emoji": "🍜",
-      "itemId": "kf-order",
-      "title": "시장·식당에서 주문하기",
+      "domainId": "k-drama",
+      "domainLabel": "K-drama",
+      "domainLabelKo": "드라마·콘텐츠",
+      "emoji": "📺",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "이거 하나 주세요.",
-        "덜 맵게 해 주세요.",
-        "포장해 주세요.",
-        "추천 메뉴가 뭐예요?",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "사물놀이가 뭐랑 잘 어울려요?",
         "사물놀이를 주제로 이야기해 볼래요."
       ],
-      "tip": "가격과 맵기를 먼저 확인하면 대화가 쉬워집니다.",
-      "score": 4,
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+      "score": 14,
       "reasons": [
+        "kw:놀이",
         "category"
       ],
       "linkPanel": null
@@ -5463,19 +6076,21 @@ window.KCULTURE_DOMAINS = {
       "domainLabel": "K-drama",
       "domainLabelKo": "드라마·콘텐츠",
       "emoji": "📺",
-      "itemId": "kd-watch",
-      "title": "드라마 이야기하기",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "그 드라마 봤어요?",
-        "촬영지가 어디예요?",
-        "주인공이 누구예요?",
-        "다음 회가 궁금해요.",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "윷놀이가 뭐랑 잘 어울려요?",
         "윷놀이를 주제로 이야기해 볼래요."
       ],
-      "tip": "스포일러 전에 ‘결말 말해도 돼요?’를 먼저 물어보세요.",
-      "score": 4,
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+      "score": 14,
       "reasons": [
+        "kw:놀이",
         "category"
       ],
       "linkPanel": null
@@ -5569,26 +6184,27 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "전": {
-      "domainId": "k-drama",
-      "domainLabel": "K-drama",
-      "domainLabelKo": "드라마·콘텐츠",
-      "emoji": "📺",
-      "itemId": "kd-watch",
-      "title": "드라마 이야기하기",
+      "domainId": "k-movie",
+      "domainLabel": "K-movie",
+      "domainLabelKo": "한국 영화",
+      "emoji": "🎬",
+      "itemId": "km-global",
+      "title": "한국 영화 추천하기",
       "phrases": [
-        "그 드라마 봤어요?",
-        "촬영지가 어디예요?",
-        "주인공이 누구예요?",
-        "다음 회가 궁금해요.",
+        "한국 영화 추천해 주세요.",
+        "부산행은 좀비 영화예요.",
+        "미나리도 좋아요.",
+        "자막으로 봐도 감정은 잘 전달돼요.",
         "전이 뭐랑 잘 어울려요?",
         "전을 주제로 이야기해 볼래요."
       ],
-      "tip": "스포일러 전에 ‘결말 말해도 돼요?’를 먼저 물어보세요.",
-      "score": 4,
+      "tip": "장르(스릴러, 코미디, 가족)를 먼저 말하면 추천이 쉬워집니다.",
+      "score": 12,
       "reasons": [
+        "phrase",
         "category"
       ],
-      "linkPanel": null
+      "linkPanel": "quote-list"
     },
     "전주 한옥 마을": {
       "domainId": "k-food",
@@ -5657,23 +6273,25 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "징": {
-      "domainId": "k-food",
-      "domainLabel": "K-food",
-      "domainLabelKo": "한식·먹거리",
-      "emoji": "🍜",
-      "itemId": "kf-order",
-      "title": "시장·식당에서 주문하기",
+      "domainId": "k-drama",
+      "domainLabel": "K-drama",
+      "domainLabelKo": "드라마·콘텐츠",
+      "emoji": "📺",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "이거 하나 주세요.",
-        "덜 맵게 해 주세요.",
-        "포장해 주세요.",
-        "추천 메뉴가 뭐예요?",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "징이 뭐랑 잘 어울려요?",
         "징을 주제로 이야기해 볼래요."
       ],
-      "tip": "가격과 맵기를 먼저 확인하면 대화가 쉬워집니다.",
-      "score": 4,
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+      "score": 12,
       "reasons": [
+        "phrase",
         "category"
       ],
       "linkPanel": null
@@ -6055,23 +6673,25 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "풍물놀이": {
-      "domainId": "k-food",
-      "domainLabel": "K-food",
-      "domainLabelKo": "한식·먹거리",
-      "emoji": "🍜",
-      "itemId": "kf-order",
-      "title": "시장·식당에서 주문하기",
+      "domainId": "k-drama",
+      "domainLabel": "K-drama",
+      "domainLabelKo": "드라마·콘텐츠",
+      "emoji": "📺",
+      "itemId": "kd-squid-game",
+      "title": "오징어 게임 이야기하기 (학습용)",
       "phrases": [
-        "이거 하나 주세요.",
-        "덜 맵게 해 주세요.",
-        "포장해 주세요.",
-        "추천 메뉴가 뭐예요?",
+        "오징어 게임 시즌 봤어요?",
+        "달고나 깨기 장면이 인상적이었어요.",
+        "무궁화 꽃이 피었습니다 놀이 알아요?",
+        "스포일러 없이 이야기해요.",
+        "넷플릭스에서 한국 콘텐츠가 인기예요.",
         "풍물놀이가 뭐랑 잘 어울려요?",
         "풍물놀이를 주제로 이야기해 볼래요."
       ],
-      "tip": "가격과 맵기를 먼저 확인하면 대화가 쉬워집니다.",
-      "score": 4,
+      "tip": "폭력 장면 스포일러는 피하고, 문화·놀이·달고나 같은 학습 포인트로 이야기해 보세요.",
+      "score": 14,
       "reasons": [
+        "kw:놀이",
         "category"
       ],
       "linkPanel": null
@@ -6167,26 +6787,28 @@ window.KCULTURE_DOMAINS = {
       "linkPanel": null
     },
     "한정식집": {
-      "domainId": "k-drama",
-      "domainLabel": "K-drama",
-      "domainLabelKo": "드라마·콘텐츠",
-      "emoji": "📺",
-      "itemId": "kd-watch",
-      "title": "드라마 이야기하기",
+      "domainId": "k-movie",
+      "domainLabel": "K-movie",
+      "domainLabelKo": "한국 영화",
+      "emoji": "🎬",
+      "itemId": "km-parasite",
+      "title": "기생충(Parasite) 이야기하기 (학습용)",
       "phrases": [
-        "그 드라마 봤어요?",
-        "촬영지가 어디예요?",
-        "주인공이 누구예요?",
-        "다음 회가 궁금해요.",
+        "기생충 영화 봤어요? 봉준호 감독 작품이에요.",
+        "오스카를 받은 한국 영화예요.",
+        "가족 이야기와 사회 이야기를 같이 담고 있어요.",
+        "명대사를 천천히 따라 읽어 볼래요?",
+        "스포일러 없이 느낌만 이야기해요.",
         "한정식집이 뭐랑 잘 어울려요?",
         "한정식집을 주제로 이야기해 볼래요."
       ],
-      "tip": "스포일러 전에 ‘결말 말해도 돼요?’를 먼저 물어보세요.",
-      "score": 4,
+      "tip": "학습용으로는 수위 높은 장면보다 ‘가족·집·음식·계급’ 같은 어휘로 이야기해 보세요.",
+      "score": 14,
       "reasons": [
+        "kw:집",
         "category"
       ],
-      "linkPanel": null
+      "linkPanel": "quote-list"
     },
     "해녀": {
       "domainId": "k-food",
