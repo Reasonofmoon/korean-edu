@@ -13,8 +13,9 @@
     "fetch:odii": "node scripts/tourapi-build-odii.mjs",
     "fetch:quotes": "node scripts/build-klassic-quotes.mjs",
     "fetch:melon": "node scripts/build-melon-chart.mjs",
+    "build:domains": "node scripts/build-kculture-domains.mjs",
     "build:activities": "node scripts/build-learning-activities.mjs",
-    "build:spike": "npm run build:hangul && npm run build:data && npm run build:activities && npm run fetch:quotes && npm run fetch:melon",
+    "build:spike": "npm run build:hangul && npm run build:data && npm run build:activities && npm run fetch:quotes && npm run fetch:melon && npm run build:domains",
     "qa:browser": "node scripts/qa-browser.mjs",
     "qa:click-flow": "node scripts/qa-click-flow.mjs",
     "qa:manual": "node scripts/qa-manual-checklist.mjs"

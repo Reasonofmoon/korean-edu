@@ -162,8 +162,10 @@ try {
         };
 
         await waitForText("한 장 끝내기");
+        if (!text().includes("K-culture")) fail("session flow missing K-culture step");
         if (!text().includes("명대사 확인")) fail("session flow missing 명대사 확인 step");
         if (!text().includes("K-pop 미션")) fail("session flow missing K-pop 미션 step");
+        if (!text().includes("K-food") && !text().includes("K-beauty")) fail("K-culture domain panel missing");
 
         // Prefer a reading-fallback word so we can drive the full pipeline.
         if (!document.querySelector("[data-reading-word]")) {
@@ -179,6 +181,12 @@ try {
         if (document.querySelector("[data-expression-word]")) {
           click("[data-expression-word]");
           await wait(400);
+        }
+
+        if (document.querySelector("[data-domain-word]")) {
+          click("[data-domain-word]");
+          await wait(400);
+          if (!text().includes("K-culture 미션 완료")) fail("domain step did not mark complete");
         }
 
         if (!document.querySelector("[data-quote-word]")) fail("quote confirmation CTA missing");

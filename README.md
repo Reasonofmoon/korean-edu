@@ -19,6 +19,7 @@
 - Melon 차트 스냅샷 기반 K-pop 표현 미션
 - 복습 카드 **다시 풀기** · **어휘별 진도 초기화** · 전체 초기화
 - **관심사 · 여행 목적** 기반 다음 어휘 / Today 추천
+- **K-culture 도메인 확장:** K-food, K-beauty, K-drama, K-fashion, K-webtoon, K-game (+ K-pop/K-movie 연동)
 - 정답률, 복습 카드, 학습 완료 배지
 
 ## 폴더 구조

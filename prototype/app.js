@@ -27,6 +27,13 @@ const melonChart = window.KCULTURE_MELON_CHART ?? {
   chart: [],
   source: {},
 };
+const kcultureDomains = window.KCULTURE_DOMAINS ?? {
+  summary: { domains: 0, items: 0 },
+  domains: [],
+  vocabMatches: {},
+  wordMissions: {},
+  source: {},
+};
 
 /** clean < mild < mature — UI filter max allowed rating. */
 const RATING_ORDER = ["clean", "mild", "mature"];
@@ -95,26 +102,37 @@ const matchesSearch = (fields, query) => {
 
 const prefsKey = "kculture-learner-prefs-v1";
 
-/** Interest chips → vocabulary categories they boost. */
+/** Interest chips → vocabulary categories (+ optional K-culture domain) they boost. */
 const INTEREST_OPTIONS = [
-  { id: "food", label: "한식·맛집", categories: ["food"] },
-  { id: "place", label: "명소·궁궐", categories: ["place"] },
-  { id: "tradition", label: "전통 체험", categories: ["tradition"] },
-  { id: "history", label: "역사·인물", categories: ["history"] },
-  { id: "nature", label: "자연·지역", categories: ["nature"] },
-  { id: "daily", label: "일상·생활", categories: ["daily"] },
-  { id: "kpop", label: "K-pop", categories: ["daily", "tradition"] },
-  { id: "kmovie", label: "K-movie", categories: ["history", "daily"] },
+  { id: "k-food", label: "K-food", categories: ["food", "daily"], domains: ["k-food"] },
+  { id: "k-beauty", label: "K-beauty", categories: ["daily", "tradition"], domains: ["k-beauty"] },
+  { id: "k-pop", label: "K-pop", categories: ["daily", "tradition"], domains: ["k-pop"] },
+  { id: "k-movie", label: "K-movie", categories: ["history", "daily"], domains: ["k-movie"] },
+  { id: "k-drama", label: "K-drama", categories: ["daily", "history", "place"], domains: ["k-drama"] },
+  { id: "k-fashion", label: "K-fashion", categories: ["daily", "tradition"], domains: ["k-fashion"] },
+  { id: "k-webtoon", label: "K-webtoon", categories: ["daily", "history"], domains: ["k-webtoon"] },
+  { id: "k-game", label: "K-game", categories: ["daily"], domains: ["k-game"] },
+  { id: "place", label: "명소·궁궐", categories: ["place"], domains: ["k-drama"] },
+  { id: "tradition", label: "전통 체험", categories: ["tradition"], domains: ["k-fashion"] },
+  { id: "history", label: "역사·인물", categories: ["history"], domains: ["k-movie"] },
+  { id: "nature", label: "자연·지역", categories: ["nature"], domains: [] },
+  // legacy aliases still accepted via loadPrefs filter + map
+  { id: "food", label: "한식·맛집", categories: ["food"], domains: ["k-food"] },
+  { id: "daily", label: "일상·생활", categories: ["daily"], domains: ["k-beauty", "k-food"] },
+  { id: "kpop", label: "K-pop (alias)", categories: ["daily", "tradition"], domains: ["k-pop"], hidden: true },
+  { id: "kmovie", label: "K-movie (alias)", categories: ["history", "daily"], domains: ["k-movie"], hidden: true },
 ];
 
 /** Travel purpose (single) → category weights for next-vocab ranking. */
 const TRAVEL_PURPOSE_OPTIONS = [
-  { id: "any", label: "아직 정하지 않음", categories: [] },
-  { id: "food_trip", label: "먹방 여행", categories: ["food", "daily"] },
-  { id: "sightseeing", label: "명소 관광", categories: ["place", "history"] },
-  { id: "culture", label: "문화 체험", categories: ["tradition", "history"] },
-  { id: "nature", label: "자연·힐링", categories: ["nature", "place"] },
-  { id: "city_life", label: "도시 일상", categories: ["daily", "food"] },
+  { id: "any", label: "아직 정하지 않음", categories: [], domains: [] },
+  { id: "food_trip", label: "먹방·K-food", categories: ["food", "daily"], domains: ["k-food"] },
+  { id: "beauty_shop", label: "뷰티·쇼핑", categories: ["daily", "tradition"], domains: ["k-beauty", "k-fashion"] },
+  { id: "sightseeing", label: "명소·드라마 성지", categories: ["place", "history"], domains: ["k-drama"] },
+  { id: "culture", label: "문화·전통 체험", categories: ["tradition", "history"], domains: ["k-fashion", "k-movie"] },
+  { id: "nature", label: "자연·힐링", categories: ["nature", "place"], domains: [] },
+  { id: "city_life", label: "도시 일상·K-pop", categories: ["daily", "food"], domains: ["k-pop", "k-game"] },
+  { id: "content", label: "콘텐츠·웹툰", categories: ["daily", "history"], domains: ["k-webtoon", "k-drama", "k-movie"] },
 ];
 
 function loadPrefs() {
@@ -151,6 +169,8 @@ const state = {
   /** Max content rating for movie quotes (default: learner-safe). */
   quoteMaxRating: "clean",
   prefs: loadPrefs(),
+  /** Active domain filter on the K-culture panel (`all` or domain id). */
+  domainFilter: "all",
 };
 
 const categoryOrder = ["all", "food", "place", "tradition", "history", "nature", "daily"];
@@ -177,6 +197,8 @@ const activityListEl = document.querySelector("#activity-list");
 const reviewListEl = document.querySelector("#review-list");
 const quoteListEl = document.querySelector("#quote-list");
 const chartListEl = document.querySelector("#chart-list");
+const domainListEl = document.querySelector("#domain-list");
+const domainFilterEl = document.querySelector("#domain-filter");
 const quoteRatingFilterEl = document.querySelector("#quote-rating-filter");
 const learnerPrefsEl = document.querySelector("#learner-prefs");
 const todayNudgeEl = document.querySelector("#today-nudge");
@@ -204,9 +226,10 @@ function loadProgress() {
       reading: parsed.reading ?? {},
       kpop: parsed.kpop ?? {},
       quotes: parsed.quotes ?? {},
+      domains: parsed.domains ?? {},
     };
   } catch {
-    return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {} };
+    return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {}, domains: {} };
   }
 }
 
@@ -233,6 +256,15 @@ function hasQuoteDataset() {
   return (klassicQuotes.quotes ?? []).length > 0;
 }
 
+function hasDomainDataset() {
+  return (kcultureDomains.domains ?? []).length > 0;
+}
+
+function domainMissionFor(item) {
+  if (!item) return null;
+  return kcultureDomains.wordMissions?.[item.word] ?? null;
+}
+
 function statsForWord(word) {
   const activity = learningActivities.activities.find((item) => item.word === word);
   const quizzes = activity?.quizzes ?? [];
@@ -248,6 +280,8 @@ function statsForWord(word) {
   const expressionDone = !activity?.expressions?.length || Boolean(progress.expressions[word]?.checked);
   const requiresQuotes = hasQuoteDataset();
   const quoteDone = !requiresQuotes || Boolean(progress.quotes[word]?.completed);
+  const requiresDomain = hasDomainDataset() && Boolean(kcultureDomains.wordMissions?.[word]);
+  const domainDone = !requiresDomain || Boolean(progress.domains[word]?.completed);
   const requiresKpop = hasKpopChart();
   const kpopDone = !requiresKpop || Boolean(progress.kpop[word]?.completed);
   return {
@@ -262,6 +296,8 @@ function statsForWord(word) {
     expressionDone,
     requiresQuotes,
     quoteDone,
+    requiresDomain,
+    domainDone,
     requiresKpop,
     kpopDone,
     complete:
@@ -271,6 +307,7 @@ function statsForWord(word) {
       readingDone &&
       expressionDone &&
       quoteDone &&
+      domainDone &&
       kpopDone,
   };
 }
@@ -326,9 +363,26 @@ function preferenceCategoryScores() {
   return scores;
 }
 
+/** Domain ids boosted by current prefs. */
+function preferredDomainIds() {
+  const ids = new Set();
+  for (const interestId of state.prefs.interests) {
+    const interest = INTEREST_OPTIONS.find((option) => option.id === interestId);
+    for (const domainId of interest?.domains ?? []) ids.add(domainId);
+  }
+  const purpose = TRAVEL_PURPOSE_OPTIONS.find((option) => option.id === state.prefs.travelPurpose);
+  for (const domainId of purpose?.domains ?? []) ids.add(domainId);
+  return ids;
+}
+
 function preferenceScoreForItem(item) {
   const scores = preferenceCategoryScores();
-  return scores[item?.category] ?? 0;
+  let score = scores[item?.category] ?? 0;
+  const mission = domainMissionFor(item);
+  if (mission && preferredDomainIds().has(mission.domainId)) {
+    score += 4 + Math.min(mission.score ?? 0, 8) / 4;
+  }
+  return score;
 }
 
 function hasActivePreferences() {
@@ -409,10 +463,12 @@ function renderLearnerPrefs() {
       <div class="prefs-group" aria-label="관심사 (복수 선택)">
         <span class="prefs-label">관심사</span>
         <div class="prefs-chips" id="interest-chips">
-          ${INTEREST_OPTIONS.map(
-            (option) =>
-              `<button type="button" class="pref-chip ${state.prefs.interests.includes(option.id) ? "active" : ""}" data-interest="${option.id}">${option.label}</button>`,
-          ).join("")}
+          ${INTEREST_OPTIONS.filter((option) => !option.hidden)
+            .map(
+              (option) =>
+                `<button type="button" class="pref-chip ${state.prefs.interests.includes(option.id) ? "active" : ""}" data-interest="${option.id}">${option.label}</button>`,
+            )
+            .join("")}
         </div>
       </div>
       <div class="prefs-group" aria-label="여행 목적">
@@ -440,6 +496,7 @@ function sessionStageFor(item) {
   if (hasAudioStory && !stats.audioDone) return "listen";
   if (!hasAudioStory && stats.requiresReading && !stats.readingDone) return "listen";
   if (!stats.expressionDone) return "expressions";
+  if (stats.requiresDomain && !stats.domainDone) return "domain";
   if (stats.requiresQuotes && !stats.quoteDone) return "quote";
   if (stats.requiresKpop && !stats.kpopDone) return "kpop";
   if (stats.answered < stats.total || stats.correct < stats.total) return "quiz";
@@ -454,6 +511,7 @@ const sessionSteps = [
   { id: "context", label: "뜻과 미션", target: "#detail" },
   { id: "listen", label: "듣기/읽기", target: "#story-step" },
   { id: "expressions", label: "표현 확인", target: "#expression-step" },
+  { id: "domain", label: "K-culture", target: "#domain-step" },
   { id: "quote", label: "명대사 확인", target: "#quote-step" },
   { id: "kpop", label: "K-pop 미션", target: "#kpop-step" },
   { id: "quiz", label: "퀴즈", target: "#quiz-step" },
@@ -684,16 +742,19 @@ function renderDetail() {
   const particleMissions = missionLinesFor(item.word);
   const matchedQuotes = quotesFor(item);
   const kpopTrack = chartMissionFor(item);
+  const domainMission = domainMissionFor(item);
   const kpopDone = Boolean(progress.kpop[item.word]?.completed);
+  const domainDone = Boolean(progress.domains[item.word]?.completed);
   detailEl.innerHTML = `
     <div class="detail-hero">
       <div class="tag-row">
         <span class="tag">${item.categoryLabel}</span>
         <span class="tag">페이지 ${item.pages.join(", ") || "미정"}</span>
+        ${domainMission ? `<span class="tag">${domainMission.emoji ?? ""} ${domainMission.domainLabel}</span>` : ""}
         ${
           wordStats.complete
             ? `<span class="tag success">학습 완료</span>`
-            : `<span class="tag progress">퀴즈 ${wordStats.answered}/${wordStats.total}${wordStats.requiresAudio ? ` · 듣기 ${wordStats.audioDone ? "완료" : "필요"}` : ""}${wordStats.requiresQuotes ? ` · 명대사 ${wordStats.quoteDone ? "완료" : "필요"}` : ""}${wordStats.requiresKpop ? ` · K-pop ${wordStats.kpopDone ? "완료" : "필요"}` : ""}</span>`
+            : `<span class="tag progress">퀴즈 ${wordStats.answered}/${wordStats.total}${wordStats.requiresAudio ? ` · 듣기 ${wordStats.audioDone ? "완료" : "필요"}` : ""}${wordStats.requiresDomain ? ` · K-culture ${wordStats.domainDone ? "완료" : "필요"}` : ""}${wordStats.requiresQuotes ? ` · 명대사 ${wordStats.quoteDone ? "완료" : "필요"}` : ""}${wordStats.requiresKpop ? ` · K-pop ${wordStats.kpopDone ? "완료" : "필요"}` : ""}</span>`
         }
       </div>
       <h3>${item.word}</h3>
@@ -704,6 +765,7 @@ function renderDetail() {
         <button type="button" class="primary-action" data-session-action="${stage}">${stage === "complete" ? "복습으로 이동" : `${hasAudioStory || stage !== "listen" ? sessionSteps.find((step) => step.id === stage)?.label ?? "학습" : "읽기"} 시작`}</button>
         ${stage === "complete" && nextItem ? `<button type="button" class="primary-action" data-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button><span class="cta-note">${nextReason}</span>` : ""}
         ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" data-open-detail="story-step">듣기 열기</button>` : ""}
+        ${domainMission ? `<button type="button" data-open-detail="domain-step">${domainMission.domainLabel} 미션</button>` : ""}
         ${kpopTrack ? `<button type="button" data-open-detail="kpop-step">K-pop 미션</button>` : ""}
         ${matchedQuotes.length ? `<button type="button" data-open-detail="quote-step">명대사</button>` : ""}
         ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
@@ -798,8 +860,37 @@ function renderDetail() {
       }
     </details>
 
+    <details class="detail-block" id="domain-step" ${domainMission ? "open" : ""}>
+      <summary>6. K-culture 미션 (${domainMission ? `${domainMission.emoji ?? ""} ${domainMission.domainLabel}` : "도메인"})</summary>
+      ${
+        domainMission
+          ? `<div class="chart-card inline ${domainDone ? "complete" : ""}">
+              <div class="tag-row">
+                <span class="tag">${domainMission.domainLabel}</span>
+                <span class="tag">${domainMission.domainLabelKo}</span>
+                <span class="tag progress">score ${domainMission.score}</span>
+              </div>
+              <h4>${domainMission.title}</h4>
+              <ul class="phrase-list">
+                ${(domainMission.phrases ?? []).map((phrase) => `<li>${phrase}</li>`).join("")}
+              </ul>
+              <div class="signal">${domainMission.tip ?? ""}</div>
+              <p class="meta">관심사·카테고리·키워드로 짝지은 K-culture 미션입니다. (${(domainMission.reasons ?? []).join(", ")})</p>
+              <button type="button" class="${domainDone ? "" : "primary-action"}" data-domain-word="${item.word}" data-domain-id="${domainMission.domainId}">
+                ${domainDone ? "K-culture 미션 완료" : "이 표현으로 말해 봤어요"}
+              </button>
+              ${
+                domainMission.linkPanel
+                  ? `<button type="button" data-scroll-panel="${domainMission.linkPanel}">관련 섹션 열기</button>`
+                  : ""
+              }
+            </div>`
+          : `<p class="body-copy">도메인 데이터가 없습니다. <code>npm run build:domains</code>를 실행하세요.</p>`
+      }
+    </details>
+
     <details class="detail-block" id="quote-step" ${wordStats.requiresQuotes ? "open" : ""}>
-      <summary>6. K-movie 명대사 (keywordHints 매칭)</summary>
+      <summary>7. K-movie 명대사 (keywordHints 매칭)</summary>
       <p class="meta">수위 필터: ${ratingLabels[state.quoteMaxRating]} · ${
         matchedQuotes.some((quote) => quote.matchKind === "keyword")
           ? "어휘·keywordHints 직접 매칭"
@@ -816,7 +907,7 @@ function renderDetail() {
     </details>
 
     <details class="detail-block" id="kpop-step" ${kpopTrack ? "open" : ""}>
-      <summary>7. K-pop 차트 미션</summary>
+      <summary>8. K-pop 차트 미션</summary>
       ${
         kpopTrack
           ? `<div class="chart-card inline ${kpopDone ? "complete" : ""}">
@@ -840,7 +931,7 @@ function renderDetail() {
     </details>
 
     <details class="detail-block" id="quiz-step" open>
-      <summary>8. 듣기 확인 퀴즈</summary>
+      <summary>9. 듣기 확인 퀴즈</summary>
       ${
         activity?.quizzes?.length
           ? activity.quizzes
@@ -888,6 +979,7 @@ function renderNudge() {
   const actionLabel = {
     listen: wordStats.requiresAudio ? "듣기부터 시작" : "읽기부터 시작",
     expressions: "표현 확인하기",
+    domain: "K-culture 미션",
     quote: "명대사 확인하기",
     kpop: "K-pop 미션 하기",
     quiz: "퀴즈 이어 풀기",
@@ -924,7 +1016,7 @@ function renderSessionFlow() {
     <div>
       <p class="eyebrow">First Session Flow</p>
       <h2>${item.word} 한 장 끝내기</h2>
-      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻 → 듣기/읽기 → 표현 → 명대사 → K-pop 미션 → 퀴즈 순으로 한 장을 마칩니다."}</p>
+      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻 → 듣기/읽기 → 표현 → K-culture → 명대사 → K-pop → 퀴즈 순으로 한 장을 마칩니다."}</p>
     </div>
     <ol class="flow-steps">
       ${sessionSteps
@@ -1129,10 +1221,11 @@ function clearWordProgress(word) {
   delete progress.reading[word];
   delete progress.kpop[word];
   delete progress.quotes[word];
+  delete progress.domains[word];
 }
 
 function emptyProgress() {
-  return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {} };
+  return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {}, domains: {} };
 }
 
 function renderReview() {
@@ -1215,6 +1308,56 @@ function renderProgressSurfaces() {
   renderReview();
   renderQuotes();
   renderChart();
+  renderDomains();
+}
+
+function renderDomains() {
+  if (!domainListEl) return;
+  domainListEl.innerHTML = "";
+  const domains = kcultureDomains.domains ?? [];
+  if (!domains.length) {
+    domainListEl.innerHTML = `<p class="empty-state">도메인 데이터가 없습니다. <code>npm run build:domains</code></p>`;
+    return;
+  }
+
+  if (domainFilterEl) {
+    domainFilterEl.innerHTML = `
+      <button type="button" class="pref-chip ${state.domainFilter === "all" ? "active" : ""}" data-domain-filter="all">전체</button>
+      ${domains
+        .map(
+          (domain) =>
+            `<button type="button" class="pref-chip ${state.domainFilter === domain.id ? "active" : ""}" data-domain-filter="${domain.id}">${domain.emoji ?? ""} ${domain.label}</button>`,
+        )
+        .join("")}
+    `;
+  }
+
+  const intro = document.createElement("p");
+  intro.className = "meta";
+  intro.textContent = `K-culture 도메인 ${domains.length}개 · 어휘 매칭 ${kcultureDomains.summary?.vocabWithMatches ?? 0}개 · 필터 ${state.domainFilter}`;
+  domainListEl.append(intro);
+
+  const visible = domains.filter((domain) => state.domainFilter === "all" || domain.id === state.domainFilter);
+  for (const domain of visible) {
+    for (const item of domain.items ?? []) {
+      const card = document.createElement("article");
+      card.className = "chart-card domain-card";
+      card.innerHTML = `
+        <div class="tag-row">
+          <span class="tag">${domain.emoji ?? ""} ${domain.label}</span>
+          <span class="tag">${domain.labelKo}</span>
+        </div>
+        <h3>${item.title}</h3>
+        <p class="body-copy">${domain.blurb}</p>
+        <ul class="phrase-list">
+          ${(item.phrases ?? []).slice(0, 4).map((phrase) => `<li>${phrase}</li>`).join("")}
+        </ul>
+        <p class="meta">keywords: ${(item.keywords ?? []).slice(0, 6).join(", ")}</p>
+        <div class="signal">${item.tip ?? ""}</div>
+      `;
+      domainListEl.append(card);
+    }
+  }
 }
 
 document.addEventListener("click", (event) => {
@@ -1301,6 +1444,28 @@ document.addEventListener("click", (event) => {
     };
     saveProgress();
     renderProgressSurfaces();
+    const nextTarget = hasDomainDataset()
+      ? document.querySelector("#domain-step")
+      : hasQuoteDataset()
+        ? document.querySelector("#quote-step")
+        : hasKpopChart()
+          ? document.querySelector("#kpop-step")
+          : document.querySelector("#quiz-step");
+    if (nextTarget) nextTarget.open = true;
+    nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const domainButton = event.target.closest("[data-domain-word]");
+  if (domainButton) {
+    const word = domainButton.dataset.domainWord;
+    progress.domains[word] = {
+      completed: true,
+      domainId: domainButton.dataset.domainId ?? "",
+      completedAt: new Date().toISOString(),
+    };
+    saveProgress();
+    renderProgressSurfaces();
     const nextTarget = hasQuoteDataset()
       ? document.querySelector("#quote-step")
       : hasKpopChart()
@@ -1308,6 +1473,24 @@ document.addEventListener("click", (event) => {
         : document.querySelector("#quiz-step");
     if (nextTarget) nextTarget.open = true;
     nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const scrollPanel = event.target.closest("[data-scroll-panel]");
+  if (scrollPanel) {
+    const id = scrollPanel.dataset.scrollPanel;
+    const panel = document.getElementById(id)?.closest("details") ?? document.getElementById(id);
+    if (panel) {
+      if ("open" in panel) panel.open = true;
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return;
+  }
+
+  const domainFilterBtn = event.target.closest("[data-domain-filter]");
+  if (domainFilterBtn) {
+    state.domainFilter = domainFilterBtn.dataset.domainFilter || "all";
+    renderDomains();
     return;
   }
 
@@ -1625,6 +1808,7 @@ renderActivities();
 renderReview();
 renderQuotes();
 renderChart();
+renderDomains();
 renderNudge();
 renderSessionFlow();
 render();

@@ -110,6 +110,15 @@
 
       <details class="panel api-panel collapsible-panel" open>
         <summary class="section-title">
+          <h2>K-culture 도메인</h2>
+          <p>K-food · K-beauty · K-drama · K-fashion · K-webtoon · K-game · K-pop · K-movie</p>
+        </summary>
+        <div id="domain-filter" class="prefs-chips domain-filter-row" aria-label="도메인 필터"></div>
+        <div id="domain-list" class="chart-grid"></div>
+      </details>
+
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
           <h2>K-movie 명대사</h2>
           <p>keywordHints 매칭 · 수위 필터</p>
         </summary>
@@ -146,7 +155,7 @@
     </main>
 
     <footer>
-      <p>자료 출처: 세종한국문화 주요 어휘 CSV, 한국관광공사 공공데이터 API, klassic-quote-api, Melon 차트 스냅샷(교육용)</p>
+      <p>자료 출처: 세종한국문화 주요 어휘 CSV, 한국관광공사 공공데이터 API, klassic-quote-api, Melon 차트 스냅샷, K-culture 교육용 도메인 미션</p>
     </footer>
 
     <script src="./lib/hangul-utils.js"></script>
@@ -157,6 +166,7 @@
     <script src="./data/learning-activities.js"></script>
     <script src="./data/klassic-quotes.js"></script>
     <script src="./data/melon-chart.js"></script>
+    <script src="./data/kculture-domains.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
