@@ -93,12 +93,64 @@ const matchesSearch = (fields, query) => {
   return fields.some((field) => String(field ?? "").toLowerCase().includes(q));
 };
 
+const prefsKey = "kculture-learner-prefs-v1";
+
+/** Interest chips → vocabulary categories they boost. */
+const INTEREST_OPTIONS = [
+  { id: "food", label: "한식·맛집", categories: ["food"] },
+  { id: "place", label: "명소·궁궐", categories: ["place"] },
+  { id: "tradition", label: "전통 체험", categories: ["tradition"] },
+  { id: "history", label: "역사·인물", categories: ["history"] },
+  { id: "nature", label: "자연·지역", categories: ["nature"] },
+  { id: "daily", label: "일상·생활", categories: ["daily"] },
+  { id: "kpop", label: "K-pop", categories: ["daily", "tradition"] },
+  { id: "kmovie", label: "K-movie", categories: ["history", "daily"] },
+];
+
+/** Travel purpose (single) → category weights for next-vocab ranking. */
+const TRAVEL_PURPOSE_OPTIONS = [
+  { id: "any", label: "아직 정하지 않음", categories: [] },
+  { id: "food_trip", label: "먹방 여행", categories: ["food", "daily"] },
+  { id: "sightseeing", label: "명소 관광", categories: ["place", "history"] },
+  { id: "culture", label: "문화 체험", categories: ["tradition", "history"] },
+  { id: "nature", label: "자연·힐링", categories: ["nature", "place"] },
+  { id: "city_life", label: "도시 일상", categories: ["daily", "food"] },
+];
+
+function loadPrefs() {
+  try {
+    const raw = localStorage.getItem(prefsKey);
+    const parsed = raw ? JSON.parse(raw) : {};
+    const interests = Array.isArray(parsed.interests)
+      ? parsed.interests.filter((id) => INTEREST_OPTIONS.some((option) => option.id === id))
+      : [];
+    const travelPurpose = TRAVEL_PURPOSE_OPTIONS.some((option) => option.id === parsed.travelPurpose)
+      ? parsed.travelPurpose
+      : "any";
+    return { interests, travelPurpose };
+  } catch {
+    return { interests: [], travelPurpose: "any" };
+  }
+}
+
+function savePrefs() {
+  localStorage.setItem(
+    prefsKey,
+    JSON.stringify({
+      interests: state.prefs.interests,
+      travelPurpose: state.prefs.travelPurpose,
+      updatedAt: new Date().toISOString(),
+    }),
+  );
+}
+
 const state = {
   query: "",
   category: "all",
   selectedId: data.vocabulary[0]?.id,
   /** Max content rating for movie quotes (default: learner-safe). */
   quoteMaxRating: "clean",
+  prefs: loadPrefs(),
 };
 
 const categoryOrder = ["all", "food", "place", "tradition", "history", "nature", "daily"];
@@ -126,6 +178,7 @@ const reviewListEl = document.querySelector("#review-list");
 const quoteListEl = document.querySelector("#quote-list");
 const chartListEl = document.querySelector("#chart-list");
 const quoteRatingFilterEl = document.querySelector("#quote-rating-filter");
+const learnerPrefsEl = document.querySelector("#learner-prefs");
 const todayNudgeEl = document.querySelector("#today-nudge");
 const sessionFlowEl = document.querySelector("#session-flow");
 const resultCountEl = document.querySelector("#result-count");
@@ -257,6 +310,55 @@ function wrongCountForWord(word) {
     .reduce((sum, quiz) => sum + (progress.answers[quiz.id]?.wrongCount ?? 0), 0);
 }
 
+/** Weighted category scores from interests + travel purpose. */
+function preferenceCategoryScores() {
+  const scores = Object.create(null);
+  for (const interestId of state.prefs.interests) {
+    const interest = INTEREST_OPTIONS.find((option) => option.id === interestId);
+    for (const category of interest?.categories ?? []) {
+      scores[category] = (scores[category] ?? 0) + 2;
+    }
+  }
+  const purpose = TRAVEL_PURPOSE_OPTIONS.find((option) => option.id === state.prefs.travelPurpose);
+  for (const category of purpose?.categories ?? []) {
+    scores[category] = (scores[category] ?? 0) + 3;
+  }
+  return scores;
+}
+
+function preferenceScoreForItem(item) {
+  const scores = preferenceCategoryScores();
+  return scores[item?.category] ?? 0;
+}
+
+function hasActivePreferences() {
+  return state.prefs.interests.length > 0 || state.prefs.travelPurpose !== "any";
+}
+
+function preferenceSummaryLabel() {
+  const parts = [];
+  const purpose = TRAVEL_PURPOSE_OPTIONS.find((option) => option.id === state.prefs.travelPurpose);
+  if (purpose && purpose.id !== "any") parts.push(purpose.label);
+  for (const interestId of state.prefs.interests) {
+    const interest = INTEREST_OPTIONS.find((option) => option.id === interestId);
+    if (interest) parts.push(interest.label);
+  }
+  return parts.length ? parts.join(" · ") : "관심사 미설정";
+}
+
+function explainRecommendation(fromItem, nextItem) {
+  if (!nextItem) return "";
+  if (wrongCountForWord(nextItem.word) > 0) return "오답 복습 우선";
+  const prefScore = preferenceScoreForItem(nextItem);
+  if (prefScore > 0 && hasActivePreferences()) {
+    return `관심사/여행 목적 맞춤 · ${categoryLabels[nextItem.category] ?? nextItem.category}`;
+  }
+  if (fromItem && nextItem.category === fromItem.category) {
+    return `${fromItem.categoryLabel} 이어 학습`;
+  }
+  return "다음 미완료 어휘";
+}
+
 function nextRecommendedItem(item) {
   const selectedIndex = data.vocabulary.findIndex((candidate) => candidate.id === item?.id);
   const selectedCategory = item?.category ?? "";
@@ -266,24 +368,64 @@ function nextRecommendedItem(item) {
       index,
       stats: statsForWord(candidate.word),
       wrongCount: wrongCountForWord(candidate.word),
+      prefScore: preferenceScoreForItem(candidate),
     }))
     .filter((candidate) => candidate.item.id !== item?.id && !candidate.stats.complete);
 
   return (
     candidates
       .sort((a, b) => {
+        // 1) Wrong answers first (always)
         if (a.wrongCount !== b.wrongCount) return b.wrongCount - a.wrongCount;
+        // 2) Interest / travel-purpose score
+        if (a.prefScore !== b.prefScore) return b.prefScore - a.prefScore;
+        // 3) Same category continuity when prefs do not distinguish
         const sameCategoryA = a.item.category === selectedCategory ? 1 : 0;
         const sameCategoryB = b.item.category === selectedCategory ? 1 : 0;
         if (sameCategoryA !== sameCategoryB) return sameCategoryB - sameCategoryA;
+        // 4) In-progress words before never-started
         const answeredA = a.stats.answered > 0 ? 1 : 0;
         const answeredB = b.stats.answered > 0 ? 1 : 0;
         if (answeredA !== answeredB) return answeredB - answeredA;
+        // 5) Stable walk through the deck
         const distanceA = selectedIndex >= 0 ? (a.index - selectedIndex + data.vocabulary.length) % data.vocabulary.length : a.index;
         const distanceB = selectedIndex >= 0 ? (b.index - selectedIndex + data.vocabulary.length) % data.vocabulary.length : b.index;
         return distanceA - distanceB;
       })[0]?.item ?? null
   );
+}
+
+function renderLearnerPrefs() {
+  if (!learnerPrefsEl) return;
+  const purpose = TRAVEL_PURPOSE_OPTIONS.find((option) => option.id === state.prefs.travelPurpose);
+  learnerPrefsEl.innerHTML = `
+    <div class="prefs-copy">
+      <p class="eyebrow">Learner prefs</p>
+      <h2>관심사 · 여행 목적</h2>
+      <p>선택하면 <strong>다음 어휘 추천</strong>과 오늘의 추천이 맞춰집니다. (오답 복습이 최우선)</p>
+      <p class="meta">현재: ${preferenceSummaryLabel()}</p>
+    </div>
+    <div class="prefs-controls">
+      <div class="prefs-group" aria-label="관심사 (복수 선택)">
+        <span class="prefs-label">관심사</span>
+        <div class="prefs-chips" id="interest-chips">
+          ${INTEREST_OPTIONS.map(
+            (option) =>
+              `<button type="button" class="pref-chip ${state.prefs.interests.includes(option.id) ? "active" : ""}" data-interest="${option.id}">${option.label}</button>`,
+          ).join("")}
+        </div>
+      </div>
+      <div class="prefs-group" aria-label="여행 목적">
+        <span class="prefs-label">여행 목적</span>
+        <div class="prefs-chips" id="purpose-chips">
+          ${TRAVEL_PURPOSE_OPTIONS.map(
+            (option) =>
+              `<button type="button" class="pref-chip ${state.prefs.travelPurpose === option.id ? "active" : ""}" data-purpose="${option.id}">${option.label}</button>`,
+          ).join("")}
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function selectedItem() {
@@ -537,13 +679,7 @@ function renderDetail() {
   const nextItem = nextRecommendedItem(item);
   const hasAudioStory = Boolean(activity?.hasAudio && activity.audioUrl);
   const readingSource = representative?.overview || activity?.storySnippet || mission.localTip || item.easyKorean;
-  const nextReason = nextItem
-    ? wrongCountForWord(nextItem.word) > 0
-      ? "오답 복습 우선"
-      : nextItem.category === item.category
-        ? `${item.categoryLabel} 이어 학습`
-        : "다음 미완료 어휘"
-    : "";
+  const nextReason = explainRecommendation(item, nextItem);
   const roman = romanizeWord(item.word);
   const particleMissions = missionLinesFor(item.word);
   const matchedQuotes = quotesFor(item);
@@ -739,6 +875,7 @@ function renderDetail() {
 
 function renderNudge() {
   const stats = overallStats();
+  const current = selectedItem();
   const item = nextLearningItem();
   const activity = item ? activityFor(item) : null;
   const wordStats = item ? statsForWord(item.word) : null;
@@ -756,11 +893,15 @@ function renderNudge() {
     quiz: "퀴즈 이어 풀기",
     complete: "다음 어휘 시작",
   }[stage] ?? "학습 시작";
+  const why = explainRecommendation(current, item);
+  const prefHint = hasActivePreferences()
+    ? `맞춤: ${preferenceSummaryLabel()}`
+    : "관심사·여행 목적을 고르면 추천이 바뀝니다.";
   todayNudgeEl.innerHTML = `
     <div>
-      <p class="eyebrow">Today</p>
+      <p class="eyebrow">Today · ${prefHint}</p>
       <h2>${item.word}</h2>
-      <p>${stats.review ? `복습 ${stats.review}개가 남아 있습니다.` : "짧게 한 장만 끝내도 진도가 저장됩니다."} 지금은 ${item.categoryLabel} 어휘 하나에 집중해 보세요.</p>
+      <p>${stats.review ? `복습 ${stats.review}개가 남아 있습니다.` : "짧게 한 장만 끝내도 진도가 저장됩니다."} 지금은 <strong>${item.categoryLabel}</strong> 어휘에 집중해 보세요. <span class="cta-note">${why}</span></p>
     </div>
     <div class="nudge-actions">
       <button type="button" class="primary-action" data-nudge-action="start">${actionLabel}</button>
@@ -1063,6 +1204,7 @@ function renderReview() {
 }
 
 function renderProgressSurfaces() {
+  renderLearnerPrefs();
   renderNudge();
   renderSessionFlow();
   renderFilters();
@@ -1076,6 +1218,26 @@ function renderProgressSurfaces() {
 }
 
 document.addEventListener("click", (event) => {
+  const interestChip = event.target.closest("[data-interest]");
+  if (interestChip) {
+    const id = interestChip.dataset.interest;
+    const set = new Set(state.prefs.interests);
+    if (set.has(id)) set.delete(id);
+    else set.add(id);
+    state.prefs.interests = [...set];
+    savePrefs();
+    renderProgressSurfaces();
+    return;
+  }
+
+  const purposeChip = event.target.closest("[data-purpose]");
+  if (purposeChip) {
+    state.prefs.travelPurpose = purposeChip.dataset.purpose || "any";
+    savePrefs();
+    renderProgressSurfaces();
+    return;
+  }
+
   if (event.target.closest("#reset-progress")) {
     const confirmed = window.confirm("학습 기록을 모두 초기화할까요? (모든 어휘의 퀴즈·듣기·명대사·K-pop 진도가 삭제됩니다)");
     if (!confirmed) return;
@@ -1434,6 +1596,7 @@ function renderPlaces() {
 
 function render() {
   renderSearchHint();
+  renderLearnerPrefs();
   renderNudge();
   renderSessionFlow();
   renderFilters();

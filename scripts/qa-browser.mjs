@@ -85,6 +85,9 @@ try {
     "K-pop 미션",
     "hangul-utils",
     "전체 학습 기록 초기화",
+    "관심사",
+    "여행 목적",
+    "learner-prefs",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {
