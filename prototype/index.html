@@ -42,8 +42,54 @@
     </header>
 
     <main>
+      <!-- 1) Latest hits first — above search, prefs, and session -->
       <section id="now-trending" class="now-trending" aria-label="최신 글로벌 히트"></section>
 
+      <section id="kculture-spotlight-panel" class="panel spotlight-panel" aria-label="K-culture 최신 도메인">
+        <div class="section-title spotlight-title-row">
+          <div>
+            <p class="hot-badge pulse">HOT · NOW</p>
+            <h2>최신 K-culture 히트</h2>
+            <p>BTS · BLACKPINK · 오징어게임 · 기생충을 <strong>맨 앞</strong>에서 고르고, 아래에서 어휘 학습을 이어가세요.</p>
+          </div>
+        </div>
+        <div id="domain-filter" class="prefs-chips domain-filter-row" aria-label="도메인 필터"></div>
+        <div id="domain-list" class="chart-grid spotlight-grid"></div>
+      </section>
+
+      <section class="latest-media-row" aria-label="최신 K-pop · K-movie">
+        <section class="panel spotlight-panel media-panel" aria-label="K-pop 차트">
+          <div class="section-title spotlight-title-row">
+            <div>
+              <p class="hot-badge">GLOBAL CHART</p>
+              <h2>K-pop 차트 · 세션 미션</h2>
+              <p>BTS · BLACKPINK 스포트라이트가 맨 위 · Melon 실차트</p>
+            </div>
+          </div>
+          <div id="chart-list" class="chart-grid"></div>
+        </section>
+
+        <section class="panel spotlight-panel media-panel" aria-label="K-movie 명대사">
+          <div class="section-title spotlight-title-row">
+            <div>
+              <p class="hot-badge">HOT QUOTES</p>
+              <h2>K-movie 명대사</h2>
+              <p>기생충 · 오징어게임 학습용 시드 · 수위 필터</p>
+            </div>
+          </div>
+          <div class="panel-actions quote-filter-row">
+            <label class="inline-label" for="quote-rating-filter">명대사 수위</label>
+            <select id="quote-rating-filter" aria-label="명대사 수위 필터">
+              <option value="clean" selected>학습용만 (기본)</option>
+              <option value="mild">+ 거친 말투</option>
+              <option value="mature">전체 (수위 높음 포함)</option>
+            </select>
+          </div>
+          <div id="quote-list" class="quote-grid"></div>
+        </section>
+      </section>
+
+      <!-- 2) Discover / personalize -->
       <section class="toolbar" aria-label="검색과 필터">
         <label class="search-box">
           <span>검색</span>
@@ -59,18 +105,7 @@
 
       <section id="session-flow" class="session-flow" aria-label="첫 학습 세션 흐름"></section>
 
-      <section id="kculture-spotlight-panel" class="panel spotlight-panel" aria-label="K-culture 최신 도메인">
-        <div class="section-title spotlight-title-row">
-          <div>
-            <p class="hot-badge">HOT · NOW</p>
-            <h2>최신 K-culture 히트</h2>
-            <p>BTS · BLACKPINK · 오징어게임 · 기생충을 먼저 보고, 아래에서 어휘 학습을 이어가세요.</p>
-          </div>
-        </div>
-        <div id="domain-filter" class="prefs-chips domain-filter-row" aria-label="도메인 필터"></div>
-        <div id="domain-list" class="chart-grid spotlight-grid"></div>
-      </section>
-
+      <!-- 3) Core learning loop -->
       <section class="layout">
         <section class="panel">
           <div class="section-title">
@@ -88,30 +123,6 @@
           <article id="detail" class="detail"></article>
         </aside>
       </section>
-
-      <details class="panel api-panel collapsible-panel" open>
-        <summary class="section-title">
-          <h2>K-pop 차트 · 세션 미션</h2>
-          <p>BTS · BLACKPINK 스포트라이트 + Melon 실차트</p>
-        </summary>
-        <div id="chart-list" class="chart-grid"></div>
-      </details>
-
-      <details class="panel api-panel collapsible-panel" open>
-        <summary class="section-title">
-          <h2>K-movie 명대사</h2>
-          <p>기생충 · 오징어게임 학습용 시드 · 수위 필터</p>
-        </summary>
-        <div class="panel-actions quote-filter-row">
-          <label class="inline-label" for="quote-rating-filter">명대사 수위</label>
-          <select id="quote-rating-filter" aria-label="명대사 수위 필터">
-            <option value="clean" selected>학습용만 (기본)</option>
-            <option value="mild">+ 거친 말투</option>
-            <option value="mature">전체 (수위 높음 포함)</option>
-          </select>
-        </div>
-        <div id="quote-list" class="quote-grid"></div>
-      </details>
 
       <details class="panel api-panel collapsible-panel" open>
         <summary class="section-title">

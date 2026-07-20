@@ -1854,10 +1854,17 @@ function renderChart() {
   }${melonChart.source?.note ? ` · ${melonChart.source.note}` : ""}`;
   chartListEl.append(intro);
 
-  for (const entry of chart.slice(0, 12)) {
-    const isGlobal =
-      /방탄소년단|BTS|BLACKPINK|블랙핑크/i.test(entry.artists) ||
-      /Dynamite|Butter|Permission to Dance|How You Like That|Pink Venom/i.test(entry.name);
+  const isGlobalHit = (entry) =>
+    /방탄소년단|BTS|BLACKPINK|블랙핑크|NewJeans|뉴진스|aespa|에스파/i.test(entry.artists ?? "") ||
+    /Dynamite|Butter|Permission to Dance|How You Like That|Pink Venom/i.test(entry.name ?? "");
+
+  // Global hits always first so latest content is the first thing you see.
+  const ordered = chart
+    .slice()
+    .sort((a, b) => Number(isGlobalHit(b)) - Number(isGlobalHit(a)) || (a.ranking ?? 99) - (b.ranking ?? 99));
+
+  for (const entry of ordered.slice(0, 12)) {
+    const isGlobal = isGlobalHit(entry);
     const card = document.createElement("article");
     card.className = `chart-card ${isGlobal ? "spotlight-card" : ""}`;
     const phrases = entry.mission?.phrases ?? [];

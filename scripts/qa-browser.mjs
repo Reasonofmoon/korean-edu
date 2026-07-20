@@ -72,7 +72,7 @@ try {
   await fs.writeFile(outputPath, stdout, "utf8");
 
   const required = [
-    "한국문화 어휘로 시작하는 로컬 한국어 미션",
+    "BTS · BLACKPINK · 오징어게임 · 기생충으로 시작하는 한국어",
     "문화 어휘 카드",
     "듣기 퀴즈와 핵심 표현",
     "복습 카드와 완료 배지",
@@ -93,8 +93,11 @@ try {
     "K-beauty",
     "kculture-domains",
     "now-trending",
+    "latest-media-row",
     "최신 K-culture",
     "NOW TRENDING",
+    "GLOBAL CHART",
+    "HOT QUOTES",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {
