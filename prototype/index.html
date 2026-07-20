@@ -9,9 +9,9 @@
   <body>
     <header class="app-header">
       <div>
-        <p class="eyebrow">K-Culture Korean MVP</p>
-        <h1>한국문화 어휘로 시작하는 로컬 한국어 미션</h1>
-        <p class="intro">세종한국문화 주요 어휘를 실제 장소, 문화 이야기, 상황별 표현과 연결하는 프로토타입입니다.</p>
+        <p class="eyebrow">K-Culture Korean MVP · Now trending</p>
+        <h1>BTS · BLACKPINK · 오징어게임 · 기생충으로 시작하는 한국어</h1>
+        <p class="intro">최신 글로벌 히트를 맨 앞에서, 세종 문화 어휘·관광 미션과 이어서 배웁니다.</p>
       </div>
       <section class="summary" aria-label="데이터 요약">
         <div>
@@ -42,10 +42,12 @@
     </header>
 
     <main>
+      <section id="now-trending" class="now-trending" aria-label="최신 글로벌 히트"></section>
+
       <section class="toolbar" aria-label="검색과 필터">
         <label class="search-box">
           <span>검색</span>
-          <input id="search" type="search" placeholder="예: 김치, gimchi, ㄱㅊ, rlacl">
+          <input id="search" type="search" placeholder="예: BTS, 기생충, 김치, gimchi">
           <span id="search-hint" class="search-hint" aria-live="polite"></span>
         </label>
         <div id="filters" class="filters" aria-label="카테고리 필터"></div>
@@ -56,6 +58,18 @@
       <section id="today-nudge" class="nudge-panel" aria-label="추천 학습 행동"></section>
 
       <section id="session-flow" class="session-flow" aria-label="첫 학습 세션 흐름"></section>
+
+      <section id="kculture-spotlight-panel" class="panel spotlight-panel" aria-label="K-culture 최신 도메인">
+        <div class="section-title spotlight-title-row">
+          <div>
+            <p class="hot-badge">HOT · NOW</p>
+            <h2>최신 K-culture 히트</h2>
+            <p>BTS · BLACKPINK · 오징어게임 · 기생충을 먼저 보고, 아래에서 어휘 학습을 이어가세요.</p>
+          </div>
+        </div>
+        <div id="domain-filter" class="prefs-chips domain-filter-row" aria-label="도메인 필터"></div>
+        <div id="domain-list" class="chart-grid spotlight-grid"></div>
+      </section>
 
       <section class="layout">
         <section class="panel">
@@ -74,6 +88,38 @@
           <article id="detail" class="detail"></article>
         </aside>
       </section>
+
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
+          <h2>K-pop 차트 · 세션 미션</h2>
+          <p>BTS · BLACKPINK 스포트라이트 + Melon 실차트</p>
+        </summary>
+        <div id="chart-list" class="chart-grid"></div>
+      </details>
+
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
+          <h2>K-movie 명대사</h2>
+          <p>기생충 · 오징어게임 학습용 시드 · 수위 필터</p>
+        </summary>
+        <div class="panel-actions quote-filter-row">
+          <label class="inline-label" for="quote-rating-filter">명대사 수위</label>
+          <select id="quote-rating-filter" aria-label="명대사 수위 필터">
+            <option value="clean" selected>학습용만 (기본)</option>
+            <option value="mild">+ 거친 말투</option>
+            <option value="mature">전체 (수위 높음 포함)</option>
+          </select>
+        </div>
+        <div id="quote-list" class="quote-grid"></div>
+      </details>
+
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
+          <h2>듣기 퀴즈와 핵심 표현</h2>
+          <p>오디오/대본 기반 자동 학습 활동</p>
+        </summary>
+        <div id="activity-list" class="activity-grid"></div>
+      </details>
 
       <details class="panel api-panel collapsible-panel">
         <summary class="section-title">
@@ -98,47 +144,6 @@
           <p>관광지 오디오가이드 API 매칭 결과</p>
         </summary>
         <div id="story-list" class="story-grid"></div>
-      </details>
-
-      <details class="panel api-panel collapsible-panel" open>
-        <summary class="section-title">
-          <h2>듣기 퀴즈와 핵심 표현</h2>
-          <p>오디오/대본 기반 자동 학습 활동</p>
-        </summary>
-        <div id="activity-list" class="activity-grid"></div>
-      </details>
-
-      <details class="panel api-panel collapsible-panel" open>
-        <summary class="section-title">
-          <h2>K-culture 도메인</h2>
-          <p>BTS · BLACKPINK · 오징어게임 · 기생충 · K-food · K-beauty 등 최신 글로벌 히트</p>
-        </summary>
-        <div id="domain-filter" class="prefs-chips domain-filter-row" aria-label="도메인 필터"></div>
-        <div id="domain-list" class="chart-grid"></div>
-      </details>
-
-      <details class="panel api-panel collapsible-panel" open>
-        <summary class="section-title">
-          <h2>K-movie 명대사</h2>
-          <p>keywordHints 매칭 · 수위 필터</p>
-        </summary>
-        <div class="panel-actions quote-filter-row">
-          <label class="inline-label" for="quote-rating-filter">명대사 수위</label>
-          <select id="quote-rating-filter" aria-label="명대사 수위 필터">
-            <option value="clean" selected>학습용만 (기본)</option>
-            <option value="mild">+ 거친 말투</option>
-            <option value="mature">전체 (수위 높음 포함)</option>
-          </select>
-        </div>
-        <div id="quote-list" class="quote-grid"></div>
-      </details>
-
-      <details class="panel api-panel collapsible-panel" open>
-        <summary class="section-title">
-          <h2>K-pop 차트 · 세션 미션</h2>
-          <p>Melon 실차트 스냅샷 (HTML/API) + 어휘별 미션</p>
-        </summary>
-        <div id="chart-list" class="chart-grid"></div>
       </details>
 
       <details class="panel api-panel collapsible-panel" open>

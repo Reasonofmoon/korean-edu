@@ -169,8 +169,8 @@ const state = {
   /** Max content rating for movie quotes (default: learner-safe). */
   quoteMaxRating: "clean",
   prefs: loadPrefs(),
-  /** Active domain filter on the K-culture panel (`all` or domain id). */
-  domainFilter: "all",
+  /** Active domain filter — default spotlight so latest hits show first. */
+  domainFilter: "spotlight",
 };
 
 const categoryOrder = ["all", "food", "place", "tradition", "history", "nature", "daily"];
@@ -199,6 +199,7 @@ const quoteListEl = document.querySelector("#quote-list");
 const chartListEl = document.querySelector("#chart-list");
 const domainListEl = document.querySelector("#domain-list");
 const domainFilterEl = document.querySelector("#domain-filter");
+const nowTrendingEl = document.querySelector("#now-trending");
 const quoteRatingFilterEl = document.querySelector("#quote-rating-filter");
 const learnerPrefsEl = document.querySelector("#learner-prefs");
 const todayNudgeEl = document.querySelector("#today-nudge");
@@ -1297,6 +1298,7 @@ function renderReview() {
 }
 
 function renderProgressSurfaces() {
+  renderNowTrending();
   renderLearnerPrefs();
   renderNudge();
   renderSessionFlow();
@@ -1311,6 +1313,52 @@ function renderProgressSurfaces() {
   renderDomains();
 }
 
+function interestIdForDomain(domainId) {
+  const map = {
+    "k-pop": "k-pop",
+    "k-movie": "k-movie",
+    "k-drama": "k-drama",
+    "k-food": "k-food",
+    "k-beauty": "k-beauty",
+    "k-fashion": "k-fashion",
+    "k-webtoon": "k-webtoon",
+    "k-game": "k-game",
+  };
+  return map[domainId] ?? null;
+}
+
+function renderNowTrending() {
+  if (!nowTrendingEl) return;
+  const spotlights = kcultureDomains.spotlights ?? [];
+  if (!spotlights.length) {
+    nowTrendingEl.innerHTML = "";
+    return;
+  }
+
+  nowTrendingEl.innerHTML = `
+    <div class="trending-hero">
+      <div class="trending-copy">
+        <p class="hot-badge pulse">🔥 NOW TRENDING</p>
+        <h2>지금 세계가 보는 한국</h2>
+        <p>BTS · BLACKPINK · 오징어게임 · 기생충을 <strong>맨 위</strong>에서 고르고, 관심사로 저장한 뒤 어휘 미션으로 이어가세요.</p>
+      </div>
+      <div class="trending-rail" role="list">
+        ${spotlights
+          .map(
+            (spot, index) => `
+          <button type="button" class="trending-card" role="listitem" data-spotlight-id="${spot.id}" data-spotlight-domain="${spot.domainId ?? ""}">
+            <span class="trending-rank">#${index + 1}</span>
+            <span class="trending-title">${spot.title}</span>
+            <span class="trending-sub">${spot.subtitle ?? ""}</span>
+            <span class="trending-cta">관심사로 고르기 →</span>
+          </button>`,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderDomains() {
   if (!domainListEl) return;
   domainListEl.innerHTML = "";
@@ -1323,8 +1371,8 @@ function renderDomains() {
 
   if (domainFilterEl) {
     domainFilterEl.innerHTML = `
-      <button type="button" class="pref-chip ${state.domainFilter === "all" ? "active" : ""}" data-domain-filter="all">전체</button>
-      <button type="button" class="pref-chip ${state.domainFilter === "spotlight" ? "active" : ""}" data-domain-filter="spotlight">🔥 최신 글로벌</button>
+      <button type="button" class="pref-chip hot-chip ${state.domainFilter === "spotlight" ? "active" : ""}" data-domain-filter="spotlight">🔥 최신 글로벌</button>
+      <button type="button" class="pref-chip ${state.domainFilter === "all" ? "active" : ""}" data-domain-filter="all">전체 도메인</button>
       ${domains
         .map(
           (domain) =>
@@ -1336,58 +1384,77 @@ function renderDomains() {
 
   const intro = document.createElement("p");
   intro.className = "meta";
-  intro.textContent = `K-culture 도메인 ${domains.length}개 · 글로벌 히트 ${spotlights.length}개 · 어휘 매칭 ${kcultureDomains.summary?.vocabWithMatches ?? 0}개 · 필터 ${state.domainFilter}`;
+  intro.textContent =
+    state.domainFilter === "spotlight"
+      ? `최신 글로벌 히트 ${spotlights.length}개 · 카드 클릭 시 관심사에 반영됩니다`
+      : `K-culture 도메인 ${domains.length}개 · 글로벌 히트 ${spotlights.length}개 · 어휘 매칭 ${kcultureDomains.summary?.vocabWithMatches ?? 0}개`;
   domainListEl.append(intro);
 
   const showSpotlights = state.domainFilter === "all" || state.domainFilter === "spotlight";
   if (showSpotlights && spotlights.length) {
+    // Spotlights first, larger cards
     for (const spot of spotlights) {
       if (state.domainFilter !== "all" && state.domainFilter !== "spotlight" && state.domainFilter !== spot.domainId) {
         continue;
       }
       const card = document.createElement("article");
-      card.className = "chart-card domain-card spotlight-card";
+      card.className = "chart-card domain-card spotlight-card featured-spotlight";
       card.innerHTML = `
         <div class="tag-row">
+          <span class="tag hot-tag">HOT</span>
           <span class="tag success">최신 글로벌</span>
           ${(spot.tags ?? []).map((tag) => `<span class="tag">${tag}</span>`).join("")}
         </div>
         <h3>${spot.title}</h3>
-        <p class="meta">${spot.subtitle ?? ""}</p>
+        <p class="meta spotlight-sub">${spot.subtitle ?? ""}</p>
         <p class="body-copy">${spot.blurb ?? ""}</p>
         <ul class="phrase-list">
           ${(spot.phrases ?? []).map((phrase) => `<li>${phrase}</li>`).join("")}
         </ul>
+        <button type="button" class="primary-action" data-spotlight-id="${spot.id}" data-spotlight-domain="${spot.domainId ?? ""}">이 히트로 관심사 설정</button>
       `;
       domainListEl.append(card);
     }
   }
 
-  if (state.domainFilter === "spotlight") return;
+  if (state.domainFilter === "spotlight") {
+    renderNowTrending();
+    return;
+  }
 
+  // Featured domain items with spotlight metadata next, then the rest
   const visible = domains.filter((domain) => state.domainFilter === "all" || domain.id === state.domainFilter);
+  const featuredItems = [];
+  const regularItems = [];
   for (const domain of visible) {
     for (const item of domain.items ?? []) {
-      const card = document.createElement("article");
-      card.className = "chart-card domain-card";
-      const spotlightLabel = item.spotlight?.title ? `<span class="tag progress">${item.spotlight.title}</span>` : "";
-      card.innerHTML = `
-        <div class="tag-row">
-          <span class="tag">${domain.emoji ?? ""} ${domain.label}</span>
-          <span class="tag">${domain.labelKo}</span>
-          ${spotlightLabel}
-        </div>
-        <h3>${item.title}</h3>
-        <p class="body-copy">${domain.blurb}</p>
-        <ul class="phrase-list">
-          ${(item.phrases ?? []).slice(0, 5).map((phrase) => `<li>${phrase}</li>`).join("")}
-        </ul>
-        <p class="meta">keywords: ${(item.keywords ?? []).slice(0, 6).join(", ")}</p>
-        <div class="signal">${item.tip ?? ""}</div>
-      `;
-      domainListEl.append(card);
+      const row = { domain, item };
+      if (item.spotlight) featuredItems.push(row);
+      else regularItems.push(row);
     }
   }
+
+  for (const { domain, item } of [...featuredItems, ...regularItems]) {
+    const card = document.createElement("article");
+    card.className = `chart-card domain-card ${item.spotlight ? "spotlight-card" : ""}`;
+    const spotlightLabel = item.spotlight?.title ? `<span class="tag hot-tag">${item.spotlight.title}</span>` : "";
+    card.innerHTML = `
+      <div class="tag-row">
+        <span class="tag">${domain.emoji ?? ""} ${domain.label}</span>
+        <span class="tag">${domain.labelKo}</span>
+        ${spotlightLabel}
+      </div>
+      <h3>${item.title}</h3>
+      <p class="body-copy">${domain.blurb}</p>
+      <ul class="phrase-list">
+        ${(item.phrases ?? []).slice(0, 5).map((phrase) => `<li>${phrase}</li>`).join("")}
+      </ul>
+      <p class="meta">keywords: ${(item.keywords ?? []).slice(0, 6).join(", ")}</p>
+      <div class="signal">${item.tip ?? ""}</div>
+    `;
+    domainListEl.append(card);
+  }
+  renderNowTrending();
 }
 
 document.addEventListener("click", (event) => {
@@ -1519,8 +1586,23 @@ document.addEventListener("click", (event) => {
 
   const domainFilterBtn = event.target.closest("[data-domain-filter]");
   if (domainFilterBtn) {
-    state.domainFilter = domainFilterBtn.dataset.domainFilter || "all";
+    state.domainFilter = domainFilterBtn.dataset.domainFilter || "spotlight";
     renderDomains();
+    document.getElementById("kculture-spotlight-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const spotlightBtn = event.target.closest("[data-spotlight-domain]");
+  if (spotlightBtn) {
+    const domainId = spotlightBtn.dataset.spotlightDomain;
+    const interestId = interestIdForDomain(domainId);
+    if (interestId && !state.prefs.interests.includes(interestId)) {
+      state.prefs.interests = [...state.prefs.interests, interestId];
+      savePrefs();
+    }
+    state.domainFilter = domainId || "spotlight";
+    renderProgressSurfaces();
+    document.getElementById("kculture-spotlight-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
 
@@ -1691,11 +1773,21 @@ document.addEventListener("ended", (event) => {
 function renderQuotes() {
   if (!quoteListEl) return;
   quoteListEl.innerHTML = "";
+  const hotTitleScore = (name) => {
+    const n = String(name ?? "");
+    if (/기생충|Parasite/i.test(n)) return 100;
+    if (/오징어|Squid/i.test(n)) return 90;
+    if (/미나리|Minari/i.test(n)) return 70;
+    if (/부산행/i.test(n)) return 60;
+    return 0;
+  };
   const quotes = (klassicQuotes.quotes ?? [])
     .filter((quote) => isRatingAllowed(quote.contentRating ?? "clean", state.quoteMaxRating))
     .slice()
     .sort((a, b) => {
-      // When filter is open, surface higher-rating items first so the filter effect is visible.
+      const hot = hotTitleScore(b.name) - hotTitleScore(a.name);
+      if (hot !== 0) return hot;
+      // When filter is open, surface higher-rating items next.
       if (state.quoteMaxRating === "clean") return 0;
       const rank = (rating) => RATING_ORDER.indexOf(rating ?? "clean");
       return rank(b.contentRating) - rank(a.contentRating);
@@ -1725,10 +1817,12 @@ function renderQuotes() {
 
   for (const item of quotes.slice(0, 12)) {
     const rating = item.contentRating ?? "clean";
+    const isHot = hotTitleScore(item.name) > 0;
     const card = document.createElement("article");
-    card.className = "quote-card";
+    card.className = `quote-card ${isHot ? "spotlight-card" : ""}`;
     card.innerHTML = `
       <div class="tag-row">
+        ${isHot ? `<span class="tag hot-tag">HOT</span>` : ""}
         <span class="tag">${item.name}</span>
         <span class="tag ${rating === "clean" ? "success" : rating === "mild" ? "progress" : "danger"}">${item.contentRatingLabel ?? ratingLabels[rating]}</span>
         ${item.source === "seed" ? `<span class="tag progress">seed</span>` : ""}
@@ -1761,11 +1855,15 @@ function renderChart() {
   chartListEl.append(intro);
 
   for (const entry of chart.slice(0, 12)) {
+    const isGlobal =
+      /방탄소년단|BTS|BLACKPINK|블랙핑크/i.test(entry.artists) ||
+      /Dynamite|Butter|Permission to Dance|How You Like That|Pink Venom/i.test(entry.name);
     const card = document.createElement("article");
-    card.className = "chart-card";
+    card.className = `chart-card ${isGlobal ? "spotlight-card" : ""}`;
     const phrases = entry.mission?.phrases ?? [];
     card.innerHTML = `
       <div class="tag-row">
+        ${isGlobal ? `<span class="tag hot-tag">GLOBAL</span>` : ""}
         <span class="tag">#${entry.ranking}</span>
         <span class="tag">${entry.artists}</span>
       </div>
@@ -1831,6 +1929,7 @@ if (quoteRatingFilterEl) {
   });
 }
 
+renderNowTrending();
 renderTargets();
 renderPlaces();
 renderStories();

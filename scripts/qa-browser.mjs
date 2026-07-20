@@ -88,10 +88,13 @@ try {
     "관심사",
     "여행 목적",
     "learner-prefs",
-    "K-culture 도메인",
+    "K-culture",
     "K-food",
     "K-beauty",
     "kculture-domains",
+    "now-trending",
+    "최신 K-culture",
+    "NOW TRENDING",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {
