@@ -1,84 +1,63 @@
 {
-  "generatedAt": "2026-07-20T12:32:04.506Z",
+  "generatedAt": "2026-07-20T12:42:51.935Z",
   "url": "https://reasonofmoon.github.io/korean-edu/",
   "deploy": {
-    "lastSuccessfulRun": "25776961397",
-    "headSha": "279e72adabe885d07d25184f27a0f23c8e623bda",
-    "date": "2026-05-13"
+    "headSha": "ff0fc7e",
+    "runId": "29743182593"
   },
   "home": {
     "status": 200,
-    "len": 4100,
+    "len": 5334,
     "needles": {
       "title": true,
       "h1": true,
-      "cards": true,
-      "sessionFlow": true,
-      "nudge": true,
-      "gyeongbokgungInHtml": true,
-      "kmovie": false,
-      "kpop": false,
-      "hangulUtilsScript": false,
-      "klassicScript": false,
-      "melonScript": false
+      "kmovie": true,
+      "kpop": true,
+      "ratingFilter": true,
+      "hangulScript": true,
+      "klassicScript": true,
+      "melonScript": true,
+      "sessionQuote": true
     }
   },
   "assets": {
     "app.js": {
       "status": 200,
-      "len": 35401,
+      "len": 51359,
       "ok": true
     },
     "styles.css": {
       "status": 200,
-      "len": 13137,
+      "len": 14607,
+      "ok": true
+    },
+    "lib/hangul-utils.js": {
+      "status": 200,
+      "len": 60312,
+      "ok": true
+    },
+    "data/klassic-quotes.js": {
+      "status": 200,
+      "len": 126189,
+      "ok": true
+    },
+    "data/melon-chart.js": {
+      "status": 200,
+      "len": 11122,
       "ok": true
     },
     "data/app-data.js": {
       "status": 200,
-      "len": 141237,
+      "len": 143184,
       "ok": true
-    },
-    "data/learning-activities.js": {
-      "status": 200,
-      "len": 145620,
-      "ok": true
-    },
-    "data/tourapi-matches.js": {
-      "status": 200,
-      "len": 274603,
-      "ok": true
-    },
-    "lib/hangul-utils.js": {
-      "status": 404,
-      "len": 0,
-      "ok": false
-    },
-    "data/klassic-quotes.js": {
-      "status": 404,
-      "len": 0,
-      "ok": false
-    },
-    "data/melon-chart.js": {
-      "status": 404,
-      "len": 0,
-      "ok": false
     }
   },
   "content": {
-    "gyeongbokgungInData": true
-  },
-  "featureGapVsLocal": {
-    "note": "Local workspace has uncommitted hangul/quotes/melon/session gates not on Pages yet",
-    "missingOnPages": [
-      "hangul-utils.js",
-      "klassic-quotes.js",
-      "melon-chart.js",
-      "K-movie section",
-      "K-pop section",
-      "quote rating filter"
-    ]
+    "hangulHasRomanize": true,
+    "quotesHasMatches": true,
+    "melonHasChart": true,
+    "quotesHasKimchi": true
   },
   "ok": true,
-  "level": "legacy-mvp-ok"
+  "level": "current-local-parity"
 }
