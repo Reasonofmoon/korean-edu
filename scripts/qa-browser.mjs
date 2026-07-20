@@ -78,6 +78,12 @@ try {
     "복습 카드와 완료 배지",
     "경복궁",
     "정답률",
+    "K-movie 명대사",
+    "K-pop 차트",
+    "명대사 수위",
+    "명대사 확인",
+    "K-pop 미션",
+    "hangul-utils",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {

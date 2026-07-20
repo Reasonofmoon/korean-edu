@@ -1,12 +1,12 @@
 # 수동 QA 체크리스트
 
-배포 예상 URL:
+배포 URL:
 
 ```text
 https://reasonofmoon.github.io/korean-edu/
 ```
 
-현재 GitHub Pages는 저장소 설정 또는 Actions 권한에 따라 처음 1회 활성화가 필요할 수 있습니다.
+2026-07-20 기준 Pages **활성·200 OK**. 다만 배포 커밋은 `279e72a`(2026-05-13)이며, 로컬 명대사/K-pop 스파이크는 **미푸시** 상태일 수 있다. 상세: [deployment-status.md](./deployment-status.md), [pages-smoke-results.json](./pages-smoke-results.json).
 
 ## 1. 배포 상태
 
@@ -51,7 +51,19 @@ https://reasonofmoon.github.io/korean-edu/
 - 오답 선택 시 복습 카드에 노출되는지 확인
 - 같은 퀴즈를 여러 번 틀리면 `오답 n회`가 표시되는지 확인
 - 새로고침 후 퀴즈 상태가 유지되는지 확인
-- 모든 퀴즈 정답과 듣기 완료 조건을 충족하면 완료 배지가 표시되는지 확인
+- 모든 퀴즈 정답 + 듣기/읽기 + 표현 + **명대사 확인** + **K-pop 미션**을 충족하면 완료 배지가 표시되는지 확인
+
+## 6-b. 명대사 · 수위 · K-pop
+
+- 세션 플로우에 `명대사 확인`, `K-pop 미션` 단계가 보이는지 확인
+- 상세에서 `명대사 확인했어요`를 누르면 `명대사 확인 완료`로 바뀌는지 확인
+- 명대사 미완료 상태에서는 다음 어휘 CTA/완료 배지가 나오지 않는지 확인
+- 수위 필터 `학습용만` / `거친 말투` / `전체` 전환 시 목록이 바뀌는지 확인
+- food/place/tradition/history/nature/daily 카테고리 어휘에서 명대사 카드가 비지 않는지 확인
+- K-pop 차트 미션 완료 버튼이 동작하는지 확인
+- 1음절 어휘(`김`,`떡`,`밥`,`벼`,`북`,`전`,`징`) 상세에도 매칭 명대사가 보이는지 확인
+
+자동 검증: `npm run qa:manual` (결과: [manual-qa-results.md](./manual-qa-results.md))
 
 ## 7. 초기화
 

@@ -7,11 +7,24 @@
     "serve": "node scripts/serve-prototype.mjs",
     "check:env": "node scripts/check-tourapi-env.mjs",
     "build:data": "node scripts/build-prototype-data.mjs",
+    "build:hangul": "node scripts/build-hangul-utils.mjs",
     "fetch:matches": "node scripts/tourapi-build-matches.mjs",
     "fetch:details": "node scripts/tourapi-build-details.mjs",
     "fetch:odii": "node scripts/tourapi-build-odii.mjs",
+    "fetch:quotes": "node scripts/build-klassic-quotes.mjs",
+    "fetch:melon": "node scripts/build-melon-chart.mjs",
     "build:activities": "node scripts/build-learning-activities.mjs",
+    "build:spike": "npm run build:hangul && npm run build:data && npm run build:activities && npm run fetch:quotes && npm run fetch:melon",
     "qa:browser": "node scripts/qa-browser.mjs",
-    "qa:click-flow": "node scripts/qa-click-flow.mjs"
+    "qa:click-flow": "node scripts/qa-click-flow.mjs",
+    "qa:manual": "node scripts/qa-manual-checklist.mjs"
+  },
+  "dependencies": {
+    "es-hangul": "^2.4.0",
+    "hangul-postposition": "^2.0.0",
+    "hangul-romanization": "^1.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
   }
 }

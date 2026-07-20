@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { josa } from "es-hangul";
 
 const root = process.cwd();
 const appDataPath = path.join(root, "prototype", "data", "app-data.js");
@@ -66,7 +67,7 @@ function makeQuiz(word, vocab, story, representative, expressions, vocabulary) {
       passage: cleanText(source).slice(0, 180),
       answer: word,
       options,
-      explanation: `${word}은/는 이 문화 이야기의 중심 어휘입니다.`,
+      explanation: `${josa(word, "은/는")} 이 문화 이야기의 중심 어휘입니다.`,
     },
   ];
 

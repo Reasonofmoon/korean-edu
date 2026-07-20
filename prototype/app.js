@@ -16,11 +16,89 @@ const learningActivities = window.KCULTURE_LEARNING_ACTIVITIES ?? {
   summary: { expressions: 0, quizzes: 0 },
   activities: [],
 };
+const klassicQuotes = window.KCULTURE_KLASSIC_QUOTES ?? {
+  summary: { total: 0 },
+  quotes: [],
+  vocabMatches: {},
+  source: {},
+};
+const melonChart = window.KCULTURE_MELON_CHART ?? {
+  summary: { total: 0 },
+  chart: [],
+  source: {},
+};
+
+/** clean < mild < mature — UI filter max allowed rating. */
+const RATING_ORDER = ["clean", "mild", "mature"];
+const ratingLabels = {
+  clean: "학습용",
+  mild: "거친 말투",
+  mature: "수위 높음",
+};
+
+function isRatingAllowed(quoteRating, maxRating) {
+  const quoteIdx = RATING_ORDER.indexOf(quoteRating ?? "clean");
+  const maxIdx = RATING_ORDER.indexOf(maxRating ?? "clean");
+  if (quoteIdx < 0 || maxIdx < 0) return (quoteRating ?? "clean") === "clean";
+  return quoteIdx <= maxIdx;
+}
+
+function hashString(value) {
+  let hash = 0;
+  const text = String(value ?? "");
+  for (let i = 0; i < text.length; i += 1) {
+    hash = (hash * 31 + text.charCodeAt(i)) % 1_000_003;
+  }
+  return hash;
+}
+
+/** A-group Hangul utilities (es-hangul + hangul-romanization + hangul-postposition). */
+const Hangul = window.HangulUtils ?? {};
+const romanizeWord = (text) => {
+  try {
+    return Hangul.romanize?.(text) || Hangul.romanizeEs?.(text) || "";
+  } catch {
+    return "";
+  }
+};
+const attachJosa = (word, particle) => {
+  try {
+    return Hangul.attachJosa?.(word, particle) || Hangul.josa?.(word, particle) || word;
+  } catch {
+    return word;
+  }
+};
+const missionLinesFor = (word) => {
+  try {
+    if (typeof Hangul.missionLinesFor === "function") return Hangul.missionLinesFor(word);
+  } catch {
+    /* fall through */
+  }
+  return [
+    `${attachJosa(word, "이/가")} 뭐예요?`,
+    `${attachJosa(word, "을/를")} 추천해 주세요.`,
+    `${attachJosa(word, "은/는")} 어디에 있어요?`,
+  ];
+};
+const matchesSearch = (fields, query) => {
+  try {
+    if (typeof Hangul.matchesHangulSearch === "function") {
+      return Hangul.matchesHangulSearch(fields, query);
+    }
+  } catch {
+    /* fall through */
+  }
+  const q = String(query ?? "").trim().toLowerCase();
+  if (!q) return true;
+  return fields.some((field) => String(field ?? "").toLowerCase().includes(q));
+};
 
 const state = {
   query: "",
   category: "all",
   selectedId: data.vocabulary[0]?.id,
+  /** Max content rating for movie quotes (default: learner-safe). */
+  quoteMaxRating: "clean",
 };
 
 const categoryOrder = ["all", "food", "place", "tradition", "history", "nature", "daily"];
@@ -35,6 +113,7 @@ const categoryLabels = {
 };
 
 const searchInput = document.querySelector("#search");
+const searchHintEl = document.querySelector("#search-hint");
 const filtersEl = document.querySelector("#filters");
 const listEl = document.querySelector("#vocab-list");
 const detailEl = document.querySelector("#detail");
@@ -44,6 +123,9 @@ const placeListEl = document.querySelector("#place-list");
 const storyListEl = document.querySelector("#story-list");
 const activityListEl = document.querySelector("#activity-list");
 const reviewListEl = document.querySelector("#review-list");
+const quoteListEl = document.querySelector("#quote-list");
+const chartListEl = document.querySelector("#chart-list");
+const quoteRatingFilterEl = document.querySelector("#quote-rating-filter");
 const todayNudgeEl = document.querySelector("#today-nudge");
 const sessionFlowEl = document.querySelector("#session-flow");
 const resultCountEl = document.querySelector("#result-count");
@@ -67,9 +149,11 @@ function loadProgress() {
       audio: parsed.audio ?? {},
       expressions: parsed.expressions ?? {},
       reading: parsed.reading ?? {},
+      kpop: parsed.kpop ?? {},
+      quotes: parsed.quotes ?? {},
     };
   } catch {
-    return { answers: {}, audio: {}, expressions: {}, reading: {} };
+    return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {} };
   }
 }
 
@@ -87,6 +171,15 @@ function allQuizzes() {
   );
 }
 
+function hasKpopChart() {
+  return (melonChart.chart ?? []).length > 0;
+}
+
+/** Quotes are always required when dataset exists (seed + API). */
+function hasQuoteDataset() {
+  return (klassicQuotes.quotes ?? []).length > 0;
+}
+
 function statsForWord(word) {
   const activity = learningActivities.activities.find((item) => item.word === word);
   const quizzes = activity?.quizzes ?? [];
@@ -97,6 +190,10 @@ function statsForWord(word) {
   const requiresReading = Boolean(activity && !requiresAudio);
   const readingDone = !requiresReading || Boolean(progress.reading[word]?.completed);
   const expressionDone = !activity?.expressions?.length || Boolean(progress.expressions[word]?.checked);
+  const requiresQuotes = hasQuoteDataset();
+  const quoteDone = !requiresQuotes || Boolean(progress.quotes[word]?.completed);
+  const requiresKpop = hasKpopChart();
+  const kpopDone = !requiresKpop || Boolean(progress.kpop[word]?.completed);
   return {
     total: quizzes.length,
     answered: answered.length,
@@ -107,7 +204,18 @@ function statsForWord(word) {
     requiresReading,
     readingDone,
     expressionDone,
-    complete: quizzes.length > 0 && correct.length === quizzes.length && audioDone && readingDone && expressionDone,
+    requiresQuotes,
+    quoteDone,
+    requiresKpop,
+    kpopDone,
+    complete:
+      quizzes.length > 0 &&
+      correct.length === quizzes.length &&
+      audioDone &&
+      readingDone &&
+      expressionDone &&
+      quoteDone &&
+      kpopDone,
   };
 }
 
@@ -184,6 +292,8 @@ function sessionStageFor(item) {
   if (hasAudioStory && !stats.audioDone) return "listen";
   if (!hasAudioStory && stats.requiresReading && !stats.readingDone) return "listen";
   if (!stats.expressionDone) return "expressions";
+  if (stats.requiresQuotes && !stats.quoteDone) return "quote";
+  if (stats.requiresKpop && !stats.kpopDone) return "kpop";
   if (stats.answered < stats.total || stats.correct < stats.total) return "quiz";
   return "complete";
 }
@@ -193,6 +303,8 @@ const sessionSteps = [
   { id: "context", label: "뜻과 미션", target: "#detail" },
   { id: "listen", label: "듣기/읽기", target: "#story-step" },
   { id: "expressions", label: "표현 확인", target: "#expression-step" },
+  { id: "quote", label: "명대사 확인", target: "#quote-step" },
+  { id: "kpop", label: "K-pop 미션", target: "#kpop-step" },
   { id: "quiz", label: "퀴즈", target: "#quiz-step" },
   { id: "complete", label: "완료", target: "#review-list" },
 ];
@@ -217,14 +329,123 @@ function activityFor(item) {
   return learningActivities.activities.find((activity) => activity.vocabularyId === item.id);
 }
 
+/** Deterministic chart track for this vocab word (session K-pop mission). */
+function chartMissionFor(item) {
+  const chart = melonChart.chart ?? [];
+  if (!chart.length || !item) return null;
+  return chart[hashString(item.word) % chart.length];
+}
+
+/**
+ * Quotes matched to vocab via build-time vocabMatches + keywordHints.
+ * Falls back to ambient clean quotes so the section is never empty when data exists.
+ */
+function quotesFor(item) {
+  if (!item) return [];
+  const allQuotes = klassicQuotes.quotes ?? [];
+  const byId = new Map(allQuotes.map((quote) => [String(quote.id), quote]));
+  const ranked = (klassicQuotes.vocabMatches?.[item.word] ?? [])
+    .filter((match) => (match.score ?? 0) >= 4)
+    .map((match) => {
+      const quote = byId.get(String(match.quoteId));
+      if (!quote) return null;
+      return {
+        ...quote,
+        matchScore: match.score ?? 0,
+        matchReasons: match.reasons ?? [],
+        matchKind: "keyword",
+      };
+    })
+    .filter(Boolean);
+
+  let list = ranked.filter((quote) => isRatingAllowed(quote.contentRating ?? "clean", state.quoteMaxRating));
+
+  if (!list.length && allQuotes.length) {
+    const ambientPool = allQuotes.filter((quote) =>
+      isRatingAllowed(quote.contentRating ?? "clean", state.quoteMaxRating),
+    );
+    if (ambientPool.length) {
+      const start = hashString(item.word) % ambientPool.length;
+      list = [0, 1]
+        .map((offset) => ambientPool[(start + offset) % ambientPool.length])
+        .filter(Boolean)
+        .map((quote) => ({
+          ...quote,
+          matchScore: 0,
+          matchReasons: ["ambient"],
+          matchKind: "ambient",
+        }));
+    }
+  }
+
+  return list.slice(0, 3);
+}
+
+function renderQuoteCardsHtml(quotes, word) {
+  if (!quotes.length) {
+    return `<p class="body-copy">현재 수위 필터(${ratingLabels[state.quoteMaxRating] ?? state.quoteMaxRating})에서 표시할 명대사가 없습니다. 필터를 완화해 보세요.</p>`;
+  }
+  return `<div class="story-stack">${quotes
+    .map((quote) => {
+      const rating = quote.contentRating ?? "clean";
+      const seen = Boolean(progress.quotes[word]?.seenIds?.includes(String(quote.id)));
+      return `<article class="quote-card compact ${seen ? "complete" : ""}" data-quote-id="${quote.id}">
+        <div class="tag-row">
+          <span class="tag">${quote.name}</span>
+          <span class="tag ${rating === "clean" ? "success" : rating === "mild" ? "progress" : "danger"}">${quote.contentRatingLabel ?? ratingLabels[rating]}</span>
+          ${quote.matchKind === "keyword" ? `<span class="tag">매칭 ${quote.matchScore}</span>` : `<span class="tag">추천</span>`}
+        </div>
+        <blockquote>${quote.quote}</blockquote>
+        <p class="meta">— ${quote.author}${quote.matchReasons?.length ? ` · ${quote.matchReasons.slice(0, 2).join(", ")}` : ""}</p>
+        ${(quote.keywordHints ?? []).length ? `<p class="meta">hints: ${(quote.keywordHints ?? []).slice(0, 6).join(", ")}</p>` : ""}
+      </article>`;
+    })
+    .join("")}</div>`;
+}
+
+function searchFieldsFor(item) {
+  const roman = romanizeWord(item.word);
+  const choseong = Hangul.choseong?.(item.word) ?? "";
+  return [
+    item.word,
+    item.easyKorean,
+    item.categoryLabel,
+    roman,
+    choseong,
+    ...(item.books ?? []),
+    ...(item.units ?? []),
+    ...(item.apiKeywords ?? []),
+    ...(item.sampleSentences ?? []),
+  ];
+}
+
 function filteredVocabulary() {
-  const query = state.query.trim().toLowerCase();
+  const query = state.query.trim();
   return data.vocabulary.filter((item) => {
     const matchesCategory = state.category === "all" || item.category === state.category;
-    const haystack = [item.word, item.categoryLabel, ...item.books, ...item.units].join(" ").toLowerCase();
-    const matchesQuery = !query || haystack.includes(query);
+    const matchesQuery = !query || matchesSearch(searchFieldsFor(item), query);
     return matchesCategory && matchesQuery;
   });
+}
+
+function renderSearchHint() {
+  if (!searchHintEl) return;
+  const query = state.query.trim();
+  if (!query) {
+    searchHintEl.textContent = Hangul.matchesHangulSearch
+      ? "한글 · 로마자 · 초성 · 영타(rlacl→김치) 검색 지원"
+      : "";
+    return;
+  }
+
+  const parts = [];
+  const asHangul = Hangul.qwertyToHangul?.(query) || Hangul.convertQwertyToHangul?.(query) || "";
+  if (asHangul && asHangul !== query) parts.push(`영타 변환: ${asHangul}`);
+  if (/^[ㄱ-ㅎ]+$/.test(query)) parts.push(`초성 검색: ${query}`);
+  if (/^[a-zA-Z\s'-]+$/.test(query)) parts.push(`로마자 검색: ${query.toLowerCase()}`);
+  const count = filteredVocabulary().length;
+  parts.push(`${count}개 결과`);
+  searchHintEl.textContent = parts.join(" · ");
 }
 
 function renderFilters() {
@@ -256,6 +477,7 @@ function renderList() {
     const card = document.createElement("button");
     card.type = "button";
     card.className = `vocab-card ${item.id === state.selectedId ? "selected" : ""} ${wordStats.complete ? "complete" : ""}`;
+    const roman = romanizeWord(item.word);
     card.innerHTML = `
       <div class="tag-row">
         <span class="tag">${item.categoryLabel}</span>
@@ -269,6 +491,7 @@ function renderList() {
         }
       </div>
       <h3 class="word">${item.word}</h3>
+      ${roman ? `<p class="romanization">${roman}</p>` : ""}
       <p class="body-copy">${item.easyKorean}</p>
       <p class="meta">${mission.title}</p>
     `;
@@ -312,6 +535,11 @@ function renderDetail() {
         ? `${item.categoryLabel} 이어 학습`
         : "다음 미완료 어휘"
     : "";
+  const roman = romanizeWord(item.word);
+  const particleMissions = missionLinesFor(item.word);
+  const matchedQuotes = quotesFor(item);
+  const kpopTrack = chartMissionFor(item);
+  const kpopDone = Boolean(progress.kpop[item.word]?.completed);
   detailEl.innerHTML = `
     <div class="detail-hero">
       <div class="tag-row">
@@ -320,16 +548,19 @@ function renderDetail() {
         ${
           wordStats.complete
             ? `<span class="tag success">학습 완료</span>`
-            : `<span class="tag progress">퀴즈 ${wordStats.answered}/${wordStats.total}${wordStats.requiresAudio ? ` · 듣기 ${wordStats.audioDone ? "완료" : "필요"}` : ""}</span>`
+            : `<span class="tag progress">퀴즈 ${wordStats.answered}/${wordStats.total}${wordStats.requiresAudio ? ` · 듣기 ${wordStats.audioDone ? "완료" : "필요"}` : ""}${wordStats.requiresQuotes ? ` · 명대사 ${wordStats.quoteDone ? "완료" : "필요"}` : ""}${wordStats.requiresKpop ? ` · K-pop ${wordStats.kpopDone ? "완료" : "필요"}` : ""}</span>`
         }
       </div>
       <h3>${item.word}</h3>
+      ${roman ? `<p class="romanization" title="hangul-romanization / es-hangul">${roman}</p>` : ""}
       <p class="body-copy">${item.easyKorean}</p>
       <p class="session-hint">${stage === "complete" ? "이 어휘 루프를 완료했습니다. 복습 카드에서 다음 어휘로 이어갈 수 있어요." : `현재 단계: ${sessionSteps.find((step) => step.id === stage)?.label ?? "학습"}`}</p>
       <div class="cta-row">
         <button type="button" class="primary-action" data-session-action="${stage}">${stage === "complete" ? "복습으로 이동" : `${hasAudioStory || stage !== "listen" ? sessionSteps.find((step) => step.id === stage)?.label ?? "학습" : "읽기"} 시작`}</button>
         ${stage === "complete" && nextItem ? `<button type="button" class="primary-action" data-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button><span class="cta-note">${nextReason}</span>` : ""}
         ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" data-open-detail="story-step">듣기 열기</button>` : ""}
+        ${kpopTrack ? `<button type="button" data-open-detail="kpop-step">K-pop 미션</button>` : ""}
+        ${matchedQuotes.length ? `<button type="button" data-open-detail="quote-step">명대사</button>` : ""}
         ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
         ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
       </div>
@@ -350,6 +581,11 @@ function renderDetail() {
     <details class="detail-block" open>
       <summary>2. 현장 미션</summary>
       <h4>${mission.title}</h4>
+      <p class="meta">어휘 맞춤 문장 (조사 자동: es-hangul josa · hangul-postposition)</p>
+      <ul class="phrase-list mission-phrase-list">
+        ${particleMissions.map((phrase) => `<li><strong>${item.word}</strong> → ${phrase}</li>`).join("")}
+      </ul>
+      <h4>상황 표현</h4>
       <ul class="phrase-list">
         ${mission.phrases.map((phrase) => `<li>${phrase}</li>`).join("")}
       </ul>
@@ -416,8 +652,49 @@ function renderDetail() {
       }
     </details>
 
+    <details class="detail-block" id="quote-step" ${wordStats.requiresQuotes ? "open" : ""}>
+      <summary>6. K-movie 명대사 (keywordHints 매칭)</summary>
+      <p class="meta">수위 필터: ${ratingLabels[state.quoteMaxRating]} · ${
+        matchedQuotes.some((quote) => quote.matchKind === "keyword")
+          ? "어휘·keywordHints 직접 매칭"
+          : "직접 매칭 없음 → 학습용 추천 대사"
+      } · 완료 조건 ${wordStats.requiresQuotes ? (wordStats.quoteDone ? "충족" : "필요") : "해당 없음"}</p>
+      ${renderQuoteCardsHtml(matchedQuotes, item.word)}
+      ${
+        wordStats.requiresQuotes
+          ? `<button type="button" class="${wordStats.quoteDone ? "" : "primary-action"}" data-quote-word="${item.word}">
+              ${wordStats.quoteDone ? "명대사 확인 완료" : "명대사 확인했어요"}
+            </button>`
+          : ""
+      }
+    </details>
+
+    <details class="detail-block" id="kpop-step" ${kpopTrack ? "open" : ""}>
+      <summary>7. K-pop 차트 미션</summary>
+      ${
+        kpopTrack
+          ? `<div class="chart-card inline ${kpopDone ? "complete" : ""}">
+              <div class="tag-row">
+                <span class="tag">#${kpopTrack.ranking}</span>
+                <span class="tag">${kpopTrack.artists}</span>
+                <span class="tag ${melonChart.source?.status?.startsWith("ok") ? "success" : "progress"}">${melonChart.source?.status ?? "seed"}</span>
+              </div>
+              <h4>${kpopTrack.mission?.title ?? "차트 표현 말하기"}</h4>
+              <p class="body-copy"><strong>${kpopTrack.name}</strong> — ${kpopTrack.artists}</p>
+              <ul class="phrase-list">
+                ${(kpopTrack.mission?.phrases ?? []).map((phrase) => `<li>${phrase}</li>`).join("")}
+              </ul>
+              <p class="meta">이 어휘와 짝지은 차트 트랙(해시 배정). 말해 본 뒤 완료를 눌러 주세요.</p>
+              <button type="button" class="${kpopDone ? "" : "primary-action"}" data-kpop-word="${item.word}" data-kpop-track="${kpopTrack.ranking}">
+                ${kpopDone ? "K-pop 미션 완료" : "이 표현으로 말해 봤어요"}
+              </button>
+            </div>`
+          : `<p class="body-copy">차트 데이터가 없습니다. <code>npm run fetch:melon</code>으로 실차트를 받아 오세요.</p>`
+      }
+    </details>
+
     <details class="detail-block" id="quiz-step" open>
-      <summary>6. 듣기 확인 퀴즈</summary>
+      <summary>8. 듣기 확인 퀴즈</summary>
       ${
         activity?.quizzes?.length
           ? activity.quizzes
@@ -464,6 +741,8 @@ function renderNudge() {
   const actionLabel = {
     listen: wordStats.requiresAudio ? "듣기부터 시작" : "읽기부터 시작",
     expressions: "표현 확인하기",
+    quote: "명대사 확인하기",
+    kpop: "K-pop 미션 하기",
     quiz: "퀴즈 이어 풀기",
     complete: "다음 어휘 시작",
   }[stage] ?? "학습 시작";
@@ -494,7 +773,7 @@ function renderSessionFlow() {
     <div>
       <p class="eyebrow">First Session Flow</p>
       <h2>${item.word} 한 장 끝내기</h2>
-      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻을 확인하고, 듣거나 읽고, 표현을 체크한 뒤 퀴즈까지 한 번에 마칩니다."}</p>
+      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻 → 듣기/읽기 → 표현 → 명대사 → K-pop 미션 → 퀴즈 순으로 한 장을 마칩니다."}</p>
     </div>
     <ol class="flow-steps">
       ${sessionSteps
@@ -744,13 +1023,15 @@ function renderProgressSurfaces() {
   renderTargets();
   renderActivities();
   renderReview();
+  renderQuotes();
+  renderChart();
 }
 
 document.addEventListener("click", (event) => {
   if (event.target.closest("#reset-progress")) {
     const confirmed = window.confirm("학습 기록을 모두 초기화할까요?");
     if (!confirmed) return;
-    progress = { answers: {}, audio: {}, expressions: {}, reading: {} };
+    progress = { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {} };
     saveProgress();
     renderProgressSurfaces();
     return;
@@ -777,7 +1058,48 @@ document.addEventListener("click", (event) => {
     };
     saveProgress();
     renderProgressSurfaces();
-    document.querySelector("#quiz-step")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const nextTarget = hasQuoteDataset()
+      ? document.querySelector("#quote-step")
+      : hasKpopChart()
+        ? document.querySelector("#kpop-step")
+        : document.querySelector("#quiz-step");
+    if (nextTarget) nextTarget.open = true;
+    nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const kpopButton = event.target.closest("[data-kpop-word]");
+  if (kpopButton) {
+    const word = kpopButton.dataset.kpopWord;
+    progress.kpop[word] = {
+      completed: true,
+      trackRanking: kpopButton.dataset.kpopTrack ?? "",
+      completedAt: new Date().toISOString(),
+    };
+    saveProgress();
+    renderProgressSurfaces();
+    const quizStep = document.querySelector("#quiz-step");
+    if (quizStep) quizStep.open = true;
+    quizStep?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const quoteDoneButton = event.target.closest("[data-quote-word]");
+  if (quoteDoneButton) {
+    const word = quoteDoneButton.dataset.quoteWord;
+    const related = quotesFor(data.vocabulary.find((item) => item.word === word) ?? { word });
+    progress.quotes[word] = {
+      completed: true,
+      seenIds: related.map((quote) => String(quote.id)),
+      completedAt: new Date().toISOString(),
+    };
+    saveProgress();
+    renderProgressSurfaces();
+    const nextTarget = hasKpopChart()
+      ? document.querySelector("#kpop-step")
+      : document.querySelector("#quiz-step");
+    if (nextTarget) nextTarget.open = true;
+    nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
 
@@ -909,6 +1231,96 @@ document.addEventListener("ended", (event) => {
   renderProgressSurfaces();
 }, true);
 
+function renderQuotes() {
+  if (!quoteListEl) return;
+  quoteListEl.innerHTML = "";
+  const quotes = (klassicQuotes.quotes ?? [])
+    .filter((quote) => isRatingAllowed(quote.contentRating ?? "clean", state.quoteMaxRating))
+    .slice()
+    .sort((a, b) => {
+      // When filter is open, surface higher-rating items first so the filter effect is visible.
+      if (state.quoteMaxRating === "clean") return 0;
+      const rank = (rating) => RATING_ORDER.indexOf(rating ?? "clean");
+      return rank(b.contentRating) - rank(a.contentRating);
+    });
+  if (!(klassicQuotes.quotes ?? []).length) {
+    quoteListEl.innerHTML = `
+      <p class="empty-state">명대사 데이터가 없습니다. <code>npm run fetch:quotes</code>를 실행하세요.</p>
+    `;
+    return;
+  }
+
+  const status = klassicQuotes.source?.status ?? "unknown";
+  const ratings = klassicQuotes.summary?.ratings ?? {};
+  const matchedWords = klassicQuotes.summary?.vocabWithMatches ?? Object.keys(klassicQuotes.vocabMatches ?? {}).length;
+  const intro = document.createElement("p");
+  intro.className = "meta";
+  intro.textContent = `출처: klassic-quote-api · 표시 ${quotes.length}/${klassicQuotes.quotes.length} · 필터 ${ratingLabels[state.quoteMaxRating]} · 어휘 매칭 ${matchedWords}개 · status=${status} · clean ${ratings.clean ?? 0} / mild ${ratings.mild ?? 0} / mature ${ratings.mature ?? 0}`;
+  quoteListEl.append(intro);
+
+  if (!quotes.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty-state";
+    empty.textContent = "이 수위 필터에서는 표시할 명대사가 없습니다. 필터를 ‘거친 말투’ 또는 ‘전체’로 바꿔 보세요.";
+    quoteListEl.append(empty);
+    return;
+  }
+
+  for (const item of quotes.slice(0, 12)) {
+    const rating = item.contentRating ?? "clean";
+    const card = document.createElement("article");
+    card.className = "quote-card";
+    card.innerHTML = `
+      <div class="tag-row">
+        <span class="tag">${item.name}</span>
+        <span class="tag ${rating === "clean" ? "success" : rating === "mild" ? "progress" : "danger"}">${item.contentRatingLabel ?? ratingLabels[rating]}</span>
+        ${item.source === "seed" ? `<span class="tag progress">seed</span>` : ""}
+      </div>
+      <blockquote>${item.quote}</blockquote>
+      <p class="meta">— ${item.author}</p>
+      ${(item.keywordHints ?? []).length ? `<p class="meta">hints: ${item.keywordHints.slice(0, 6).join(", ")}</p>` : ""}
+    `;
+    quoteListEl.append(card);
+  }
+}
+
+function renderChart() {
+  if (!chartListEl) return;
+  chartListEl.innerHTML = "";
+  const chart = melonChart.chart ?? [];
+  if (!chart.length) {
+    chartListEl.innerHTML = `
+      <p class="empty-state">차트 데이터가 없습니다. <code>npm run fetch:melon</code>를 실행하세요.</p>
+    `;
+    return;
+  }
+
+  const status = melonChart.source?.status ?? "unknown";
+  const intro = document.createElement("p");
+  intro.className = "meta";
+  intro.textContent = `Melon 차트 · ${chart.length}곡 · status=${status}${
+    melonChart.source?.sourceUrl ? ` · ${melonChart.source.sourceUrl}` : ""
+  }${melonChart.source?.note ? ` · ${melonChart.source.note}` : ""}`;
+  chartListEl.append(intro);
+
+  for (const entry of chart.slice(0, 12)) {
+    const card = document.createElement("article");
+    card.className = "chart-card";
+    const phrases = entry.mission?.phrases ?? [];
+    card.innerHTML = `
+      <div class="tag-row">
+        <span class="tag">#${entry.ranking}</span>
+        <span class="tag">${entry.artists}</span>
+      </div>
+      <h3>${entry.name}</h3>
+      <ul class="phrase-list">
+        ${phrases.map((phrase) => `<li>${phrase}</li>`).join("")}
+      </ul>
+    `;
+    chartListEl.append(card);
+  }
+}
+
 function renderPlaces() {
   const places = tourApiMatches.publicPlaces ?? [];
   placeListEl.innerHTML = "";
@@ -939,6 +1351,7 @@ function renderPlaces() {
 }
 
 function render() {
+  renderSearchHint();
   renderNudge();
   renderSessionFlow();
   renderFilters();
@@ -951,11 +1364,22 @@ searchInput.addEventListener("input", (event) => {
   render();
 });
 
+if (quoteRatingFilterEl) {
+  quoteRatingFilterEl.value = state.quoteMaxRating;
+  quoteRatingFilterEl.addEventListener("change", (event) => {
+    state.quoteMaxRating = event.target.value || "clean";
+    renderQuotes();
+    renderDetail();
+  });
+}
+
 renderTargets();
 renderPlaces();
 renderStories();
 renderActivities();
 renderReview();
+renderQuotes();
+renderChart();
 renderNudge();
 renderSessionFlow();
 render();

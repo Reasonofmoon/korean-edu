@@ -1,5 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { josa } from "es-hangul";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const Hanp = require("hangul-postposition");
 
 const root = process.cwd();
 
@@ -173,8 +178,13 @@ const vocabulary = [...grouped.values()]
       books: unique(item.books),
       units: unique(item.units),
       pages: unique(item.pages),
-      easyKorean: `${item.word}은/는 ${copy.easyKorean}`,
-      sampleSentences: [`저는 ${item.word}에 대해 배우고 있어요.`, `${item.word}을/를 한국어로 설명해 보고 싶어요.`],
+      // es-hangul josa for 은/는·을/를; hangul-postposition for 은(는) templates
+      easyKorean: `${josa(item.word, "은/는")} ${copy.easyKorean}`,
+      sampleSentences: [
+        `저는 ${item.word}에 대해 배우고 있어요.`,
+        Hanp.translatePostpositions(`${item.word}을(를) 한국어로 설명해 보고 싶어요.`),
+        `${josa(item.word, "이/가")} 뭐예요?`,
+      ],
       missionIds: [missionId],
       apiKeywords: unique([item.word, item.word.replace(/\s+/g, ""), ...item.units.slice(0, 1)]),
     };

@@ -1,5 +1,5 @@
 window.KCULTURE_LEARNING_ACTIVITIES = {
-  "generatedAt": "2026-05-12T23:46:11.527Z",
+  "generatedAt": "2026-07-20T10:36:00.397Z",
   "summary": {
     "targets": 114,
     "withAudio": 33,
@@ -29,7 +29,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "덕수궁"
           ],
-          "explanation": "3·1 운동은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "3·1 운동은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -76,7 +76,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "국밥"
           ],
-          "explanation": "감귤은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "감귤은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rcq6rek-cloze",
@@ -137,7 +137,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "달 항아리"
           ],
-          "explanation": "강강술래은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "강강술래는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rcv6rcv7iig656y-cloze",
@@ -198,7 +198,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "남산 서울 타워",
             "템플 스테이"
           ],
-          "explanation": "갯벌은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "갯벌은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rcv67km-cloze",
@@ -259,7 +259,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "남산 서울 타워",
             "템플 스테이"
           ],
-          "explanation": "경복궁은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "경복궁은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rk967o16rab-cloze",
@@ -299,7 +299,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "과일 빙수"
           ],
-          "explanation": "고름은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "고름은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -346,7 +346,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "국밥"
           ],
-          "explanation": "고추은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "고추는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rog7lau-cloze",
@@ -407,7 +407,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "국밥"
           ],
-          "explanation": "고추장은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "고추장은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rog7lau7j6l-cloze",
@@ -447,7 +447,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "과일 빙수"
           ],
-          "explanation": "공항 철도은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "공항 철도는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -494,7 +494,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "과일 빙수"
           ],
-          "explanation": "곶감은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "곶감은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6ro26rcq-cloze",
@@ -534,7 +534,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "과일 빙수"
           ],
-          "explanation": "과일 빙수은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "과일 빙수는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -581,7 +581,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "덕수궁"
           ],
-          "explanation": "광화문은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "광화문은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rsr7zmu66y4-cloze",
@@ -642,7 +642,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "국밥"
           ],
-          "explanation": "국밥은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "국밥은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rwt67cl-cloze",
@@ -682,7 +682,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "군고구마"
           ],
-          "explanation": "군고구마은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "군고구마는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -708,7 +708,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "군밤"
           ],
-          "explanation": "군밤은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "군밤은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -734,7 +734,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "달 항아리"
           ],
-          "explanation": "그네뛰기은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "그네뛰기는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -781,7 +781,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "보부상"
           ],
-          "explanation": "김은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "김은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rma-cloze",
@@ -842,7 +842,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "김밥"
           ],
-          "explanation": "김밥은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "김밥은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rma67cl-cloze",
@@ -903,7 +903,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "김장"
           ],
-          "explanation": "김장은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "김장은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rma7j6l-cloze",
@@ -964,7 +964,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "김치"
           ],
-          "explanation": "김치은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "김치는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-6rma7lmy-cloze",
@@ -1004,7 +1004,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "꽹과리"
           ],
-          "explanation": "꽹과리은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "꽹과리는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1051,7 +1051,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "남산 서울 타워",
             "템플 스테이"
           ],
-          "explanation": "남산 서울 타워은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "남산 서울 타워는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1077,7 +1077,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "달 항아리"
           ],
-          "explanation": "널뛰기은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "널뛰기는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1103,7 +1103,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "노래방"
           ],
-          "explanation": "노래방은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "노래방은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1150,7 +1150,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "누룽지"
           ],
-          "explanation": "누룽지은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "누룽지는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1197,7 +1197,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "다도"
           ],
-          "explanation": "다도은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "다도는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-64uk64-e-cloze",
@@ -1258,7 +1258,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "단군"
           ],
-          "explanation": "단군은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "단군은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-64uo6rww-cloze",
@@ -1298,7 +1298,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "달 항아리"
           ],
-          "explanation": "달 항아리은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "달 항아리는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1324,7 +1324,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "달고나"
           ],
-          "explanation": "달고나은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "달고나는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1371,7 +1371,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "닭갈비"
           ],
-          "explanation": "닭갈비은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "닭갈비는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-64ut6rci67me-cloze",
@@ -1432,7 +1432,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "보부상"
           ],
-          "explanation": "대청마루은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "대청마루는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-64ya7lkt66ei66oo-cloze",
@@ -1472,7 +1472,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "대학 축제"
           ],
-          "explanation": "대학 축제은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "대학 축제는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1498,7 +1498,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "덕수궁"
           ],
-          "explanation": "대한 독립 만세은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "대한 독립 만세는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1545,7 +1545,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "덕수궁"
           ],
-          "explanation": "덕수궁은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "덕수궁은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-642v7iiy6rab-cloze",
@@ -1606,7 +1606,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "덕수궁 돌담길"
           ],
-          "explanation": "덕수궁 돌담길은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "덕수궁 돌담길은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-642v7iiy6rabioupjoultoq4ua-cloze",
@@ -1646,7 +1646,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "동경이"
           ],
-          "explanation": "동경이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "동경이는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1688,7 +1688,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "된장"
           ],
-          "explanation": "된장은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "된장은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-65cc7j6l-cloze",
@@ -1728,7 +1728,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "된장찌개"
           ],
-          "explanation": "된장찌개은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "된장찌개는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1775,7 +1775,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "떡"
           ],
-          "explanation": "떡은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "떡은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-65ah-cloze",
@@ -1815,7 +1815,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "떡꼬치"
           ],
-          "explanation": "떡꼬치은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "떡꼬치는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1862,7 +1862,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "떡볶이"
           ],
-          "explanation": "떡볶이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "떡볶이는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-65ah67o27j20-cloze",
@@ -1902,7 +1902,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "떼창"
           ],
-          "explanation": "떼창은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "떼창은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -1949,7 +1949,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "라면"
           ],
-          "explanation": "라면은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "라면은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-652866m0-cloze",
@@ -1989,7 +1989,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "매실차"
           ],
-          "explanation": "매실차은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "매실차는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2015,7 +2015,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "먹방"
           ],
-          "explanation": "먹방은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "먹방은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2062,7 +2062,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "무궁화"
           ],
-          "explanation": "무궁화은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "무궁화는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-66y06rab7zmu-cloze",
@@ -2123,7 +2123,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "밥"
           ],
-          "explanation": "밥은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "밥은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-67cl-cloze",
@@ -2163,7 +2163,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "보부상"
           ],
-          "explanation": "배산임수은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "배산임수는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2189,7 +2189,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "백김치"
           ],
-          "explanation": "백김치은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "백김치는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2236,7 +2236,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "벼"
           ],
-          "explanation": "벼은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "벼는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-67k8-cloze",
@@ -2276,7 +2276,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "보령 머드 축제"
           ],
-          "explanation": "보령 머드 축제은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "보령 머드 축제는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2323,7 +2323,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "보부상"
           ],
-          "explanation": "보부상은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "보부상은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-67o067aa7iob-cloze",
@@ -2363,7 +2363,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "부럼"
           ],
-          "explanation": "부럼은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "부럼은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2389,7 +2389,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "부처님 오신 날"
           ],
-          "explanation": "부처님 오신 날은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "부처님 오신 날은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2436,7 +2436,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "북"
           ],
-          "explanation": "북은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "북은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-67ab-cloze",
@@ -2497,7 +2497,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "비빔밥"
           ],
-          "explanation": "비빔밥은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "비빔밥은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-67me67mu67cl-cloze",
@@ -2537,7 +2537,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "빗살 무늬 토기"
           ],
-          "explanation": "빗살 무늬 토기은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "빗살 무늬 토기는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2563,7 +2563,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "사물놀이"
           ],
-          "explanation": "사물놀이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "사물놀이는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2600,7 +2600,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "삽살개"
           ],
-          "explanation": "삽살개은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "삽살개는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2626,7 +2626,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "샅바"
           ],
-          "explanation": "샅바은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "샅바는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2673,7 +2673,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "선비"
           ],
-          "explanation": "선비은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "선비는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2720,7 +2720,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "성묘"
           ],
-          "explanation": "성묘은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "성묘는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7isx66yy-cloze",
@@ -2760,7 +2760,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "세배"
           ],
-          "explanation": "세배은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "세배는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2786,7 +2786,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "세뱃돈"
           ],
-          "explanation": "세뱃돈은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "세뱃돈은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2828,7 +2828,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "소고"
           ],
-          "explanation": "소고은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "소고는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2854,7 +2854,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "소리꾼"
           ],
-          "explanation": "소리꾼은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "소리꾼은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2880,7 +2880,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "송편"
           ],
-          "explanation": "송편은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "송편은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2906,7 +2906,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "순대"
           ],
-          "explanation": "순대은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "순대는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2932,7 +2932,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "숭늉"
           ],
-          "explanation": "숭늉은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "숭늉은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -2979,7 +2979,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "쌍화차"
           ],
-          "explanation": "쌍화차은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "쌍화차는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7iyn7zmu7lco-cloze",
@@ -3030,7 +3030,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "씨름"
           ],
-          "explanation": "씨름은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "씨름은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7jso66ae-cloze",
@@ -3091,7 +3091,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "양궁"
           ],
-          "explanation": "양궁은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "양궁은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7jar6rab-cloze",
@@ -3152,7 +3152,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "어묵"
           ],
-          "explanation": "어묵은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "어묵은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7ja066y1-cloze",
@@ -3192,7 +3192,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "연날리기"
           ],
-          "explanation": "연날리기은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "연날리기는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -3218,7 +3218,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "윷놀이"
           ],
-          "explanation": "윷놀이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "윷놀이는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -3260,7 +3260,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "이순신 장군"
           ],
-          "explanation": "이순신 장군은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "이순신 장군은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7j207iic7iugioyepeq1sa-cloze",
@@ -3321,7 +3321,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "장구"
           ],
-          "explanation": "장구은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "장구는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7j6l6rws-cloze",
@@ -3382,7 +3382,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "장승"
           ],
-          "explanation": "장승은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "장승은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7j6l7iq5-cloze",
@@ -3443,7 +3443,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "장어구이"
           ],
-          "explanation": "장어구이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "장어구이는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7j6l7ja06rws7j20-cloze",
@@ -3504,7 +3504,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "전"
           ],
-          "explanation": "전은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "전은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7kce-cloze",
@@ -3565,7 +3565,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "전주 한옥 마을"
           ],
-          "explanation": "전주 한옥 마을은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "전주 한옥 마을은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -3591,7 +3591,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "조각보"
           ],
-          "explanation": "조각보은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "조각보는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -3617,7 +3617,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "진돗개"
           ],
-          "explanation": "진돗개은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "진돗개는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -3664,7 +3664,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "징"
           ],
-          "explanation": "징은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "징은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7kev-cloze",
@@ -3725,7 +3725,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "짜장면"
           ],
-          "explanation": "짜장면은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "짜장면은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7kec7j6l66m0-cloze",
@@ -3786,7 +3786,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "찌개"
           ],
-          "explanation": "찌개은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "찌개는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7lcm6rcc-cloze",
@@ -3826,7 +3826,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "차례"
           ],
-          "explanation": "차례은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "차례는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -3873,7 +3873,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "첨성대"
           ],
-          "explanation": "첨성대은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "첨성대는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7lko7isx64ya-cloze",
@@ -3934,7 +3934,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "치맥"
           ],
-          "explanation": "치맥은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "치맥은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7lmy66el-cloze",
@@ -3995,7 +3995,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "크리스마스"
           ],
-          "explanation": "크리스마스은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "크리스마스는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7ygs66as7iqk66ei7iqk-cloze",
@@ -4056,7 +4056,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "탈춤"
           ],
-          "explanation": "탈춤은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "탈춤은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7yoi7lak-cloze",
@@ -4117,7 +4117,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "태권도"
           ],
-          "explanation": "태권도은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "태권도는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7yoc6ram64-e-cloze",
@@ -4157,7 +4157,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "태극기"
           ],
-          "explanation": "태극기은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "태극기는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4183,7 +4183,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "태평소"
           ],
-          "explanation": "태평소은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "태평소는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4230,7 +4230,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "택견"
           ],
-          "explanation": "택견은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "택견은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7yod6rks-cloze",
@@ -4270,7 +4270,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "남산 서울 타워",
             "템플 스테이"
           ],
-          "explanation": "템플 스테이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "템플 스테이는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4317,7 +4317,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "투호"
           ],
-          "explanation": "투호은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "투호는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7yis7zi4-cloze",
@@ -4378,7 +4378,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "판소리"
           ],
-          "explanation": "판소리은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "판소리는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7yyq7iam66as-cloze",
@@ -4418,7 +4418,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "팥빙수"
           ],
-          "explanation": "팥빙수은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "팥빙수는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4444,7 +4444,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "폐백"
           ],
-          "explanation": "폐백은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "폐백은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4470,7 +4470,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "품새"
           ],
-          "explanation": "품새은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "품새는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4496,7 +4496,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "풍물놀이"
           ],
-          "explanation": "풍물놀이은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "풍물놀이는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4522,7 +4522,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "한라봉"
           ],
-          "explanation": "한라봉은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "한라봉은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4569,7 +4569,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "널뛰기",
             "한복"
           ],
-          "explanation": "한복은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "한복은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7zwc67o1-cloze",
@@ -4609,7 +4609,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "한의사"
           ],
-          "explanation": "한의사은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "한의사는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4656,7 +4656,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "한의원"
           ],
-          "explanation": "한의원은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "한의원은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7zwc7j2y7juq-cloze",
@@ -4696,7 +4696,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "대한 독립 만세",
             "한정식집"
           ],
-          "explanation": "한정식집은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "한정식집은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4743,7 +4743,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "해녀"
           ],
-          "explanation": "해녀은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "해녀는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7zw064wa-cloze",
@@ -4804,7 +4804,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "해치"
           ],
-          "explanation": "해치은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "해치는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7zw07lmy-cloze",
@@ -4865,7 +4865,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "고추장",
             "호떡"
           ],
-          "explanation": "호떡은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "호떡은 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7zi465ah-cloze",
@@ -4905,7 +4905,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "활쏘기"
           ],
-          "explanation": "활쏘기은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "활쏘기는 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     },
@@ -4952,7 +4952,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "휴게소"
           ],
-          "explanation": "휴게소은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "휴게소는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7zy06rkm7iam-cloze",
@@ -5013,7 +5013,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "배산임수",
             "흔들바위"
           ],
-          "explanation": "흔들바위은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "흔들바위는 이 문화 이야기의 중심 어휘입니다."
         },
         {
           "id": "quiz-vocab-7z2u65ok67cu7jye-cloze",
@@ -5053,7 +5053,7 @@ window.KCULTURE_LEARNING_ACTIVITIES = {
             "곶감",
             "PC방"
           ],
-          "explanation": "PC방은/는 이 문화 이야기의 중심 어휘입니다."
+          "explanation": "PC방은 이 문화 이야기의 중심 어휘입니다."
         }
       ]
     }

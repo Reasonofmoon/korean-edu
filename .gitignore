@@ -2,3 +2,4 @@
 cache/
 qa-dom.txt
 .server.pid
+node_modules/

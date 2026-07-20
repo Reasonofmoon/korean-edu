@@ -1,0 +1,132 @@
+{
+  "generatedAt": "2026-07-20T11:34:21.372Z",
+  "port": 4283,
+  "checks": {
+    "ratingFilter": {
+      "ok": true,
+      "cleanCount": 12,
+      "mildCount": 12,
+      "matureCount": 12,
+      "cleanHasMatureTag": false,
+      "matureHasTag": true,
+      "meta": "출처: klassic-quote-api · 표시 212/212 · 필터 수위 높음 · 어휘 매칭 114개 · status=ok · clean 188 / mild 11 / mature 13",
+      "filterDefaultOptions": [
+        "clean",
+        "mild",
+        "mature"
+      ]
+    },
+    "mobile": {
+      "ok": true,
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "scrollWidth": 375,
+      "overflowX": 0,
+      "criticalOverflow": false,
+      "rects": [
+        {
+          "tag": "app-header",
+          "width": 375,
+          "left": 0,
+          "right": 375,
+          "overflowsViewport": false
+        },
+        {
+          "tag": "toolbar",
+          "width": 338,
+          "left": 19,
+          "right": 356,
+          "overflowsViewport": false
+        },
+        {
+          "tag": "session-flow",
+          "width": 338,
+          "left": 19,
+          "right": 356,
+          "overflowsViewport": false
+        },
+        {
+          "tag": "search",
+          "width": 300,
+          "left": 38,
+          "right": 337,
+          "overflowsViewport": false
+        },
+        {
+          "tag": "quote-rating-filter",
+          "width": 200,
+          "left": 137,
+          "right": 337,
+          "overflowsViewport": false
+        }
+      ],
+      "sessionStepsVisible": true
+    },
+    "localStorageRestore": {
+      "ok": true,
+      "restoredKeys": [
+        "answers",
+        "audio",
+        "expressions",
+        "reading",
+        "kpop",
+        "quotes"
+      ],
+      "quoteCompleted": true,
+      "kpopCompleted": true,
+      "readingCompleted": true,
+      "quoteDoneUi": true,
+      "detailSnippet": "음식\n페이지 71, 80, 105\n퀴즈 0/2 · 듣기 필요 · 명대사 완료 · K-pop 완료\n김치\n\ngimchi\n\n김치는 한국 사람들이 자주 먹거나 특별한 날에 즐기는 음식과 관련된 말이에요.\n\n현재 단계: 듣기/읽기\n\n듣기/읽기 시작\n듣기 열기\nK-pop 미션\n명대사\n퀴즈 풀기\n장소 보기\n1. 뜻과 예문\n단원\n세종한"
+    },
+    "shortWordMatches": {
+      "ok": true,
+      "missing": [],
+      "matchedShorts": {
+        "김": "seed-short-gim",
+        "떡": "seed-short-tteok",
+        "밥": "seed-short-gim",
+        "벼": "seed-short-byeo",
+        "북": "seed-short-buk",
+        "전": "seed-short-jeon",
+        "징": "seed-short-jing"
+      },
+      "vocabWithMatches": 114,
+      "totalQuotes": 212,
+      "categoryCoverage": {
+        "food": {
+          "totalWords": 18,
+          "matchedWords": 18,
+          "coverage": 100
+        },
+        "place": {
+          "totalWords": 4,
+          "matchedWords": 4,
+          "coverage": 100
+        },
+        "tradition": {
+          "totalWords": 8,
+          "matchedWords": 8,
+          "coverage": 100
+        },
+        "history": {
+          "totalWords": 22,
+          "matchedWords": 22,
+          "coverage": 100
+        },
+        "nature": {
+          "totalWords": 8,
+          "matchedWords": 8,
+          "coverage": 100
+        },
+        "daily": {
+          "totalWords": 54,
+          "matchedWords": 54,
+          "coverage": 100
+        }
+      }
+    }
+  },
+  "ok": true
+}

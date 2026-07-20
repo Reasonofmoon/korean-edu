@@ -1,63 +1,70 @@
 # GitHub Pages 배포 상태
 
-확인일: 2026-05-13 KST
+확인일: **2026-07-20** KST
 
-## 현재 상태
+## 현재 상태 (요약)
 
-- 최신 확인 커밋: `1eaed19 Expand prototype data to all vocabulary`
-- GitHub Actions 워크플로: `Deploy prototype to GitHub Pages`
-- 최신 실행: 실패
-- 예상 배포 URL: `https://reasonofmoon.github.io/korean-edu/`
-- 예상 배포 URL 현재 상태: 404
+| 항목 | 상태 |
+|------|------|
+| Pages 사이트 | **활성** (`build_type: workflow`) |
+| 배포 URL | https://reasonofmoon.github.io/korean-edu/ |
+| HTTP | **200** |
+| 최신 성공 워크플로 | [25776961397](https://github.com/Reasonofmoon/korean-edu/actions/runs/25776961397) (2026-05-13) |
+| 배포된 커밋 | `279e72a` — *Add click flow QA and smarter recommendations* |
+| 로컬 미배포 작업 | **있음** (명대사/수위/Melon/hangul/QA 등 uncommitted) |
 
-## 실패 원인
+## 스모크 QA (배포 URL)
 
-GitHub Pages 사이트가 아직 저장소에 생성/활성화되지 않았습니다.
+원시 결과: [pages-smoke-results.json](./pages-smoke-results.json)
 
-저장소는 public으로 전환되었지만, `Settings > Actions > General > Workflow permissions`가 `Read repository contents permission` 상태입니다.
+### 통과 (배포된 MVP)
 
-워크플로에 `actions/configure-pages@v5`와 `enablement: true`를 넣었지만, Actions의 기본 integration token이 Pages 사이트를 새로 생성할 권한을 얻지 못했습니다.
+- 홈 HTML 로드, 타이틀 `K-Culture Korean Mission Map`
+- 카피/섹션: 한국문화 어휘, 문화 어휘 카드, session-flow, today-nudge
+- 정적 자산 200: `app.js`, `styles.css`, `data/app-data.js`, `learning-activities.js`, `tourapi-matches.js`
+- 데이터에 `경복궁` 등 어휘 포함
 
-로그 핵심:
+### 미배포 (로컬에만 존재)
 
-```text
-Create Pages site failed.
-Resource not accessible by integration
-```
+| 기능/파일 | Pages |
+|-----------|--------|
+| `lib/hangul-utils.js` | 404 |
+| `data/klassic-quotes.js` | 404 |
+| `data/melon-chart.js` | 404 |
+| K-movie 명대사 · 수위 필터 | 없음 |
+| K-pop 차트 · 세션 미션 | 없음 |
+| 명대사 완료 게이트 | 없음 |
 
-최신 실행:
+→ 판정: **`legacy-mvp-ok`** (5월 MVP는 살아 있음, 7월 스파이크는 아직 미배포)
 
-```text
-Run: 25768975452
-Commit: 1eaed19
-Step: Configure Pages
-Result: failure
-```
+## 배포 파이프라인
 
-## 필요한 수동 조치
+워크플로: `.github/workflows/pages.yml`
 
-저장소 소유자 권한으로 GitHub에서 최초 1회 설정이 필요합니다.
+- 트리거: `main` push, `workflow_dispatch`
+- artifact path: `prototype/`
+- permissions: `pages: write`, `id-token: write`
 
-1. `https://github.com/Reasonofmoon/korean-edu` 접속
-2. `Settings > Actions > General`로 이동
-3. `Workflow permissions`를 `Read and write permissions`로 변경
-4. 저장
-5. `Settings > Pages` 이동
-6. `Build and deployment`의 Source를 `GitHub Actions`로 설정
-7. 저장 후 `Actions` 탭에서 `Deploy prototype to GitHub Pages`를 다시 실행하거나 빈 커밋을 푸시
+## 새 기능을 Pages에 올리는 방법
 
-대안으로 Netlify에 저장소를 연결하면 `netlify.toml` 설정으로 `prototype/` 폴더를 바로 정적 배포할 수 있습니다.
-
-## 수동 조치 후 확인
+로컬 변경이 커밋·푸시되지 않았습니다. 배포하려면:
 
 ```powershell
+cd C:\Users\crescent\projects\korean-edu\korean-edu
+# 1) node_modules 제외 확인 (.gitignore)
+# 2) 관련 파일 스테이징 후 커밋
+git add prototype scripts docs package.json package-lock.json
+git status
+git commit -m "feat: hangul search, quote matching, melon chart, session gates"
+git push origin main
+# 3) Actions 성공 확인
 gh run list --repo Reasonofmoon/korean-edu --limit 3
+# 4) 배포 후 스모크
+# https://reasonofmoon.github.io/korean-edu/ 에 K-movie / K-pop / hangul-utils 등장 여부
 ```
 
-워크플로가 성공하면 아래 URL로 접속합니다.
+또는 Actions에서 `Deploy prototype to GitHub Pages` → **Run workflow** (push 없이 현재 main만 재배포 — 로컬 uncommitted는 포함되지 않음).
 
-```text
-https://reasonofmoon.github.io/korean-edu/
-```
+## 이전 기록 (2026-05-13)
 
-그 다음 [수동 QA 체크리스트](manual-qa-checklist.md)를 기준으로 확인합니다.
+초기 Pages 미활성으로 `Resource not accessible by integration` 실패가 있었고, 이후 수동 설정으로 복구되어 위 성공 실행까지 이어졌습니다. 현재 API 기준 Pages는 정상 활성 상태입니다.

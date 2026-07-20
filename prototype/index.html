@@ -45,7 +45,8 @@
       <section class="toolbar" aria-label="검색과 필터">
         <label class="search-box">
           <span>검색</span>
-          <input id="search" type="search" placeholder="예: 김치, 경복궁, 한복">
+          <input id="search" type="search" placeholder="예: 김치, gimchi, ㄱㅊ, rlacl">
+          <span id="search-hint" class="search-hint" aria-live="polite"></span>
         </label>
         <div id="filters" class="filters" aria-label="카테고리 필터"></div>
       </section>
@@ -107,6 +108,30 @@
 
       <details class="panel api-panel collapsible-panel" open>
         <summary class="section-title">
+          <h2>K-movie 명대사</h2>
+          <p>keywordHints 매칭 · 수위 필터</p>
+        </summary>
+        <div class="panel-actions quote-filter-row">
+          <label class="inline-label" for="quote-rating-filter">명대사 수위</label>
+          <select id="quote-rating-filter" aria-label="명대사 수위 필터">
+            <option value="clean" selected>학습용만 (기본)</option>
+            <option value="mild">+ 거친 말투</option>
+            <option value="mature">전체 (수위 높음 포함)</option>
+          </select>
+        </div>
+        <div id="quote-list" class="quote-grid"></div>
+      </details>
+
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
+          <h2>K-pop 차트 · 세션 미션</h2>
+          <p>Melon 실차트 스냅샷 (HTML/API) + 어휘별 미션</p>
+        </summary>
+        <div id="chart-list" class="chart-grid"></div>
+      </details>
+
+      <details class="panel api-panel collapsible-panel" open>
+        <summary class="section-title">
           <h2>복습 카드와 완료 배지</h2>
           <p>브라우저에 저장된 학습 상태</p>
         </summary>
@@ -118,14 +143,17 @@
     </main>
 
     <footer>
-      <p>자료 출처: 세종한국문화 주요 어휘 CSV, 한국관광공사 공공데이터 API</p>
+      <p>자료 출처: 세종한국문화 주요 어휘 CSV, 한국관광공사 공공데이터 API, klassic-quote-api, Melon 차트 스냅샷(교육용)</p>
     </footer>
 
+    <script src="./lib/hangul-utils.js"></script>
     <script src="./data/app-data.js"></script>
     <script src="./data/tourapi-matches.js"></script>
     <script src="./data/tourapi-place-details.js"></script>
     <script src="./data/odii-stories.js"></script>
     <script src="./data/learning-activities.js"></script>
+    <script src="./data/klassic-quotes.js"></script>
+    <script src="./data/melon-chart.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
