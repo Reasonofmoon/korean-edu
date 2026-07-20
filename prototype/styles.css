@@ -482,6 +482,41 @@ button.active {
   color: var(--text);
 }
 
+.danger-action {
+  border-color: rgba(184, 59, 59, 0.35);
+  background: #fff7f7;
+  color: var(--red);
+}
+
+.danger-action:hover {
+  background: #ffecec;
+}
+
+.panel-actions-note {
+  margin: 0;
+  flex: 1 1 100%;
+}
+
+.review-card .cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.quiz-card.retry-pending {
+  border-color: rgba(183, 121, 31, 0.45);
+  box-shadow: 0 0 0 1px rgba(183, 121, 31, 0.12);
+}
+
+.badge[data-review-word] {
+  cursor: pointer;
+}
+
+.badge[data-review-word]:hover {
+  outline: 2px solid var(--accent);
+}
+
 .meta,
 .body-copy {
   margin: 0;

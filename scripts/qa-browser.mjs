@@ -84,6 +84,7 @@ try {
     "명대사 확인",
     "K-pop 미션",
     "hangul-utils",
+    "전체 학습 기록 초기화",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {

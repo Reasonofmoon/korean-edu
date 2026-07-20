@@ -183,7 +183,10 @@ function hasQuoteDataset() {
 function statsForWord(word) {
   const activity = learningActivities.activities.find((item) => item.word === word);
   const quizzes = activity?.quizzes ?? [];
-  const answered = quizzes.filter((quiz) => progress.answers[quiz.id]);
+  const answered = quizzes.filter((quiz) => {
+    const answer = progress.answers[quiz.id];
+    return answer && !answer.pendingRetry;
+  });
   const correct = answered.filter((quiz) => progress.answers[quiz.id]?.correct);
   const requiresAudio = Boolean(activity?.hasAudio && activity.audioUrl);
   const audioDone = !requiresAudio || Boolean(progress.audio[word]?.completed);
@@ -221,11 +224,14 @@ function statsForWord(word) {
 
 function overallStats() {
   const quizzes = allQuizzes();
-  const answered = quizzes.filter((quiz) => progress.answers[quiz.id]);
+  const answered = quizzes.filter((quiz) => {
+    const answer = progress.answers[quiz.id];
+    return answer && !answer.pendingRetry;
+  });
   const correct = answered.filter((quiz) => progress.answers[quiz.id]?.correct);
   const review = quizzes.filter((quiz) => {
     const answer = progress.answers[quiz.id];
-    return !answer || !answer.correct;
+    return !answer || !answer.correct || answer.pendingRetry;
   });
   const completed = learningActivities.activities.filter((activity) => statsForWord(activity.word).complete);
   const audioCompleted = learningActivities.activities.filter((activity) => progress.audio[activity.word]?.completed);
@@ -295,6 +301,9 @@ function sessionStageFor(item) {
   if (stats.requiresQuotes && !stats.quoteDone) return "quote";
   if (stats.requiresKpop && !stats.kpopDone) return "kpop";
   if (stats.answered < stats.total || stats.correct < stats.total) return "quiz";
+  // pending retries also keep the learner on quiz
+  const hasPendingRetry = (activityFor(item)?.quizzes ?? []).some((quiz) => progress.answers[quiz.id]?.pendingRetry);
+  if (hasPendingRetry) return "quiz";
   return "complete";
 }
 
@@ -563,6 +572,7 @@ function renderDetail() {
         ${matchedQuotes.length ? `<button type="button" data-open-detail="quote-step">명대사</button>` : ""}
         ${firstQuiz ? `<button type="button" data-open-detail="quiz-step">퀴즈 풀기</button>` : ""}
         ${representative ? `<button type="button" data-open-detail="place-step">장소 보기</button>` : ""}
+        <button type="button" class="danger-action" data-reset-word="${item.word}">이 어휘 진도만 초기화</button>
       </div>
     </div>
 
@@ -863,24 +873,26 @@ function renderTargets() {
 
 function renderQuizHtml(quiz, word) {
   const saved = progress.answers[quiz.id];
-  const answeredClass = saved ? (saved.correct ? "answered-correct" : "answered-incorrect") : "";
+  const isPending = Boolean(saved?.pendingRetry);
+  const isSettled = Boolean(saved && !isPending);
+  const answeredClass = isSettled ? (saved.correct ? "answered-correct" : "answered-incorrect") : isPending ? "retry-pending" : "";
   return `
     <article class="quiz-card ${answeredClass}" data-quiz-id="${quiz.id}" data-word="${word}" data-answer="${quiz.answer}" data-explanation="${quiz.explanation}">
-      <p class="meta">${word} · ${quiz.type === "cloze" ? "빈칸" : "선택"}</p>
+      <p class="meta">${word} · ${quiz.type === "cloze" ? "빈칸" : "선택"}${isPending ? " · 다시 풀기" : ""}</p>
       <h5>${quiz.prompt}</h5>
       <p>${quiz.passage}</p>
       <div class="quiz-options">
         ${quiz.options
           .map((option) => {
-            const isCorrect = saved && option === quiz.answer;
-            const isWrongSelection = saved && saved.selected === option && !saved.correct;
+            const isCorrect = isSettled && option === quiz.answer;
+            const isWrongSelection = isSettled && saved.selected === option && !saved.correct;
             const className = isCorrect ? "correct" : isWrongSelection ? "incorrect" : "";
             return `<button type="button" class="${className}" data-option="${option}">${option}</button>`;
           })
           .join("")}
       </div>
-      <p class="quiz-feedback" ${saved ? "" : "hidden"}>${
-        saved ? `${saved.correct ? "정답입니다." : `정답은 ${quiz.answer}입니다.`} ${quiz.explanation}` : quiz.explanation
+      <p class="quiz-feedback" ${isSettled ? "" : "hidden"}>${
+        isSettled ? `${saved.correct ? "정답입니다." : `정답은 ${quiz.answer}입니다.`} ${quiz.explanation}` : quiz.explanation
       }</p>
     </article>
   `;
@@ -952,6 +964,36 @@ function renderActivities() {
   }
 }
 
+/** Clear quiz answer so the learner can retry (keeps wrongCount for ranking). */
+function prepareQuizRetry(quizId) {
+  const previous = progress.answers[quizId];
+  if (!previous) return;
+  progress.answers[quizId] = {
+    selected: "",
+    correct: false,
+    word: previous.word,
+    wrongCount: previous.wrongCount ?? 0,
+    retriedAt: new Date().toISOString(),
+    pendingRetry: true,
+  };
+}
+
+/** Reset all progress keys for one vocabulary word. */
+function clearWordProgress(word) {
+  for (const quiz of allQuizzes().filter((quiz) => quiz.word === word)) {
+    delete progress.answers[quiz.id];
+  }
+  delete progress.audio[word];
+  delete progress.expressions[word];
+  delete progress.reading[word];
+  delete progress.kpop[word];
+  delete progress.quotes[word];
+}
+
+function emptyProgress() {
+  return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {} };
+}
+
 function renderReview() {
   const stats = overallStats();
   accuracyRateEl.textContent = `${stats.accuracy}%`;
@@ -962,14 +1004,14 @@ function renderReview() {
   const reviewItems = quizzes
     .filter((quiz) => {
       const answer = progress.answers[quiz.id];
-      return !answer || !answer.correct;
+      return !answer || !answer.correct || answer.pendingRetry;
     })
     .sort((a, b) => {
       const wrongA = progress.answers[a.id]?.wrongCount ?? 0;
       const wrongB = progress.answers[b.id]?.wrongCount ?? 0;
       if (wrongA !== wrongB) return wrongB - wrongA;
-      const answeredA = progress.answers[a.id] ? 1 : 0;
-      const answeredB = progress.answers[b.id] ? 1 : 0;
+      const answeredA = progress.answers[a.id] && !progress.answers[a.id].pendingRetry ? 1 : 0;
+      const answeredB = progress.answers[b.id] && !progress.answers[b.id].pendingRetry ? 1 : 0;
       return answeredB - answeredA;
     });
   const completed = learningActivities.activities.filter((activity) => statsForWord(activity.word).complete);
@@ -982,8 +1024,9 @@ function renderReview() {
     badges.innerHTML = `
       <h3>완료 배지</h3>
       <div class="badge-row">
-        ${completed.map((activity) => `<span class="badge">${activity.word}</span>`).join("")}
+        ${completed.map((activity) => `<span class="badge" title="클릭하면 해당 어휘로 이동" data-review-word="${activity.word}">${activity.word}</span>`).join("")}
       </div>
+      <p class="meta">배지를 누르면 해당 어휘 상세로 이동합니다.</p>
     `;
     reviewListEl.append(badges);
   }
@@ -1000,15 +1043,20 @@ function renderReview() {
     const answer = progress.answers[quiz.id];
     const card = document.createElement("article");
     card.className = "review-card";
+    const statusLabel = answer?.pendingRetry ? "다시 풀기" : answer ? "오답 복습" : "미풀이";
     card.innerHTML = `
       <div class="tag-row">
         <span class="tag">${quiz.word}</span>
-        <span class="tag ${answer ? "danger" : "progress"}">${answer ? "오답 복습" : "미풀이"}</span>
+        <span class="tag ${answer && !answer.pendingRetry ? "danger" : "progress"}">${statusLabel}</span>
         ${(answer?.wrongCount ?? 0) ? `<span class="tag danger">오답 ${answer.wrongCount}회</span>` : ""}
       </div>
       <h3>${quiz.prompt}</h3>
       <p>${quiz.passage}</p>
-      <button type="button" data-review-word="${quiz.word}">이 어휘로 이동</button>
+      <div class="cta-row">
+        <button type="button" class="primary-action" data-retry-quiz="${quiz.id}" data-review-word="${quiz.word}">다시 풀기</button>
+        <button type="button" data-review-word="${quiz.word}">어휘로 이동</button>
+        <button type="button" class="danger-action" data-reset-word="${quiz.word}">이 어휘 진도 초기화</button>
+      </div>
     `;
     reviewListEl.append(card);
   }
@@ -1029,22 +1077,55 @@ function renderProgressSurfaces() {
 
 document.addEventListener("click", (event) => {
   if (event.target.closest("#reset-progress")) {
-    const confirmed = window.confirm("학습 기록을 모두 초기화할까요?");
+    const confirmed = window.confirm("학습 기록을 모두 초기화할까요? (모든 어휘의 퀴즈·듣기·명대사·K-pop 진도가 삭제됩니다)");
     if (!confirmed) return;
-    progress = { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {} };
+    progress = emptyProgress();
     saveProgress();
     renderProgressSurfaces();
     return;
   }
 
+  const retryButton = event.target.closest("[data-retry-quiz]");
+  if (retryButton) {
+    const quizId = retryButton.dataset.retryQuiz;
+    const word = retryButton.dataset.reviewWord;
+    if (quizId) prepareQuizRetry(quizId);
+    const item = data.vocabulary.find((candidate) => candidate.word === word);
+    if (item) state.selectedId = item.id;
+    saveProgress();
+    renderProgressSurfaces();
+    const quizStep = document.querySelector("#quiz-step");
+    if (quizStep) quizStep.open = true;
+    const targetCard = document.querySelector(`.quiz-card[data-quiz-id="${quizId}"]`);
+    (targetCard ?? quizStep ?? detailEl).scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const resetWordButton = event.target.closest("[data-reset-word]");
+  if (resetWordButton) {
+    const word = resetWordButton.dataset.resetWord;
+    if (!word) return;
+    const confirmed = window.confirm(`「${word}」 학습 진도만 초기화할까요?`);
+    if (!confirmed) return;
+    clearWordProgress(word);
+    const item = data.vocabulary.find((candidate) => candidate.word === word);
+    if (item) state.selectedId = item.id;
+    saveProgress();
+    renderProgressSurfaces();
+    detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
   const reviewButton = event.target.closest("[data-review-word]");
   if (reviewButton) {
+    // Prefer retry handler when both attributes exist (already handled above).
+    if (reviewButton.dataset.retryQuiz) return;
     const word = reviewButton.dataset.reviewWord;
     const item = data.vocabulary.find((candidate) => candidate.word === word);
     if (item) {
       state.selectedId = item.id;
       render();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      detailEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     return;
   }
@@ -1196,6 +1277,7 @@ document.addEventListener("click", (event) => {
     word,
     wrongCount: correct ? previous.wrongCount ?? 0 : (previous.wrongCount ?? 0) + 1,
     answeredAt: new Date().toISOString(),
+    pendingRetry: false,
   };
   saveProgress();
 
