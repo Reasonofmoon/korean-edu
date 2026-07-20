@@ -6,6 +6,8 @@
 - [x] 배포 URL 기준 스모크 QA (`current-local-parity`, ff0fc7e+)
 - [x] README에 실제 배포 URL 반영
 - [ ] 공공데이터 출처/라이선스 표기 영역 강화 (푸터 일부 반영)
+- [x] 자막·인용 정책 초안 (`docs/subtitle-citation-policy.md`)
+- [x] 문화어 학습 스펙 초안 (`docs/culture-lexicon-learning-spec.md`)
 
 ## 우선순위 2. 학습 UX 개선
 
@@ -41,6 +43,12 @@
 - 퀴즈 문항과 오답 선택지 검수 파일 분리
 - 대표 장소 교체 이력 관리
 - API 응답 캐시와 공개 데이터 파일 생성 과정을 문서화
+- [ ] 문화어(Culture Lexeme) P1 시드 8–12개 — 스펙 `docs/culture-lexicon-learning-spec.md` (원문 대사 금지, policy 준수)
+
+## 콘텐츠 정책 (상시)
+
+- 자막·인용: `docs/subtitle-citation-policy.md` — 비공식 SRT·대본 덤프 금지, 교육 시드·공개 API만 배포
+- 문화어 학습: `docs/culture-lexicon-learning-spec.md` — 4축 태그, 세션 슬롯, 구현 phase
 
 ## 우선순위 6. 제품화
 

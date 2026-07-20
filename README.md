@@ -22,10 +22,16 @@
 - **K-culture 도메인 확장:** K-food, K-beauty, K-drama, K-fashion, K-webtoon, K-game (+ K-pop/K-movie 연동)
 - 정답률, 복습 카드, 학습 완료 배지
 
+## 콘텐츠 출처와 한계
+
+- 학습 문장은 **교육용 시드**와 **공개 API 스냅샷** 중심입니다. 스트리밍 자막·비공식 SRT·작품 대본 전문은 포함하지 않습니다.
+- 정책: [`docs/subtitle-citation-policy.md`](docs/subtitle-citation-policy.md)
+- 문화어 학습 스펙: [`docs/culture-lexicon-learning-spec.md`](docs/culture-lexicon-learning-spec.md)
+
 ## 폴더 구조
 
 ```text
-docs/                 기획, API 테스트, QA·배포 메모
+docs/                 기획, API 테스트, QA·배포 메모, 콘텐츠 정책
 prototype/            정적 웹 프로토타입
 prototype/data/       생성된 프로토타입 데이터
 prototype/lib/        번들된 클라이언트 유틸 (hangul-utils)
