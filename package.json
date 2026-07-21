@@ -14,8 +14,9 @@
     "fetch:quotes": "node scripts/build-klassic-quotes.mjs",
     "fetch:melon": "node scripts/build-melon-chart.mjs",
     "build:domains": "node scripts/build-kculture-domains.mjs",
+    "build:culture-lexemes": "node scripts/build-culture-lexemes.mjs",
     "build:activities": "node scripts/build-learning-activities.mjs",
-    "build:spike": "npm run build:hangul && npm run build:data && npm run build:activities && npm run fetch:quotes && npm run fetch:melon && npm run build:domains",
+    "build:spike": "npm run build:hangul && npm run build:data && npm run build:activities && npm run build:culture-lexemes && npm run fetch:quotes && npm run fetch:melon && npm run build:domains",
     "qa:browser": "node scripts/qa-browser.mjs",
     "qa:click-flow": "node scripts/qa-click-flow.mjs",
     "qa:manual": "node scripts/qa-manual-checklist.mjs"

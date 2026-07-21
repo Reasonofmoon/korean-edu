@@ -27,6 +27,7 @@
 - 학습 문장은 **교육용 시드**와 **공개 API 스냅샷** 중심입니다. 스트리밍 자막·비공식 SRT·작품 대본 전문은 포함하지 않습니다.
 - 정책: [`docs/subtitle-citation-policy.md`](docs/subtitle-citation-policy.md)
 - 문화어 학습 스펙: [`docs/culture-lexicon-learning-spec.md`](docs/culture-lexicon-learning-spec.md)
+- 문화어 데이터: `npm run build:culture-lexemes` → `prototype/data/culture-lexemes.js` (시드 소스 `scripts/lib/culture-lexemes-seed.mjs`)
 
 ## 폴더 구조
 

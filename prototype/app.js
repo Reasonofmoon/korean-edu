@@ -34,6 +34,13 @@ const kcultureDomains = window.KCULTURE_DOMAINS ?? {
   wordMissions: {},
   source: {},
 };
+/** P4 dedicated culture-lexeme dataset (fallback: seed-cl-* in klassic-quotes). */
+const cultureLexemesData = window.KCULTURE_CULTURE_LEXEMES ?? {
+  summary: { total: 0 },
+  lexemes: [],
+  vocabMatches: {},
+  source: {},
+};
 
 /** clean < mild < mature — UI filter max allowed rating. */
 const RATING_ORDER = ["clean", "mild", "mature"];
@@ -282,8 +289,52 @@ function domainMissionFor(item) {
   return kcultureDomains.wordMissions?.[item.word] ?? null;
 }
 
-/** P1 culture seeds (seed-cl-*) — educational lines only, not transcript dialogue. */
+/**
+ * Normalize a dedicated CultureLexeme record into the card/quote shape used by UI helpers.
+ */
+function cultureLexemeRecordToCard(lexeme) {
+  const primary =
+    lexeme.practiceLines?.find((line) => line.role === "narration")?.text ??
+    lexeme.practiceLines?.[0]?.text ??
+    lexeme.glossKo ??
+    "";
+  const practiceJoined = (lexeme.practiceLines ?? []).map((line) => line.text).filter(Boolean);
+  const quote =
+    practiceJoined[0] && lexeme.glossKo && !practiceJoined[0].includes(String(lexeme.glossKo).slice(0, 4))
+      ? `${lexeme.glossKo}. ${practiceJoined[0]}`
+      : primary || lexeme.glossKo || "";
+  return {
+    id: lexeme.id,
+    author: "문화어 시드",
+    quote,
+    name: (lexeme.titleHooks ?? []).length ? `${(lexeme.titleHooks ?? []).join(" · ")} · 문화어` : "문화어",
+    source: "seed",
+    contentRating: lexeme.contentRating ?? "clean",
+    contentRatingLabel: ratingLabels[lexeme.contentRating ?? "clean"] ?? "학습용",
+    keywordHints: [
+      lexeme.lemma,
+      ...(lexeme.sejeongAnchors ?? []),
+      ...(lexeme.tags ?? []),
+      "문화어",
+    ].filter(Boolean),
+    axis: lexeme.axis,
+    lemma: lexeme.lemma,
+    lemmaRomaja: lexeme.lemmaRomaja,
+    glossKo: lexeme.glossKo,
+    glossEn: lexeme.glossEn,
+    situation: lexeme.situation,
+    practiceLines: lexeme.practiceLines ?? [],
+    sejeongAnchors: lexeme.sejeongAnchors ?? [],
+    sourceType: lexeme.sourceType ?? "seed-culture",
+  };
+}
+
+/** Dedicated file first; fallback seed-cl-* from klassic-quotes (P1 bridge). */
 function cultureLexemesAll() {
+  const dedicated = cultureLexemesData.lexemes ?? [];
+  if (dedicated.length) {
+    return dedicated.map(cultureLexemeRecordToCard);
+  }
   return (klassicQuotes.quotes ?? []).filter((quote) => String(quote.id ?? "").startsWith("seed-cl-"));
 }
 
@@ -325,21 +376,6 @@ const CULTURE_AXIS_OPTIONS = [
   { id: "slang", label: "비속어·메타" },
 ];
 
-const CULTURE_AXIS_BY_SEED_ID = {
-  "seed-cl-kkanbu": "culture",
-  "seed-cl-dalgona": "culture",
-  "seed-cl-mugunghwa": "culture",
-  "seed-cl-kkakdugi-food": "culture",
-  "seed-cl-kkakdugi-meta": "wordplay",
-  "seed-cl-invite": "context",
-  "seed-cl-team": "context",
-  "seed-cl-marbles": "culture",
-  "seed-cl-ppopgi": "culture",
-  "seed-cl-rules": "context",
-  "seed-cl-fair": "context",
-  "seed-cl-no-spoiler": "context",
-};
-
 const CULTURE_AXIS_LABELS = {
   culture: "문화고유어",
   context: "상황",
@@ -348,8 +384,10 @@ const CULTURE_AXIS_LABELS = {
 };
 
 function cultureAxisForQuote(quote) {
+  if (quote?.axis && CULTURE_AXIS_LABELS[quote.axis]) return quote.axis;
   const id = String(quote?.id ?? "");
-  if (CULTURE_AXIS_BY_SEED_ID[id]) return CULTURE_AXIS_BY_SEED_ID[id];
+  const fromDedicated = (cultureLexemesData.lexemes ?? []).find((lexeme) => lexeme.id === id);
+  if (fromDedicated?.axis) return fromDedicated.axis;
   const blob = `${quote?.quote ?? ""} ${quote?.name ?? ""}`;
   if (/비속|욕설|거친 말/.test(blob)) return "slang";
   if (/은유|관용|말장난|의미|애매한/.test(blob)) return "wordplay";
@@ -373,9 +411,12 @@ function cultureLexemesFor(item) {
   if (!all.length) return [];
 
   const word = item.word;
+  const dedicatedMatches = new Map(
+    (cultureLexemesData.vocabMatches?.[word] ?? []).map((row) => [row.lexemeId, row.score ?? 0]),
+  );
   const ranked = all
     .map((quote) => {
-      let score = 0;
+      let score = dedicatedMatches.get(String(quote.id)) ?? 0;
       const hints = quote.keywordHints ?? [];
       if (containsCultureWord(quote.quote, word)) score += 20;
       for (const hint of hints) {
@@ -385,6 +426,8 @@ function cultureLexemesFor(item) {
       // Sejong anchors in the practice line boost ranking.
       score += findSejongAnchors(quote.quote).length * 2;
       if (findSejongAnchors(quote.quote).includes(word)) score += 15;
+      if ((quote.sejeongAnchors ?? []).includes(word)) score += 18;
+      if (quote.lemma === word) score += 25;
       if (/문화어|깐부|달고나|무궁화|깍두기|초대장|구슬|뽑기|규칙/.test(quote.quote + (quote.name ?? ""))) {
         score += 1;
       }
@@ -421,6 +464,7 @@ function containsCultureWord(text, word) {
 }
 
 function cultureLemmaFromQuote(quote) {
+  if (quote?.lemma) return quote.lemma;
   const hints = quote.keywordHints ?? [];
   const preferred = hints.find(
     (hint) =>
@@ -856,8 +900,18 @@ function renderCultureLexemeCardsHtml(lexemes, word) {
       const axisLabel = CULTURE_AXIS_LABELS[axis] ?? axis;
       const done = completedIds.has(id) || isCultureLexemeIdCompleted(id);
       const rating = quote.contentRating ?? "clean";
-      const anchors = findSejongAnchors(quote.quote);
+      const explicitAnchors = quote.sejeongAnchors ?? [];
+      const anchors = [...new Set([...explicitAnchors, ...findSejongAnchors(quote.quote)])].slice(0, 8);
       const practiceHtml = highlightSejongInText(quote.quote, word);
+      const glossBlock =
+        quote.glossKo || quote.glossEn || quote.situation
+          ? `<div class="culture-gloss">
+              ${quote.glossKo ? `<p><strong>뜻</strong> ${escapeHtml(quote.glossKo)}</p>` : ""}
+              ${quote.glossEn ? `<p class="meta">${escapeHtml(quote.glossEn)}</p>` : ""}
+              ${quote.situation ? `<p class="meta"><strong>상황</strong> ${escapeHtml(quote.situation)}</p>` : ""}
+            </div>`
+          : "";
+      const romaja = quote.lemmaRomaja ? `<p class="romanization culture-romaja">${escapeHtml(quote.lemmaRomaja)}</p>` : "";
       const anchorChips = anchors.length
         ? `<div class="sejeong-anchor-row" aria-label="세종 어휘 앵커">
             <span class="meta">세종 앵커:</span>
@@ -878,9 +932,11 @@ function renderCultureLexemeCardsHtml(lexemes, word) {
           ${done ? `<span class="tag success">확인</span>` : ""}
         </div>
         <h4 class="culture-lemma">${escapeHtml(lemma)}</h4>
+        ${romaja}
+        ${glossBlock}
         <p class="culture-practice">${practiceHtml}</p>
         ${anchorChips}
-        <p class="meta">${escapeHtml(quote.name)} · 교육용 시드 (원문 대사 아님)</p>
+        <p class="meta">${escapeHtml(quote.name)} · ${escapeHtml(quote.sourceType ?? "seed-culture")} (원문 대사 아님)</p>
         <button type="button" class="${done ? "" : "primary-action"}" data-culture-lexeme="${escapeHtml(id)}" data-culture-word="${escapeHtml(word)}">
           ${done ? "이 표현 확인 완료" : "이 표현 확인했어요"}
         </button>

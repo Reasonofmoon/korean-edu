@@ -105,6 +105,8 @@ try {
     "seed-cl-",
     "data-culture-axis",
     "세종",
+    "culture-lexemes.js",
+    "seed-culture",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {

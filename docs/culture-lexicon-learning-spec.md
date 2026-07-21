@@ -237,7 +237,7 @@ pick → context → listen/read → expressions
 | **P1** | 교육 시드 12개 (culture/context, clean) | `seed-cl-*` in `build-klassic-quotes` + `kd-culture-lexemes` / spot-squid |
 | **P2** | UI: 문화어 카드 + 확인 진도 키 | `#culture-step`, `progress.cultureLexemes`, 보너스/필수 게이트 |
 | **P3** | axis 필터 · 세종 앵커 하이라이트 | `cultureAxisFilter` 칩 + `mark.sejeong-anchor` / 칩 클릭 이동 |
-| **P4** | (옵션) cultureLexemes 전용 데이터 파일 | `culture-lexemes.js` |
+| **P4** | cultureLexemes 전용 데이터 파일 | `scripts/lib/culture-lexemes-seed.mjs` → `prototype/data/culture-lexemes.js` · `npm run build:culture-lexemes` |
 | **P5** | (게이트 후) 로컬 SRT 실험 메뉴 | policy §8 |
 
 ---

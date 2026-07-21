@@ -1540,3 +1540,24 @@ body.quiz-focus-open {
 .sejeong-empty {
   font-size: 0.82rem;
 }
+
+.culture-gloss {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px dashed rgba(183, 121, 31, 0.28);
+}
+
+.culture-gloss p {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.culture-romaja {
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}

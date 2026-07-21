@@ -17,6 +17,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { josa } from "es-hangul";
 import { isRatingAllowed, rateQuoteText, ratingLabel } from "./lib/content-rating.mjs";
+import { cultureLexemesAsQuoteSeeds } from "./lib/culture-lexemes-seed.mjs";
 
 const root = process.cwd();
 const outFile = path.join(root, "prototype", "data", "klassic-quotes.js");
@@ -90,104 +91,8 @@ const movieSeedQuotes = [
     name: "미나리",
     source: "seed",
   },
-  // —— P1 culture lexemes (clean educational lines; NOT transcript dialogue) ——
-  // Policy: docs/subtitle-citation-policy.md · Spec: docs/culture-lexicon-learning-spec.md
-  {
-    id: "seed-cl-kkanbu",
-    author: "문화어 시드",
-    quote: "깐부는 아주 친한 친구를 뜻하는 말이에요. 우리 깐부 해요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["깐부", "친구", "문화어"],
-  },
-  {
-    id: "seed-cl-dalgona",
-    author: "문화어 시드",
-    quote: "달고나는 설탕 과자예요. 달고나 만들어 봤어요?",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["달고나", "과자", "설탕", "시장"],
-  },
-  {
-    id: "seed-cl-mugunghwa",
-    author: "문화어 시드",
-    quote: "무궁화 꽃이 피었습니다는 한국 아이들이 하던 놀이 이름이에요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["무궁화", "놀이", "아이들"],
-  },
-  {
-    id: "seed-cl-kkakdugi-food",
-    author: "문화어 시드",
-    quote: "깍두기는 무로 담근 김치예요. 밥이랑 같이 먹어요.",
-    name: "문화어 · 음식",
-    source: "seed",
-    extraHints: ["깍두기", "김치", "무", "밥"],
-  },
-  {
-    id: "seed-cl-kkakdugi-meta",
-    author: "문화어 시드",
-    quote: "팀에서 깍두기라고 하면 아직 역할이 애매한 사람을 말하기도 해요.",
-    name: "문화어 · 은유",
-    source: "seed",
-    extraHints: ["깍두기", "팀", "역할"],
-  },
-  {
-    id: "seed-cl-invite",
-    author: "문화어 시드",
-    quote: "초대장을 받았어요. 같이 가도 될까요?",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["초대장", "초대", "같이"],
-  },
-  {
-    id: "seed-cl-team",
-    author: "문화어 시드",
-    quote: "우리 팀 짜요. 같이 하면 더 든든해요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["팀", "같이", "든든"],
-  },
-  {
-    id: "seed-cl-marbles",
-    author: "문화어 시드",
-    quote: "구슬치기는 구슬로 하던 옛 놀이예요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["구슬치기", "구슬", "놀이"],
-  },
-  {
-    id: "seed-cl-ppopgi",
-    author: "문화어 시드",
-    quote: "뽑기는 모양을 골라 깨는 놀이예요. 조심해서 해요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["뽑기", "달고나", "놀이"],
-  },
-  {
-    id: "seed-cl-rules",
-    author: "문화어 시드",
-    quote: "규칙을 먼저 설명해 주세요. 천천히 말해 주세요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["규칙", "설명", "천천히"],
-  },
-  {
-    id: "seed-cl-fair",
-    author: "문화어 시드",
-    quote: "공평한 게임이 중요해요. 모두 같은 규칙이에요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["공평", "게임", "규칙"],
-  },
-  {
-    id: "seed-cl-no-spoiler",
-    author: "문화어 시드",
-    quote: "결말은 스포일러 없이 이야기해요. 느낌만 말할게요.",
-    name: "오징어 게임 · 문화어",
-    source: "seed",
-    extraHints: ["결말", "스포일러", "이야기"],
-  },
+  // Culture lexemes (single source: scripts/lib/culture-lexemes-seed.mjs)
+  ...cultureLexemesAsQuoteSeeds(),
 ];
 
 /**
