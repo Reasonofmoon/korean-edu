@@ -47,6 +47,7 @@
 - [x] 문화어 P2 UI + `progress.cultureLexemes` (quote 직전 보너스, drama/movie 관심 시 필수)
 - [x] 문화어 P3 axis 필터 + 세종 어휘 앵커 하이라이트
 - [x] 문화어 P4 전용 데이터 (`culture-lexemes.js`, 시드 단일 소스)
+- [x] 시각 폴리시 (토큰·카드 호버·문화어 패널·모바일·reduced-motion)
 
 ## 콘텐츠 정책 (상시)
 
