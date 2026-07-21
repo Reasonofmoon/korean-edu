@@ -66,6 +66,13 @@ app-factory의 `learning-content-app` / `builder-mini-behavior` 관점에서 첫
 - 세션 CTA / 플로우 단계 / 복습 「다시 풀기」 / 상세 「집중 모드 퀴즈」에서 진입.
 - 전 문항 정답 시 완료 화면 + 다음 어휘 CTA.
 
+## UX 개선 (Culture Lexeme P2)
+
+- 세션 단계 `culture` (`#culture-step`) — 명대사 **직전** 슬롯.
+- 기본: **보너스** (완료 게이트 아님). K-drama / K-movie 관심사 또는 관련 여행 목적이면 **필수**.
+- `progress.cultureLexemes[word]` 롤업 + `progress.cultureLexemes[seed-cl-*]` 개별 확인.
+- 데이터: `seed-cl-*` 교육 시드만 (원문 대사 아님).
+
 ## 다음 개선
 
 - `context` 단계를 실제 확인 버튼으로 바꿀지 검토한다.

@@ -100,6 +100,9 @@ try {
     "HOT QUOTES",
     "quiz-focus",
     "집중 모드",
+    "culture-step",
+    "문화어",
+    "seed-cl-",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {

@@ -231,9 +231,20 @@ function loadProgress() {
       kpop: parsed.kpop ?? {},
       quotes: parsed.quotes ?? {},
       domains: parsed.domains ?? {},
+      /** Culture lexeme confirmations: word rollup + per-id flags (seed-cl-*). */
+      cultureLexemes: parsed.cultureLexemes ?? {},
     };
   } catch {
-    return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {}, domains: {} };
+    return {
+      answers: {},
+      audio: {},
+      expressions: {},
+      reading: {},
+      kpop: {},
+      quotes: {},
+      domains: {},
+      cultureLexemes: {},
+    };
   }
 }
 
@@ -269,6 +280,96 @@ function domainMissionFor(item) {
   return kcultureDomains.wordMissions?.[item.word] ?? null;
 }
 
+/** P1 culture seeds (seed-cl-*) — educational lines only, not transcript dialogue. */
+function cultureLexemesAll() {
+  return (klassicQuotes.quotes ?? []).filter((quote) => String(quote.id ?? "").startsWith("seed-cl-"));
+}
+
+function hasCultureLexemeDataset() {
+  return cultureLexemesAll().length > 0;
+}
+
+/** Drama/movie interest → culture step becomes a gate; otherwise bonus only. */
+function prefersCultureContent() {
+  const interestHit = state.prefs.interests.some((id) =>
+    ["k-drama", "k-movie", "kmovie", "content"].includes(id),
+  );
+  const purposeHit = ["content", "sightseeing", "culture"].includes(state.prefs.travelPurpose);
+  return interestHit || purposeHit;
+}
+
+function requiresCultureLexeme(_word) {
+  return hasCultureLexemeDataset() && prefersCultureContent();
+}
+
+function isCultureLexemeIdCompleted(lexemeId) {
+  return Boolean(progress.cultureLexemes?.[lexemeId]?.completed);
+}
+
+function cultureLexemeWordEntry(word) {
+  return progress.cultureLexemes?.[word] ?? null;
+}
+
+function isCultureWordDone(word) {
+  return Boolean(cultureLexemeWordEntry(word)?.completed);
+}
+
+/**
+ * Culture cards for a vocab item: keyword/hint match first, else ambient seed-cl pick.
+ */
+function cultureLexemesFor(item) {
+  if (!item) return [];
+  const all = cultureLexemesAll().filter((quote) =>
+    isRatingAllowed(quote.contentRating ?? "clean", state.quoteMaxRating),
+  );
+  if (!all.length) return [];
+
+  const word = item.word;
+  const ranked = all
+    .map((quote) => {
+      let score = 0;
+      const hints = quote.keywordHints ?? [];
+      if (containsCultureWord(quote.quote, word)) score += 20;
+      for (const hint of hints) {
+        if (hint === word) score += 12;
+        else if (word.length >= 2 && (hint.includes(word) || word.includes(hint))) score += 6;
+      }
+      if (/문화어|깐부|달고나|무궁화|깍두기|초대장|구슬|뽑기|규칙/.test(quote.quote + (quote.name ?? ""))) {
+        score += 1;
+      }
+      return { quote, score };
+    })
+    .filter((row) => row.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map((row) => row.quote);
+
+  if (ranked.length) return ranked.slice(0, 4);
+
+  const start = hashString(word) % all.length;
+  return [0, 1, 2]
+    .map((offset) => all[(start + offset) % all.length])
+    .filter(Boolean);
+}
+
+function containsCultureWord(text, word) {
+  if (!word || !text) return false;
+  if (word.length >= 3) return text.includes(word);
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const josa = "(?:은|는|이|가|을|를|의|에|에서|로|으로|와|과|도|만)?";
+  return new RegExp(`(?:^|[^가-힣])${escaped}${josa}(?:[^가-힣]|$)`, "u").test(text);
+}
+
+function cultureLemmaFromQuote(quote) {
+  const hints = quote.keywordHints ?? [];
+  const preferred = hints.find(
+    (hint) =>
+      hint &&
+      hint.length >= 2 &&
+      !["문화어", "친구", "놀이", "과자", "설탕", "아이들", "설명", "이야기", "게임"].includes(hint),
+  );
+  return preferred || hints[0] || String(quote.name ?? "문화어").split("·")[0].trim();
+}
+
 function statsForWord(word) {
   const activity = learningActivities.activities.find((item) => item.word === word);
   const quizzes = activity?.quizzes ?? [];
@@ -286,6 +387,9 @@ function statsForWord(word) {
   const quoteDone = !requiresQuotes || Boolean(progress.quotes[word]?.completed);
   const requiresDomain = hasDomainDataset() && Boolean(kcultureDomains.wordMissions?.[word]);
   const domainDone = !requiresDomain || Boolean(progress.domains[word]?.completed);
+  const requiresCulture = requiresCultureLexeme(word);
+  const cultureDone = !requiresCulture || isCultureWordDone(word);
+  const cultureBonusAvailable = hasCultureLexemeDataset() && cultureLexemesFor({ word }).length > 0;
   const requiresKpop = hasKpopChart();
   const kpopDone = !requiresKpop || Boolean(progress.kpop[word]?.completed);
   return {
@@ -302,6 +406,9 @@ function statsForWord(word) {
     quoteDone,
     requiresDomain,
     domainDone,
+    requiresCulture,
+    cultureDone,
+    cultureBonusAvailable,
     requiresKpop,
     kpopDone,
     complete:
@@ -312,6 +419,7 @@ function statsForWord(word) {
       expressionDone &&
       quoteDone &&
       domainDone &&
+      cultureDone &&
       kpopDone,
   };
 }
@@ -501,6 +609,8 @@ function sessionStageFor(item) {
   if (!hasAudioStory && stats.requiresReading && !stats.readingDone) return "listen";
   if (!stats.expressionDone) return "expressions";
   if (stats.requiresDomain && !stats.domainDone) return "domain";
+  // Culture bonus slot sits before quotes; only gates when drama/movie prefs are on.
+  if (stats.requiresCulture && !stats.cultureDone) return "culture";
   if (stats.requiresQuotes && !stats.quoteDone) return "quote";
   if (stats.requiresKpop && !stats.kpopDone) return "kpop";
   if (stats.answered < stats.total || stats.correct < stats.total) return "quiz";
@@ -516,6 +626,7 @@ const sessionSteps = [
   { id: "listen", label: "듣기/읽기", target: "#story-step" },
   { id: "expressions", label: "표현 확인", target: "#expression-step" },
   { id: "domain", label: "K-culture", target: "#domain-step" },
+  { id: "culture", label: "문화어", target: "#culture-step" },
   { id: "quote", label: "명대사 확인", target: "#quote-step" },
   { id: "kpop", label: "K-pop 미션", target: "#kpop-step" },
   { id: "quiz", label: "퀴즈", target: "#quiz-step" },
@@ -611,6 +722,36 @@ function renderQuoteCardsHtml(quotes, word) {
         <blockquote>${quote.quote}</blockquote>
         <p class="meta">— ${quote.author}${quote.matchReasons?.length ? ` · ${quote.matchReasons.slice(0, 2).join(", ")}` : ""}</p>
         ${(quote.keywordHints ?? []).length ? `<p class="meta">hints: ${(quote.keywordHints ?? []).slice(0, 6).join(", ")}</p>` : ""}
+      </article>`;
+    })
+    .join("")}</div>`;
+}
+
+function renderCultureLexemeCardsHtml(lexemes, word) {
+  if (!lexemes.length) {
+    return `<p class="body-copy">문화어 시드가 없습니다. <code>npm run fetch:quotes</code> 후 seed-cl-* 시드를 확인하세요.</p>`;
+  }
+  const wordEntry = cultureLexemeWordEntry(word);
+  const completedIds = new Set(wordEntry?.completedIds ?? []);
+  return `<div class="culture-lexeme-grid">${lexemes
+    .map((quote) => {
+      const id = String(quote.id);
+      const lemma = cultureLemmaFromQuote(quote);
+      const done = completedIds.has(id) || isCultureLexemeIdCompleted(id);
+      const rating = quote.contentRating ?? "clean";
+      return `<article class="culture-lexeme-card ${done ? "complete" : ""}" data-culture-id="${id}">
+        <div class="tag-row">
+          <span class="tag hot-tag">CULTURE</span>
+          <span class="tag">${lemma}</span>
+          <span class="tag ${rating === "clean" ? "success" : "progress"}">${quote.contentRatingLabel ?? ratingLabels[rating]}</span>
+          ${done ? `<span class="tag success">확인</span>` : ""}
+        </div>
+        <h4 class="culture-lemma">${lemma}</h4>
+        <p class="culture-practice">${quote.quote}</p>
+        <p class="meta">${quote.name} · 교육용 시드 (원문 대사 아님)</p>
+        <button type="button" class="${done ? "" : "primary-action"}" data-culture-lexeme="${id}" data-culture-word="${word}">
+          ${done ? "이 표현 확인 완료" : "이 표현 확인했어요"}
+        </button>
       </article>`;
     })
     .join("")}</div>`;
@@ -749,6 +890,8 @@ function renderDetail() {
   const domainMission = domainMissionFor(item);
   const kpopDone = Boolean(progress.kpop[item.word]?.completed);
   const domainDone = Boolean(progress.domains[item.word]?.completed);
+  const cultureLexemes = cultureLexemesFor(item);
+  const cultureDone = isCultureWordDone(item.word);
   detailEl.innerHTML = `
     <div class="detail-hero">
       <div class="tag-row">
@@ -758,7 +901,7 @@ function renderDetail() {
         ${
           wordStats.complete
             ? `<span class="tag success">학습 완료</span>`
-            : `<span class="tag progress">퀴즈 ${wordStats.answered}/${wordStats.total}${wordStats.requiresAudio ? ` · 듣기 ${wordStats.audioDone ? "완료" : "필요"}` : ""}${wordStats.requiresDomain ? ` · K-culture ${wordStats.domainDone ? "완료" : "필요"}` : ""}${wordStats.requiresQuotes ? ` · 명대사 ${wordStats.quoteDone ? "완료" : "필요"}` : ""}${wordStats.requiresKpop ? ` · K-pop ${wordStats.kpopDone ? "완료" : "필요"}` : ""}</span>`
+            : `<span class="tag progress">퀴즈 ${wordStats.answered}/${wordStats.total}${wordStats.requiresAudio ? ` · 듣기 ${wordStats.audioDone ? "완료" : "필요"}` : ""}${wordStats.requiresDomain ? ` · K-culture ${wordStats.domainDone ? "완료" : "필요"}` : ""}${wordStats.requiresCulture ? ` · 문화어 ${wordStats.cultureDone ? "완료" : "필요"}` : cultureLexemes.length ? ` · 문화어 ${cultureDone ? "보너스 완료" : "보너스"}` : ""}${wordStats.requiresQuotes ? ` · 명대사 ${wordStats.quoteDone ? "완료" : "필요"}` : ""}${wordStats.requiresKpop ? ` · K-pop ${wordStats.kpopDone ? "완료" : "필요"}` : ""}</span>`
         }
       </div>
       <h3>${item.word}</h3>
@@ -770,6 +913,7 @@ function renderDetail() {
         ${stage === "complete" && nextItem ? `<button type="button" class="primary-action" data-next-word="${nextItem.word}">다음 어휘: ${nextItem.word}</button><span class="cta-note">${nextReason}</span>` : ""}
         ${odii?.stories?.some((story) => story.audioUrl) ? `<button type="button" data-open-detail="story-step">듣기 열기</button>` : ""}
         ${domainMission ? `<button type="button" data-open-detail="domain-step">${domainMission.domainLabel} 미션</button>` : ""}
+        ${cultureLexemes.length ? `<button type="button" data-open-detail="culture-step">문화어${cultureDone ? " ✓" : ""}</button>` : ""}
         ${kpopTrack ? `<button type="button" data-open-detail="kpop-step">K-pop 미션</button>` : ""}
         ${matchedQuotes.length ? `<button type="button" data-open-detail="quote-step">명대사</button>` : ""}
         ${firstQuiz ? `<button type="button" class="primary-action" data-quiz-focus="${item.word}">집중 모드 퀴즈</button>` : ""}
@@ -894,8 +1038,28 @@ function renderDetail() {
       }
     </details>
 
+    <details class="detail-block" id="culture-step" ${cultureLexemes.length ? "open" : ""}>
+      <summary>7. 문화어 (Culture Lexeme)${wordStats.requiresCulture ? "" : " · 보너스"}</summary>
+      <p class="meta">
+        깐부·달고나 등 <strong>교육용 시드</strong>입니다. 원문 대사·비공식 자막이 아닙니다.
+        · ${wordStats.requiresCulture ? (cultureDone ? "완료 조건 충족" : "관심사 설정으로 필수") : "보너스 슬롯 (K-drama/K-movie 관심 시 필수)"}
+        · 확인 ${cultureLexemeWordEntry(item.word)?.completedIds?.length ?? 0}/${cultureLexemes.length}
+      </p>
+      ${renderCultureLexemeCardsHtml(cultureLexemes, item.word)}
+      ${
+        cultureLexemes.length
+          ? `<div class="cta-row">
+              <button type="button" class="${cultureDone ? "" : "primary-action"}" data-culture-word-done="${item.word}">
+                ${cultureDone ? "문화어 확인 완료" : "문화어 한 장 확인했어요"}
+              </button>
+              <button type="button" data-open-detail="quote-step">명대사로 이동</button>
+            </div>`
+          : ""
+      }
+    </details>
+
     <details class="detail-block" id="quote-step" ${wordStats.requiresQuotes ? "open" : ""}>
-      <summary>7. K-movie 명대사 (keywordHints 매칭)</summary>
+      <summary>8. K-movie 명대사 (keywordHints 매칭)</summary>
       <p class="meta">수위 필터: ${ratingLabels[state.quoteMaxRating]} · ${
         matchedQuotes.some((quote) => quote.matchKind === "keyword")
           ? "어휘·keywordHints 직접 매칭"
@@ -912,7 +1076,7 @@ function renderDetail() {
     </details>
 
     <details class="detail-block" id="kpop-step" ${kpopTrack ? "open" : ""}>
-      <summary>8. K-pop 차트 미션</summary>
+      <summary>9. K-pop 차트 미션</summary>
       ${
         kpopTrack
           ? `<div class="chart-card inline ${kpopDone ? "complete" : ""}">
@@ -936,7 +1100,7 @@ function renderDetail() {
     </details>
 
     <details class="detail-block" id="quiz-step" open>
-      <summary>9. 듣기 확인 퀴즈</summary>
+      <summary>10. 듣기 확인 퀴즈</summary>
       ${
         activity?.quizzes?.length
           ? `<div class="cta-row">
@@ -987,6 +1151,7 @@ function renderNudge() {
     listen: wordStats.requiresAudio ? "듣기부터 시작" : "읽기부터 시작",
     expressions: "표현 확인하기",
     domain: "K-culture 미션",
+    culture: "문화어 확인하기",
     quote: "명대사 확인하기",
     kpop: "K-pop 미션 하기",
     quiz: "집중 모드 퀴즈",
@@ -1023,7 +1188,7 @@ function renderSessionFlow() {
     <div>
       <p class="eyebrow">First Session Flow</p>
       <h2>${item.word} 한 장 끝내기</h2>
-      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻 → 듣기/읽기 → 표현 → K-culture → 명대사 → K-pop → 퀴즈 순으로 한 장을 마칩니다."}</p>
+      <p>${stats.complete ? "완료된 어휘입니다. 다음에는 오답 복습이나 새 어휘를 이어가세요." : "뜻 → 듣기/읽기 → 표현 → K-culture → 문화어 → 명대사 → K-pop → 퀴즈 순으로 한 장을 마칩니다."}</p>
     </div>
     <ol class="flow-steps">
       ${sessionSteps
@@ -1363,10 +1528,45 @@ function clearWordProgress(word) {
   delete progress.kpop[word];
   delete progress.quotes[word];
   delete progress.domains[word];
+  const cultureEntry = progress.cultureLexemes?.[word];
+  for (const lexemeId of cultureEntry?.completedIds ?? []) {
+    delete progress.cultureLexemes[lexemeId];
+  }
+  delete progress.cultureLexemes[word];
 }
 
 function emptyProgress() {
-  return { answers: {}, audio: {}, expressions: {}, reading: {}, kpop: {}, quotes: {}, domains: {} };
+  return {
+    answers: {},
+    audio: {},
+    expressions: {},
+    reading: {},
+    kpop: {},
+    quotes: {},
+    domains: {},
+    cultureLexemes: {},
+  };
+}
+
+/** Mark one culture lexeme (and roll up word-level completion). */
+function markCultureLexemeComplete(word, lexemeId) {
+  if (!word || !lexemeId) return;
+  const related = cultureLexemesFor({ word });
+  const prev = progress.cultureLexemes[word] ?? { completedIds: [] };
+  const completedIds = [...new Set([...(prev.completedIds ?? []), lexemeId])];
+  const atLeastOne = completedIds.length >= 1;
+  const allShown = related.length > 0 && related.every((quote) => completedIds.includes(String(quote.id)));
+  progress.cultureLexemes[word] = {
+    completed: atLeastOne,
+    completedIds,
+    allShown,
+    completedAt: new Date().toISOString(),
+  };
+  progress.cultureLexemes[lexemeId] = {
+    completed: true,
+    word,
+    completedAt: new Date().toISOString(),
+  };
 }
 
 function renderReview() {
@@ -1742,11 +1942,13 @@ document.addEventListener("click", (event) => {
     renderProgressSurfaces();
     const nextTarget = hasDomainDataset()
       ? document.querySelector("#domain-step")
-      : hasQuoteDataset()
-        ? document.querySelector("#quote-step")
-        : hasKpopChart()
-          ? document.querySelector("#kpop-step")
-          : document.querySelector("#quiz-step");
+      : hasCultureLexemeDataset()
+        ? document.querySelector("#culture-step")
+        : hasQuoteDataset()
+          ? document.querySelector("#quote-step")
+          : hasKpopChart()
+            ? document.querySelector("#kpop-step")
+            : document.querySelector("#quiz-step");
     if (nextTarget) nextTarget.open = true;
     nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
@@ -1760,6 +1962,43 @@ document.addEventListener("click", (event) => {
       domainId: domainButton.dataset.domainId ?? "",
       completedAt: new Date().toISOString(),
     };
+    saveProgress();
+    renderProgressSurfaces();
+    const nextTarget = hasCultureLexemeDataset()
+      ? document.querySelector("#culture-step")
+      : hasQuoteDataset()
+        ? document.querySelector("#quote-step")
+        : hasKpopChart()
+          ? document.querySelector("#kpop-step")
+          : document.querySelector("#quiz-step");
+    if (nextTarget) nextTarget.open = true;
+    nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const cultureLexemeBtn = event.target.closest("[data-culture-lexeme]");
+  if (cultureLexemeBtn) {
+    const word = cultureLexemeBtn.dataset.cultureWord;
+    const lexemeId = cultureLexemeBtn.dataset.cultureLexeme;
+    markCultureLexemeComplete(word, lexemeId);
+    saveProgress();
+    renderProgressSurfaces();
+    document.querySelector("#culture-step")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    return;
+  }
+
+  const cultureWordDoneBtn = event.target.closest("[data-culture-word-done]");
+  if (cultureWordDoneBtn) {
+    const word = cultureWordDoneBtn.dataset.cultureWordDone;
+    const related = cultureLexemesFor({ word });
+    const firstId = related[0] ? String(related[0].id) : `culture-ambient-${word}`;
+    if (related.length) {
+      for (const quote of related) {
+        markCultureLexemeComplete(word, String(quote.id));
+      }
+    } else {
+      markCultureLexemeComplete(word, firstId);
+    }
     saveProgress();
     renderProgressSurfaces();
     const nextTarget = hasQuoteDataset()

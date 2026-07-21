@@ -1415,3 +1415,47 @@ body.quiz-focus-open {
     border-radius: 0;
   }
 }
+
+/* —— Culture Lexeme cards (P2) —— */
+.culture-lexeme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.culture-lexeme-card {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid rgba(255, 90, 54, 0.28);
+  border-radius: 12px;
+  background: linear-gradient(165deg, #fff8f1 0%, #ffffff 60%);
+  box-shadow: 0 8px 20px rgba(183, 121, 31, 0.08);
+}
+
+.culture-lexeme-card.complete {
+  border-color: rgba(15, 118, 110, 0.4);
+  background: linear-gradient(165deg, #f0faf7 0%, #ffffff 60%);
+}
+
+.culture-lemma {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.culture-practice {
+  margin: 0;
+  padding: 10px 12px;
+  border-left: 3px solid #ff9f1c;
+  border-radius: 0 8px 8px 0;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.culture-lexeme-card .primary-action {
+  justify-self: start;
+}
