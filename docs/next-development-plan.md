@@ -43,7 +43,7 @@
 - 퀴즈 문항과 오답 선택지 검수 파일 분리
 - 대표 장소 교체 이력 관리
 - API 응답 캐시와 공개 데이터 파일 생성 과정을 문서화
-- [ ] 문화어(Culture Lexeme) P1 시드 8–12개 — 스펙 `docs/culture-lexicon-learning-spec.md` (원문 대사 금지, policy 준수)
+- [x] 문화어(Culture Lexeme) P1 시드 12개 — 스펙 `docs/culture-lexicon-learning-spec.md` (원문 대사 금지, policy 준수)
 
 ## 콘텐츠 정책 (상시)
 

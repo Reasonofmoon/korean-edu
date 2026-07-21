@@ -1,19 +1,19 @@
 window.KCULTURE_KLASSIC_QUOTES = {
-  "generatedAt": "2026-07-20T13:28:04.819Z",
+  "generatedAt": "2026-07-21T00:33:46.495Z",
   "source": {
     "apiUrl": "https://klassic-quote-api.mooo.com/v1/quotes",
     "status": "ok",
     "error": null,
     "library": "https://github.com/GHGHGHKO/klassic-quote-api",
     "buildMaxRating": "mature",
-    "cultureSeedCount": 141,
+    "cultureSeedCount": 153,
     "apiQuoteCount": 80
   },
   "summary": {
-    "total": 221,
-    "movies": 16,
+    "total": 233,
+    "movies": 19,
     "ratings": {
-      "clean": 197,
+      "clean": 209,
       "mild": 11,
       "mature": 13
     },
@@ -391,6 +391,14 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "hint-exact",
           "theme-food"
         ]
+      },
+      {
+        "quoteId": "seed-cl-kkakdugi-food",
+        "score": 12,
+        "reasons": [
+          "hint-exact",
+          "theme-food"
+        ]
       }
     ],
     "꽹과리": [
@@ -533,17 +541,17 @@ window.KCULTURE_KLASSIC_QUOTES = {
         ]
       },
       {
-        "quoteId": "seed-culture-daily",
+        "quoteId": "seed-cl-dalgona",
         "score": 42,
         "reasons": [
           "exact-word",
           "api:달고나",
-          "hint-partial",
-          "hint-exact"
+          "hint-exact",
+          "hint-partial"
         ]
       },
       {
-        "quoteId": "seed-culture-dalgona",
+        "quoteId": "seed-culture-daily",
         "score": 42,
         "reasons": [
           "exact-word",
@@ -872,6 +880,16 @@ window.KCULTURE_KLASSIC_QUOTES = {
         ]
       },
       {
+        "quoteId": "seed-cl-mugunghwa",
+        "score": 40,
+        "reasons": [
+          "exact-word",
+          "api:무궁화",
+          "hint-exact",
+          "theme-history"
+        ]
+      },
+      {
         "quoteId": "seed-vocab-vocab-66y06rab7zmu",
         "score": 34,
         "reasons": [
@@ -930,14 +948,14 @@ window.KCULTURE_KLASSIC_QUOTES = {
         ]
       },
       {
-        "quoteId": "seed-culture-food-table",
+        "quoteId": "seed-cl-kkakdugi-food",
         "score": 4,
         "reasons": [
           "hint-partial"
         ]
       },
       {
-        "quoteId": "seed-vocab-vocab-6rma7lmy",
+        "quoteId": "seed-culture-food-table",
         "score": 4,
         "reasons": [
           "hint-partial"
@@ -1050,6 +1068,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "hint-exact",
           "theme-food"
         ]
+      },
+      {
+        "quoteId": "seed-cl-kkakdugi-food",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
+        ]
       }
     ],
     "빗살 무늬 토기": [
@@ -1061,6 +1086,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "api:빗살 무늬 토기",
           "hint-partial",
           "theme-history"
+        ]
+      },
+      {
+        "quoteId": "seed-cl-kkakdugi-food",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
         ]
       }
     ],
@@ -1083,6 +1115,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "api:사물놀이",
           "hint-partial",
           "hint-exact"
+        ]
+      },
+      {
+        "quoteId": "seed-cl-mugunghwa",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
         ]
       }
     ],
@@ -1267,6 +1306,20 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "api:윷놀이",
           "hint-partial",
           "theme-history"
+        ]
+      },
+      {
+        "quoteId": "seed-cl-mugunghwa",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
+        ]
+      },
+      {
+        "quoteId": "seed-cl-marbles",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
         ]
       }
     ],
@@ -1661,6 +1714,13 @@ window.KCULTURE_KLASSIC_QUOTES = {
           "hint-partial",
           "hint-exact"
         ]
+      },
+      {
+        "quoteId": "seed-cl-mugunghwa",
+        "score": 4,
+        "reasons": [
+          "hint-partial"
+        ]
       }
     ],
     "한라봉": [
@@ -2024,6 +2084,279 @@ window.KCULTURE_KLASSIC_QUOTES = {
         "미나리",
         "미국에서",
         "사랑받"
+      ]
+    },
+    {
+      "id": "seed-cl-kkanbu",
+      "author": "문화어 시드",
+      "quote": "깐부는 아주 친한 친구를 뜻하는 말이에요. 우리 깐부 해요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "깐부",
+        "친구",
+        "문화어",
+        "깐부는",
+        "아주",
+        "친한",
+        "친구를",
+        "뜻하는",
+        "말이에요",
+        "우리",
+        "해요",
+        "뜻하",
+        "오징어"
+      ]
+    },
+    {
+      "id": "seed-cl-dalgona",
+      "author": "문화어 시드",
+      "quote": "달고나는 설탕 과자예요. 달고나 만들어 봤어요?",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "달고나",
+        "과자",
+        "설탕",
+        "시장",
+        "달고나는",
+        "과자예요",
+        "만들어",
+        "봤어요",
+        "오징어",
+        "게임",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-mugunghwa",
+      "author": "문화어 시드",
+      "quote": "무궁화 꽃이 피었습니다는 한국 아이들이 하던 놀이 이름이에요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "무궁화",
+        "놀이",
+        "아이들",
+        "꽃이",
+        "피었습니다는",
+        "한국",
+        "아이들이",
+        "하던",
+        "이름이에요",
+        "피었습니다",
+        "오징어",
+        "게임"
+      ]
+    },
+    {
+      "id": "seed-cl-kkakdugi-food",
+      "author": "문화어 시드",
+      "quote": "깍두기는 무로 담근 김치예요. 밥이랑 같이 먹어요.",
+      "name": "문화어 · 음식",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "깍두기",
+        "김치",
+        "무",
+        "밥",
+        "깍두기는",
+        "무로",
+        "담근",
+        "김치예요",
+        "밥이랑",
+        "같이",
+        "먹어요",
+        "문화어",
+        "음식"
+      ]
+    },
+    {
+      "id": "seed-cl-kkakdugi-meta",
+      "author": "문화어 시드",
+      "quote": "팀에서 깍두기라고 하면 아직 역할이 애매한 사람을 말하기도 해요.",
+      "name": "문화어 · 은유",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "깍두기",
+        "팀",
+        "역할",
+        "팀에서",
+        "깍두기라고",
+        "하면",
+        "아직",
+        "역할이",
+        "애매한",
+        "사람을",
+        "말하기도",
+        "해요",
+        "사람",
+        "말하기"
+      ]
+    },
+    {
+      "id": "seed-cl-invite",
+      "author": "문화어 시드",
+      "quote": "초대장을 받았어요. 같이 가도 될까요?",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "초대장",
+        "초대",
+        "같이",
+        "초대장을",
+        "받았어요",
+        "가도",
+        "될까요",
+        "오징어",
+        "게임",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-team",
+      "author": "문화어 시드",
+      "quote": "우리 팀 짜요. 같이 하면 더 든든해요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "팀",
+        "같이",
+        "든든",
+        "우리",
+        "짜요",
+        "하면",
+        "든든해요",
+        "오징어",
+        "게임",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-marbles",
+      "author": "문화어 시드",
+      "quote": "구슬치기는 구슬로 하던 옛 놀이예요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "구슬치기",
+        "구슬",
+        "놀이",
+        "구슬치기는",
+        "구슬로",
+        "하던",
+        "놀이예요",
+        "오징어",
+        "게임",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-ppopgi",
+      "author": "문화어 시드",
+      "quote": "뽑기는 모양을 골라 깨는 놀이예요. 조심해서 해요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "뽑기",
+        "달고나",
+        "놀이",
+        "뽑기는",
+        "모양을",
+        "골라",
+        "깨는",
+        "놀이예요",
+        "조심해서",
+        "해요",
+        "모양",
+        "오징어",
+        "게임",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-rules",
+      "author": "문화어 시드",
+      "quote": "규칙을 먼저 설명해 주세요. 천천히 말해 주세요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "규칙",
+        "설명",
+        "천천히",
+        "규칙을",
+        "먼저",
+        "설명해",
+        "주세요",
+        "말해",
+        "오징어",
+        "게임",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-fair",
+      "author": "문화어 시드",
+      "quote": "공평한 게임이 중요해요. 모두 같은 규칙이에요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "공평",
+        "게임",
+        "규칙",
+        "공평한",
+        "게임이",
+        "중요해요",
+        "모두",
+        "같은",
+        "규칙이에요",
+        "오징어",
+        "문화어"
+      ]
+    },
+    {
+      "id": "seed-cl-no-spoiler",
+      "author": "문화어 시드",
+      "quote": "결말은 스포일러 없이 이야기해요. 느낌만 말할게요.",
+      "name": "오징어 게임 · 문화어",
+      "source": "seed",
+      "contentRating": "clean",
+      "contentRatingLabel": "학습용",
+      "keywordHints": [
+        "결말",
+        "스포일러",
+        "이야기",
+        "결말은",
+        "없이",
+        "이야기해요",
+        "느낌만",
+        "말할게요",
+        "느낌",
+        "오징어",
+        "게임",
+        "문화어"
       ]
     },
     {
