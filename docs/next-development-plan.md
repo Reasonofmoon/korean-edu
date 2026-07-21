@@ -45,6 +45,7 @@
 - API 응답 캐시와 공개 데이터 파일 생성 과정을 문서화
 - [x] 문화어(Culture Lexeme) P1 시드 12개 — 스펙 `docs/culture-lexicon-learning-spec.md` (원문 대사 금지, policy 준수)
 - [x] 문화어 P2 UI + `progress.cultureLexemes` (quote 직전 보너스, drama/movie 관심 시 필수)
+- [x] 문화어 P3 axis 필터 + 세종 어휘 앵커 하이라이트
 
 ## 콘텐츠 정책 (상시)
 

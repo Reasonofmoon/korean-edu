@@ -103,6 +103,8 @@ try {
     "culture-step",
     "문화어",
     "seed-cl-",
+    "data-culture-axis",
+    "세종",
   ];
   const missing = required.filter((text) => !stdout.includes(text));
   if (missing.length) {

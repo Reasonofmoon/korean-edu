@@ -72,6 +72,7 @@ app-factory의 `learning-content-app` / `builder-mini-behavior` 관점에서 첫
 - 기본: **보너스** (완료 게이트 아님). K-drama / K-movie 관심사 또는 관련 여행 목적이면 **필수**.
 - `progress.cultureLexemes[word]` 롤업 + `progress.cultureLexemes[seed-cl-*]` 개별 확인.
 - 데이터: `seed-cl-*` 교육 시드만 (원문 대사 아님).
+- P3: 축 필터(문화고유어·상황·언어유희·비속어·메타) + 연습 문장 속 **세종 어휘 앵커** 하이라이트/클릭 이동.
 
 ## 다음 개선
 

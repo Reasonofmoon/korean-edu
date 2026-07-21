@@ -173,6 +173,8 @@ const state = {
   domainFilter: "spotlight",
   /** Full-screen quiz focus mode (one word, one question at a time). */
   quizFocus: { open: false, word: null, index: 0, browseComplete: false },
+  /** Culture lexeme axis filter: all | culture | context | wordplay | slang */
+  cultureAxisFilter: "all",
 };
 
 const categoryOrder = ["all", "food", "place", "tradition", "history", "nature", "daily"];
@@ -314,14 +316,60 @@ function isCultureWordDone(word) {
   return Boolean(cultureLexemeWordEntry(word)?.completed);
 }
 
+/** Spec 4-axis tags (docs/culture-lexicon-learning-spec.md). */
+const CULTURE_AXIS_OPTIONS = [
+  { id: "all", label: "전체" },
+  { id: "culture", label: "문화고유어" },
+  { id: "context", label: "상황" },
+  { id: "wordplay", label: "언어유희" },
+  { id: "slang", label: "비속어·메타" },
+];
+
+const CULTURE_AXIS_BY_SEED_ID = {
+  "seed-cl-kkanbu": "culture",
+  "seed-cl-dalgona": "culture",
+  "seed-cl-mugunghwa": "culture",
+  "seed-cl-kkakdugi-food": "culture",
+  "seed-cl-kkakdugi-meta": "wordplay",
+  "seed-cl-invite": "context",
+  "seed-cl-team": "context",
+  "seed-cl-marbles": "culture",
+  "seed-cl-ppopgi": "culture",
+  "seed-cl-rules": "context",
+  "seed-cl-fair": "context",
+  "seed-cl-no-spoiler": "context",
+};
+
+const CULTURE_AXIS_LABELS = {
+  culture: "문화고유어",
+  context: "상황",
+  wordplay: "언어유희",
+  slang: "비속어·메타",
+};
+
+function cultureAxisForQuote(quote) {
+  const id = String(quote?.id ?? "");
+  if (CULTURE_AXIS_BY_SEED_ID[id]) return CULTURE_AXIS_BY_SEED_ID[id];
+  const blob = `${quote?.quote ?? ""} ${quote?.name ?? ""}`;
+  if (/비속|욕설|거친 말/.test(blob)) return "slang";
+  if (/은유|관용|말장난|의미|애매한/.test(blob)) return "wordplay";
+  if (/규칙|팀|초대|공평|스포일러|설명|결말/.test(blob)) return "context";
+  return "culture";
+}
+
 /**
  * Culture cards for a vocab item: keyword/hint match first, else ambient seed-cl pick.
+ * Respects state.cultureAxisFilter (P3).
  */
 function cultureLexemesFor(item) {
   if (!item) return [];
-  const all = cultureLexemesAll().filter((quote) =>
+  const axisFilter = state.cultureAxisFilter ?? "all";
+  let all = cultureLexemesAll().filter((quote) =>
     isRatingAllowed(quote.contentRating ?? "clean", state.quoteMaxRating),
   );
+  if (axisFilter !== "all") {
+    all = all.filter((quote) => cultureAxisForQuote(quote) === axisFilter);
+  }
   if (!all.length) return [];
 
   const word = item.word;
@@ -334,16 +382,29 @@ function cultureLexemesFor(item) {
         if (hint === word) score += 12;
         else if (word.length >= 2 && (hint.includes(word) || word.includes(hint))) score += 6;
       }
+      // Sejong anchors in the practice line boost ranking.
+      score += findSejongAnchors(quote.quote).length * 2;
+      if (findSejongAnchors(quote.quote).includes(word)) score += 15;
       if (/문화어|깐부|달고나|무궁화|깍두기|초대장|구슬|뽑기|규칙/.test(quote.quote + (quote.name ?? ""))) {
         score += 1;
       }
       return { quote, score };
     })
-    .filter((row) => row.score > 0)
     .sort((a, b) => b.score - a.score)
     .map((row) => row.quote);
 
-  if (ranked.length) return ranked.slice(0, 4);
+  // Axis filter: show the full filtered set. Default: top matches / ambient pick.
+  if (axisFilter !== "all") return ranked.slice(0, 12);
+
+  const withHits = ranked.filter((quote) => {
+    if (containsCultureWord(quote.quote, word)) return true;
+    if (findSejongAnchors(quote.quote).includes(word)) return true;
+    return (quote.keywordHints ?? []).some(
+      (hint) => hint === word || (word.length >= 2 && (hint.includes(word) || word.includes(hint))),
+    );
+  });
+
+  if (withHits.length) return withHits.slice(0, 4);
 
   const start = hashString(word) % all.length;
   return [0, 1, 2]
@@ -368,6 +429,58 @@ function cultureLemmaFromQuote(quote) {
       !["문화어", "친구", "놀이", "과자", "설탕", "아이들", "설명", "이야기", "게임"].includes(hint),
   );
   return preferred || hints[0] || String(quote.name ?? "문화어").split("·")[0].trim();
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Sejong vocabulary words longest-first (for non-overlapping highlight). */
+function sejeongWordsSorted() {
+  return (data.vocabulary ?? [])
+    .map((item) => item.word)
+    .filter((word) => word && word.length >= 2)
+    .sort((a, b) => b.length - a.length || a.localeCompare(b, "ko"));
+}
+
+function findSejongAnchors(text) {
+  if (!text) return [];
+  const found = [];
+  for (const word of sejeongWordsSorted()) {
+    if (containsCultureWord(text, word)) found.push(word);
+  }
+  return [...new Set(found)].slice(0, 8);
+}
+
+/** Highlight Sejong anchors in practice text (safe HTML). */
+function highlightSejongInText(text, currentWord = "") {
+  const anchors = findSejongAnchors(text);
+  let html = escapeHtml(text);
+  for (const word of anchors) {
+    const esc = escapeHtml(word);
+    const currentClass = word === currentWord ? " is-current" : "";
+    // Replace first plain occurrence only (escaped text has no nested tags yet for this token).
+    const pattern = new RegExp(esc.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    html = html.replace(
+      pattern,
+      `<mark class="sejeong-anchor${currentClass}" data-sejeong-word="${esc}" title="세종 어휘: ${esc}">${esc}</mark>`,
+    );
+  }
+  return html;
+}
+
+function renderCultureAxisFilterHtml() {
+  return `<div class="prefs-chips culture-axis-row" role="group" aria-label="문화어 축 필터">
+    ${CULTURE_AXIS_OPTIONS.map(
+      (option) =>
+        `<button type="button" class="pref-chip ${state.cultureAxisFilter === option.id ? "active" : ""} ${option.id !== "all" ? "axis-chip" : ""}" data-culture-axis="${option.id}">${option.label}</button>`,
+    ).join("")}
+  </div>`;
 }
 
 function statsForWord(word) {
@@ -729,7 +842,9 @@ function renderQuoteCardsHtml(quotes, word) {
 
 function renderCultureLexemeCardsHtml(lexemes, word) {
   if (!lexemes.length) {
-    return `<p class="body-copy">문화어 시드가 없습니다. <code>npm run fetch:quotes</code> 후 seed-cl-* 시드를 확인하세요.</p>`;
+    const axisLabel =
+      CULTURE_AXIS_OPTIONS.find((option) => option.id === state.cultureAxisFilter)?.label ?? state.cultureAxisFilter;
+    return `<p class="body-copy">「${axisLabel}」 축에 표시할 문화어 시드가 없습니다. 필터를 「전체」로 바꿔 보세요.</p>`;
   }
   const wordEntry = cultureLexemeWordEntry(word);
   const completedIds = new Set(wordEntry?.completedIds ?? []);
@@ -737,19 +852,36 @@ function renderCultureLexemeCardsHtml(lexemes, word) {
     .map((quote) => {
       const id = String(quote.id);
       const lemma = cultureLemmaFromQuote(quote);
+      const axis = cultureAxisForQuote(quote);
+      const axisLabel = CULTURE_AXIS_LABELS[axis] ?? axis;
       const done = completedIds.has(id) || isCultureLexemeIdCompleted(id);
       const rating = quote.contentRating ?? "clean";
-      return `<article class="culture-lexeme-card ${done ? "complete" : ""}" data-culture-id="${id}">
+      const anchors = findSejongAnchors(quote.quote);
+      const practiceHtml = highlightSejongInText(quote.quote, word);
+      const anchorChips = anchors.length
+        ? `<div class="sejeong-anchor-row" aria-label="세종 어휘 앵커">
+            <span class="meta">세종 앵커:</span>
+            ${anchors
+              .map((anchor) => {
+                const current = anchor === word ? " is-current" : "";
+                return `<button type="button" class="sejeong-chip${current}" data-sejeong-word="${escapeHtml(anchor)}">${escapeHtml(anchor)}</button>`;
+              })
+              .join("")}
+          </div>`
+        : `<p class="meta sejeong-empty">이 문장에 연결된 세종 어휘 앵커 없음</p>`;
+      return `<article class="culture-lexeme-card ${done ? "complete" : ""}" data-culture-id="${id}" data-culture-axis-card="${axis}">
         <div class="tag-row">
           <span class="tag hot-tag">CULTURE</span>
-          <span class="tag">${lemma}</span>
+          <span class="tag axis-tag axis-${axis}">${axisLabel}</span>
+          <span class="tag">${escapeHtml(lemma)}</span>
           <span class="tag ${rating === "clean" ? "success" : "progress"}">${quote.contentRatingLabel ?? ratingLabels[rating]}</span>
           ${done ? `<span class="tag success">확인</span>` : ""}
         </div>
-        <h4 class="culture-lemma">${lemma}</h4>
-        <p class="culture-practice">${quote.quote}</p>
-        <p class="meta">${quote.name} · 교육용 시드 (원문 대사 아님)</p>
-        <button type="button" class="${done ? "" : "primary-action"}" data-culture-lexeme="${id}" data-culture-word="${word}">
+        <h4 class="culture-lemma">${escapeHtml(lemma)}</h4>
+        <p class="culture-practice">${practiceHtml}</p>
+        ${anchorChips}
+        <p class="meta">${escapeHtml(quote.name)} · 교육용 시드 (원문 대사 아님)</p>
+        <button type="button" class="${done ? "" : "primary-action"}" data-culture-lexeme="${escapeHtml(id)}" data-culture-word="${escapeHtml(word)}">
           ${done ? "이 표현 확인 완료" : "이 표현 확인했어요"}
         </button>
       </article>`;
@@ -1038,13 +1170,15 @@ function renderDetail() {
       }
     </details>
 
-    <details class="detail-block" id="culture-step" ${cultureLexemes.length ? "open" : ""}>
+    <details class="detail-block" id="culture-step" ${hasCultureLexemeDataset() ? "open" : ""}>
       <summary>7. 문화어 (Culture Lexeme)${wordStats.requiresCulture ? "" : " · 보너스"}</summary>
       <p class="meta">
         깐부·달고나 등 <strong>교육용 시드</strong>입니다. 원문 대사·비공식 자막이 아닙니다.
         · ${wordStats.requiresCulture ? (cultureDone ? "완료 조건 충족" : "관심사 설정으로 필수") : "보너스 슬롯 (K-drama/K-movie 관심 시 필수)"}
-        · 확인 ${cultureLexemeWordEntry(item.word)?.completedIds?.length ?? 0}/${cultureLexemes.length}
+        · 확인 ${cultureLexemeWordEntry(item.word)?.completedIds?.length ?? 0}/${cultureLexemes.length || "—"}
+        · 노란 하이라이트 = 세종 어휘 앵커 (클릭 시 해당 어휘로 이동)
       </p>
+      ${renderCultureAxisFilterHtml()}
       ${renderCultureLexemeCardsHtml(cultureLexemes, item.word)}
       ${
         cultureLexemes.length
@@ -1973,6 +2107,30 @@ document.addEventListener("click", (event) => {
           : document.querySelector("#quiz-step");
     if (nextTarget) nextTarget.open = true;
     nextTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const cultureAxisBtn = event.target.closest("[data-culture-axis]");
+  if (cultureAxisBtn) {
+    state.cultureAxisFilter = cultureAxisBtn.dataset.cultureAxis || "all";
+    renderDetail();
+    const step = document.querySelector("#culture-step");
+    if (step) step.open = true;
+    step?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    return;
+  }
+
+  const sejeongWordBtn = event.target.closest("[data-sejeong-word]");
+  if (sejeongWordBtn) {
+    const word = sejeongWordBtn.dataset.sejeongWord;
+    const item = data.vocabulary.find((candidate) => candidate.word === word);
+    if (item) {
+      state.selectedId = item.id;
+      renderProgressSurfaces();
+      const step = document.querySelector("#culture-step");
+      if (step) step.open = true;
+      step?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     return;
   }
 

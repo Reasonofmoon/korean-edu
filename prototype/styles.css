@@ -1459,3 +1459,84 @@ body.quiz-focus-open {
 .culture-lexeme-card .primary-action {
   justify-self: start;
 }
+
+/* —— Culture axis filter + Sejong anchors (P3) —— */
+.culture-axis-row {
+  margin: 8px 0 12px;
+}
+
+.axis-chip.active {
+  border-color: #ff9f1c;
+  background: #fff7e6;
+  color: #9a5b00;
+}
+
+.axis-tag {
+  font-weight: 700;
+}
+
+.axis-tag.axis-culture {
+  background: #fff1ea;
+  color: #b83b00;
+}
+
+.axis-tag.axis-context {
+  background: #e8f5f3;
+  color: #0f766e;
+}
+
+.axis-tag.axis-wordplay {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+
+.axis-tag.axis-slang {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.culture-practice mark.sejeong-anchor {
+  padding: 0 3px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fef08a 0%, #fde047 100%);
+  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-decoration-break: clone;
+}
+
+.culture-practice mark.sejeong-anchor.is-current,
+.culture-practice mark.sejeong-anchor:hover {
+  outline: 2px solid #0f766e;
+  background: #bbf7d0;
+}
+
+.sejeong-anchor-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.sejeong-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 118, 110, 0.35);
+  background: #ecfdf8;
+  color: #0f766e;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sejeong-chip.is-current,
+.sejeong-chip:hover {
+  background: #0f766e;
+  color: #fff;
+  border-color: #0f766e;
+}
+
+.sejeong-empty {
+  font-size: 0.82rem;
+}

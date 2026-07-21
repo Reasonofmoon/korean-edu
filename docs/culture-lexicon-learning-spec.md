@@ -236,7 +236,7 @@ pick → context → listen/read → expressions
 | **P0** | 본 스펙 + policy 합의 | docs |
 | **P1** | 교육 시드 12개 (culture/context, clean) | `seed-cl-*` in `build-klassic-quotes` + `kd-culture-lexemes` / spot-squid |
 | **P2** | UI: 문화어 카드 + 확인 진도 키 | `#culture-step`, `progress.cultureLexemes`, 보너스/필수 게이트 |
-| **P3** | axis 필터 · 세종 앵커 하이라이트 | 필터 칩 |
+| **P3** | axis 필터 · 세종 앵커 하이라이트 | `cultureAxisFilter` 칩 + `mark.sejeong-anchor` / 칩 클릭 이동 |
 | **P4** | (옵션) cultureLexemes 전용 데이터 파일 | `culture-lexemes.js` |
 | **P5** | (게이트 후) 로컬 SRT 실험 메뉴 | policy §8 |
 
